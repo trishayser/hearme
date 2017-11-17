@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mycolor"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingTop="0dp"
+    tools:context="com.example.paulo.mapstest.MapsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="1dp"
+        android:paddingBottom="0dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        >
+
+        <Button
+            android:id="@+id/kultur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/kultur"
+            android:text="Kultur"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="3dp"
+            android:textColor="@color/titel" />
+
+        <Button
+            android:id="@+id/party"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/party"
+            android:paddingLeft="0dp"
+            android:text="Party"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/titel" />
+
+        <Button
+            android:id="@+id/sport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/sport"
+            android:paddingLeft="0dp"
+            android:layout_marginRight="5dp"
+            android:text="Sport"
+            android:textColor="@color/titel" />
+
+
+        <Button
+            android:id="@+id/flirt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/ratingbar"
+            android:text="Flirt"
+            android:textColor="@color/titel" />
+
+    </LinearLayout>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        tools:context="com.example.paulo.mapstest.MapsActivity" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="95dp"
+        android:text="Wer hat bock auf Freeletics?"
+        android:textColor="@color/titel" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rate_me"
+        android:layout_marginLeft="57dp"
+        android:layout_marginTop="1dp"
+        android:numStars="5"
+        android:progressTint="@color/ratingbar"
+        android:stepSize="1.0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
+
+
