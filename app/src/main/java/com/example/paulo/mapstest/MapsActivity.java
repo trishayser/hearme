@@ -45,30 +45,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Edit Pascal
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
+    public boolean onCreateOptionsMenu(Menu menu) { //menu activity bekannt
+         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) { //click listener quasi.
 
         switch (item.getItemId()) {
             case R.id.profil_change:
                 System.out.println("Profil wurde geändert");
 
-
-
                 // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);
                 startActivity(settingsIntent);
-
-
-
-
 
                 break;
         }
