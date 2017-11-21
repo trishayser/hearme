@@ -10,6 +10,7 @@
 
     <color name="titel">#FFFFFF</color>
     <color name="ratingbar">#D92B2A</color>
+    <color name="transparent">#000000</color>
 
 
 </resources>
