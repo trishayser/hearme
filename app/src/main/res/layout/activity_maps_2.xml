@@ -13,45 +13,10 @@
 
 
     <!-- Hauptkategroie-Filter -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/kulturTabItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kultur" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/sportTabItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Party" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/partyTabItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sport" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/flirtTabItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Flirt" />
-    </android.support.design.widget.TabLayout>
-
-    </LinearLayout>
 
 
     <!-- Unterkategorie-, Bewertungs-Filter -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,6 +27,44 @@
         android:paddingRight="0dp"
         android:paddingTop="0dp">
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/tab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kultur" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/sportTabItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Party" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/partyTabItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sport" />
+
+                <android.support.design.widget.TabItem
+                    android:id="@+id/flirtTabItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flirt" />
+            </android.support.design.widget.TabLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,28 +101,33 @@
 
         <!-- Map -->
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        tools:context="com.example.paulo.mapstest.MapsActivity" />
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        #
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="425dp"
+                tools:context="com.example.paulo.mapstest.MapsActivity" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@android:drawable/ic_btn_speak_now" />
+
+        </android.support.design.widget.CoordinatorLayout>
+
 
     </LinearLayout>
 
-
-
-
-
-
-
-
-
 </LinearLayout>
+
+
 
 
 
