@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mycolor"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     tools:context="com.example.paulo.mapstest.NewRecordActivityActivity">
 
     <LinearLayout
@@ -11,30 +17,50 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/titel_edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Titel" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/unterkategorie_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="120dp"
-            android:layout_marginTop="100dp"
-            android:scaleY="8"
-            android:scaleX="8"
-            android:src="@android:drawable/presence_audio_online" />
+                <EditText
+                    android:id="@+id/unterkategorie_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name" />
+
+                <EditText
+                    android:id="@+id/titel_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Titel" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButton2"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleX="8"
+                        android:scaleY="8"
+                        android:src="@android:drawable/presence_audio_online" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
