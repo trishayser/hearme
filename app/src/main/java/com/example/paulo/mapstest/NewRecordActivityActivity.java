@@ -23,6 +23,5 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
         setContentView(R.layout.new_record_activity);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Neue Nachricht");
     }
 }
