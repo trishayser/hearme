@@ -21,7 +21,7 @@
         <EditText
             android:id="@+id/titel_edit"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:background="@color/colorPrimary"
             android:ems="10"
             android:inputType="textPersonName"
@@ -31,21 +31,30 @@
         <EditText
             android:id="@+id/unterkategorie_edit"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:background="@color/colorPrimary"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/record"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginLeft="95dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:src="@android:drawable/presence_audio_online">
 
         </ImageButton>
+
+        <Button
+            android:id="@+id/abschicken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:text="Abschicken" />
 
 
     </LinearLayout>
