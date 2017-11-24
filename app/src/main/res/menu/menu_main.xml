@@ -4,7 +4,8 @@
 
     <item
         android:id="@+id/profil_change"
+        android:icon="@android:drawable/ic_menu_manage"
         android:title="@string/profil_change"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 
 </menu>

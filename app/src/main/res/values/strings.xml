@@ -79,6 +79,8 @@
     <string name="profil_change">Profil ändern</string>
     <string name="title_activity_settings_menu">Profil</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string name="neue_nachricht">Neue Nachricht</string>
     //Ende Pascal-Edit
 
 </resources>
