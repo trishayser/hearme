@@ -39,7 +39,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 System.out.println("Neue Nachricht");
 
                 // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
-                Intent testIntent = new Intent(getApplication().getApplicationContext(), SettingsActivity.class);
+                Intent testIntent = new Intent(getApplication().getApplicationContext(), NewRecordActivityActivity.class);
                 // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);
                 startActivity(testIntent);
 
