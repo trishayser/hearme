@@ -75,15 +75,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
-
-
     // Edit Pascal
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //menu activity bekannt
-         MenuInflater inflater = getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -93,12 +89,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (item.getItemId()) {
             case R.id.profil_change:
                 System.out.println("Profil wurde geändert");
-
                 // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);
                 startActivity(settingsIntent);
-
                 break;
         }
         return super.onOptionsItemSelected(item); //To change body of generated methods, choose Tools | Templates.
