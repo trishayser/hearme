@@ -32,6 +32,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        //FAB RECORD CLICK LISTENER
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +48,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
             }
+        });
+
+        //FAB PLAY CLICK LISTENER
+
+        final Intent playbackServiceIntent = new Intent(this, AudioPlayer.class);
+        FloatingActionButton play = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    startService(playbackServiceIntent);
+                    finish();
+                }
+
         });
 
     }
