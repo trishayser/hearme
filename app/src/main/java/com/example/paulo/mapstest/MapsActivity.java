@@ -69,13 +69,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(0, 0);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker"));
         //mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
+
+
     // Edit Pascal
 
     @Override
