@@ -19,8 +19,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-
-
     private GoogleMap mMap;
 
     @Override
