@@ -2,6 +2,7 @@ package com.example.paulo.mapstest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -149,6 +150,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             case "kultur":
                 mMap = googleMap;
+                mMap.clear();
                 // Add a marker in Sydney and move the camera
                 // LatLng sydney = new LatLng(0, 0);
 
@@ -164,45 +166,47 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             case "party":
                 mMap = googleMap;
+                mMap.clear();
                 // Add a marker in Sydney and move the camera
                 // LatLng sydney = new LatLng(0, 0);
 
-                LatLng pKoelnHbf2 = new LatLng(50.942545, 6.956976); // Anderer Marker
+                LatLng pKoelnHbf2 = new LatLng(50.941658, 6.955746); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(pKoelnHbf2).title("Disco?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                LatLng pKoelnHbf3 = new LatLng(50.942453, 6.956466); // Anderer Marker
+                LatLng pKoelnHbf3 = new LatLng(50.940613, 6.957943); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(pKoelnHbf3).title("Komasaufen").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
-                LatLng pKoelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
+                LatLng pKoelnHbf4 = new LatLng(50.940826, 6.962819); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(pKoelnHbf4).title("Silvester").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
                 break;
 
             case "sport":
                 mMap = googleMap;
+                mMap.clear();
                 // Add a marker in Sydney and move the camera
                 // LatLng sydney = new LatLng(0, 0);
 
-                LatLng sKoelnHbf2 = new LatLng(50.942545, 6.956976); // Anderer Marker
+                LatLng sKoelnHbf2 = new LatLng(50.941941, 6.961923); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(sKoelnHbf2).title("Fußball?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                LatLng sKoelnHbf3 = new LatLng(50.942453, 6.956466); // Anderer Marker
+                LatLng sKoelnHbf3 = new LatLng(50.945284, 6.954198); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(sKoelnHbf3).title("Radfahren?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-                LatLng sKoelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
+                LatLng sKoelnHbf4 = new LatLng(50.944213, 6.949037); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(sKoelnHbf4).title("Joggen?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
                 break;
 
             case "flirt":
                 mMap = googleMap;
+                mMap.clear();
                 // Add a marker in Sydney and move the camera
                 // LatLng sydney = new LatLng(0, 0);
-
-                LatLng fKoelnHbf2 = new LatLng(50.942545, 6.956976); // Anderer Marker
+                LatLng fKoelnHbf2 = new LatLng(50.946106, 6.938839); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(fKoelnHbf2).title("Suche neuen Freund").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-                LatLng fKoelnHbf3 = new LatLng(50.942453, 6.956466); // Anderer Marker
+                LatLng fKoelnHbf3 = new LatLng(50.943149, 6.942664); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(fKoelnHbf3).title("Suche neue Freundin").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
 
-                LatLng fKoelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
+                LatLng fKoelnHbf4 = new LatLng(50.940163, 6.954418); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(fKoelnHbf4).title("Hallo, i bims, a Singel").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
 
                 break;
@@ -213,7 +217,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Karte aktualisieren / erstellen
         //mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ichKoelnHbf));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
     }
     // Ende Karte
 
