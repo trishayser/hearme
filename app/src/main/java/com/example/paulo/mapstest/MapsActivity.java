@@ -19,6 +19,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -214,6 +215,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         LatLng ichKoelnHbf = new LatLng(50.942214, 6.957593); //Meine Position
         mMap.addMarker(new MarkerOptions().position(ichKoelnHbf).title("ICH"));
+
+
+
+        // Testing Map Marker starting Activity
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Intent intent = new Intent(MapsActivity.this ,PlayActivity.class);
+                startActivity(intent);
+
+                return true;
+            }
+        });
+
+        // End - Testing Map Marker starting Activity
+
+
         // Karte aktualisieren / erstellen
         //mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ichKoelnHbf));
@@ -248,3 +267,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     // Edit Pascal Ende
 }
+
+
+
