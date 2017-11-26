@@ -60,7 +60,13 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".PlayActivity"></activity>
+        <activity android:name=".PlayActivity"
+            android:label="Nachricht"
+            android:parentActivityName=".MapsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.paulo.mapstest.MapsActivity" />
+        </activity>
     </application>
 
 </manifest>
