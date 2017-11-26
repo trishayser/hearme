@@ -68,17 +68,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //FAB PLAY CLICK LISTENER
 
-        final Intent playbackServiceIntent = new Intent(this, AudioPlayer.class);
-        FloatingActionButton play = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                startService(playbackServiceIntent);
-                finish();
-            }
-
-        });
+//        final Intent playbackServiceIntent = new Intent(this, AudioPlayer.class);
+//        FloatingActionButton play = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+//        play.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                startService(playbackServiceIntent);
+//                finish();
+//            }
+//
+//        });
 
 
         //Button Map Listener Click LISTENER ( Kultur, Party, Sport, Flirt)
