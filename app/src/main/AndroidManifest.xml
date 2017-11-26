@@ -58,7 +58,9 @@
         <service
             android:name=".AudioPlayer"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".PlayActivity"></activity>
     </application>
 
 </manifest>
