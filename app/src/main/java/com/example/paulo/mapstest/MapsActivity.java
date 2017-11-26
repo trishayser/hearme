@@ -266,6 +266,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return super.onOptionsItemSelected(item); //To change body of generated methods, choose Tools | Templates.
     }
     // Edit Pascal Ende
+    // Nichts
 }
 
 
