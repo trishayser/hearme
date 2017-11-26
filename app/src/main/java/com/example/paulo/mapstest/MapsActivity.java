@@ -50,7 +50,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //FAB PLAY CLICK LISTENER
 
-
         FloatingActionButton play = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
