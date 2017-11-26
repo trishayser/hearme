@@ -23,7 +23,7 @@ public class PlayActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 startService(playbackServiceIntent);
-                finish();
+                //finish();
             }
 
         });
@@ -33,7 +33,7 @@ public class PlayActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 stopService(playbackServiceIntent);
-                finish();
+                //finish();
             }
         });
     }
