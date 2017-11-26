@@ -269,6 +269,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     // Edit Pascal Ende
     // Nichts
+
 }
 
 
