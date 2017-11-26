@@ -128,9 +128,10 @@
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/floatingActionButton"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:clickable="true"
                 app:layout_anchor="@+id/map"
+                android:layout_margin="@dimen/fab_margin"
                 app:layout_anchorGravity="left|bottom"
                 app:srcCompat="@android:drawable/ic_media_play" />
 
