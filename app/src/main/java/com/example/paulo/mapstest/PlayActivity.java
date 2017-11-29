@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
@@ -42,8 +43,22 @@ public class PlayActivity extends AppCompatActivity {
             }
 
         });
+
+
+        Button antworten = (Button) findViewById(R.id.antworten);
+        final Intent antwortenIntent = new Intent(this, NewRecordActivityActivity.class);
+
+
+        antworten.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            startActivity(antwortenIntent);
+            }
+        });
+
     }
 
 
 }
+
 

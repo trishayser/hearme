@@ -53,7 +53,23 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                 return false;
             }
         });
+
+
+        Button abschicken = (Button) findViewById(R.id.abschicken);
+        final Intent abschickenIntent = new Intent(this, MapsActivity.class);
+
+
+        abschicken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(abschickenIntent);
+            }
+        });
+
+
+
+
     }
-    // Progress Bar
+
     }
 
