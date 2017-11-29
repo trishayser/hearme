@@ -6,18 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 public class PlayActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-
         final Intent playbackServiceIntent = new Intent(this, AudioPlayer.class);
         ImageButton play = (ImageButton) findViewById(R.id.play);
         ImageButton stop = (ImageButton) findViewById(R.id.stop);
+        
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,8 +35,12 @@ public class PlayActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 stopService(playbackServiceIntent);
+
                 //finish();
             }
         });
     }
+
+
 }
+

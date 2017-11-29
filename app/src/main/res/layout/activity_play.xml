@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
             android:id="@+id/titel_edit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -28,7 +28,7 @@
             android:text="Titel" />
 
 
-        <EditText
+       <!-- <EditText
             android:id="@+id/unterkategorie_edit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -36,6 +36,9 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Unterkategorie" />
+            -->
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
