@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -98,7 +99,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mapFragment.getMapAsync(MapsActivity.this);
 
                 int farbe =getResources().getColor(R.color.kultur);
-                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);
+                fab.getBackground().setTint(farbe);
             }
 
         });
@@ -112,7 +113,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mapFragment.getMapAsync(MapsActivity.this);
 
                 int farbe =getResources().getColor(R.color.party);
-                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);;
+                fab.getBackground().setTint(farbe);
             }
 
         });
@@ -125,7 +126,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mapFragment.getMapAsync(MapsActivity.this);
 
                 int farbe =getResources().getColor(R.color.sport);
-                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);
+                fab.getBackground().setTint(farbe);
 
             }
 
@@ -139,7 +140,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 setMapZustand("flirt");
                 mapFragment.getMapAsync(MapsActivity.this);
                 int farbe =getResources().getColor(R.color.ratingbar);
-                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);
+                fab.getBackground().setTint(farbe);
             }
 
         });
