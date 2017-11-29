@@ -1,11 +1,15 @@
 package com.example.paulo.mapstest;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +36,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private String mapZustand;
     SupportMapFragment mapFragment;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         //FAB RECORD CLICK LISTENER
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,22 +88,31 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //Button Map Listener Click LISTENER ( Kultur, Party, Sport, Flirt)
 
+
+
         final Button bKultur = (Button) findViewById(R.id.kultur);
         bKultur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                setMapZustand("kultur");
                 mapFragment.getMapAsync(MapsActivity.this);
+
+                int farbe =getResources().getColor(R.color.kultur);
+                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);
             }
 
         });
 
         final Button bParty = (Button) findViewById(R.id.party);
+
         bParty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setMapZustand("party");
                 mapFragment.getMapAsync(MapsActivity.this);
+
+                int farbe =getResources().getColor(R.color.party);
+                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);;
             }
 
         });
@@ -109,6 +123,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 setMapZustand("sport");
                 mapFragment.getMapAsync(MapsActivity.this);
+
+                int farbe =getResources().getColor(R.color.sport);
+                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);
+
             }
 
         });
@@ -120,6 +138,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 setMapZustand("flirt");
                 mapFragment.getMapAsync(MapsActivity.this);
+                int farbe =getResources().getColor(R.color.ratingbar);
+                fab.getBackground().setColorFilter(farbe, PorterDuff.Mode.MULTIPLY);
             }
 
         });
