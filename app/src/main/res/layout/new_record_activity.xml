@@ -22,7 +22,6 @@
             android:id="@+id/titel_edit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorPrimary"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Titel" />
@@ -43,7 +42,11 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
-                android:src="@android:drawable/ic_btn_speak_now"></ImageButton>
+                android:layout_marginBottom="20dp"
+                android:src="@android:drawable/ic_btn_speak_now"
+                android:background="@color/colorPrimary"
+                >
+            </ImageButton>
 
 
             <Button
@@ -51,8 +54,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/colorPrimary"
                 android:text="Abschicken" />
 
             <TextView

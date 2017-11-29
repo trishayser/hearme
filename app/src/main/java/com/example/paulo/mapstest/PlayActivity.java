@@ -21,7 +21,6 @@ public class PlayActivity extends AppCompatActivity {
 
         final Intent playbackServiceIntent = new Intent(this, AudioPlayer.class);
         play = (ImageButton) findViewById(R.id.play);
-        ImageButton stop = (ImageButton) findViewById(R.id.stop);
         
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,16 +41,6 @@ public class PlayActivity extends AppCompatActivity {
                 //finish();
             }
 
-        });
-
-        stop.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                stopService(playbackServiceIntent);
-
-                //finish();
-            }
         });
     }
 

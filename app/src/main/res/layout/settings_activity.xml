@@ -54,6 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/white"
+            android:background="@color/colorPrimary"
+            android:layout_marginHorizontal="15dp"
             android:text="Anmelden" />
 
 
