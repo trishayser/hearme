@@ -8,6 +8,11 @@ import android.os.IBinder;
 public class AudioPlayer extends Service implements MediaPlayer.OnCompletionListener{
     public AudioPlayer() {
     }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
     MediaPlayer mediaPlayer;
     public void onCreate() {
         mediaPlayer = MediaPlayer.create(this, R.raw.s);// raw/s.mp3

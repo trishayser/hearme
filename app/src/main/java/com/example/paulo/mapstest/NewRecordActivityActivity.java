@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,19 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
     ImageButton recordPlay;
     Boolean isPlay = false;
+    CountDownTimer testTimer;
+    int maxLength;
+    int progress = 0;
+
+    public int getCurrentLength() {
+        return currentLength;
+    }
+
+    public void setCurrentLength(int currentLength) {
+        this.currentLength = currentLength;
+    }
+
+    int currentLength = 0;
 
 
 
@@ -71,8 +85,39 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
             }
         });
 
+        //Progress bar animtion
+       // AudioPlayer test = new AudioPlayer();
+        //int maxLength = test.getMediaPlayer().getDuration();
+
+        maxLength = 27000; // leider manuell nachgesehen // in seconds
+
+        final ProgressBar recordProgressbar = (ProgressBar) findViewById(R.id.progressBar_2_record);
+        recordProgressbar.setProgress(0);
+
+        // Ende
+
+
         final Intent recordPlaybackServiceIntent = new Intent(this, AudioPlayer.class);
         recordPlay = (ImageButton) findViewById(R.id.play_record);
+
+        testTimer = new CountDownTimer(30000, 100) {
+
+
+            public void onTick(long millisUntilFinished) {
+                currentLength = currentLength + 100;
+                progress = (currentLength/270);
+                recordProgressbar.setProgress(progress);
+                System.out.println(currentLength);
+                System.out.println(progress);
+                System.out.println("tick");
+            }
+
+            public void onFinish() {
+                recordProgressbar.setProgress(0);
+                this.cancel();
+                System.out.println("Nachricht fertig abgespiel!");
+            }
+        };
 
         recordPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +126,18 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                     stopService(recordPlaybackServiceIntent);
                     isPlay = false;
                     recordPlay.setImageResource(R.drawable.play);
+                    recordProgressbar.setProgress(10);
+                    testTimer.cancel();
                 }
                 else {
                     startService(recordPlaybackServiceIntent);
                     isPlay = true;
                     recordPlay.setImageResource(R.drawable.pause);
+                    testTimer.start();
+
+
+
+
                 }
 
             }
