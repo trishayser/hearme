@@ -36,10 +36,6 @@ public class PlayActivity extends AppCompatActivity {
                     play.setImageResource(R.drawable.pause);
                 }
 
-
-
-
-                //finish();
             }
 
         });
@@ -55,6 +51,8 @@ public class PlayActivity extends AppCompatActivity {
             startActivity(antwortenIntent);
             }
         });
+
+       // int length = getResources(R.raw.s).getLength
 
     }
 

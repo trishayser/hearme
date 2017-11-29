@@ -21,6 +21,9 @@ import android.widget.ProgressBar;
 
 public class NewRecordActivityActivity extends AppCompatActivity  {
 
+    ImageButton recordPlay;
+    Boolean isPlay = false;
+
 
 
     @Override
@@ -35,6 +38,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
         // initiate progress bar and start button
         final ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
+        final LinearLayout record_player = (LinearLayout) findViewById(R.id.record_player);
         ImageButton recordButton = (ImageButton) findViewById(R.id.record);
         // perform click event on button
         recordButton.setOnTouchListener(new View.OnTouchListener() {
@@ -48,6 +52,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                     else if(event.getAction() == MotionEvent.ACTION_UP){
 
                         simpleProgressBar.setVisibility(View.INVISIBLE);
+                        record_player.setVisibility(View.VISIBLE);
                         return true;
                 }
                 return false;
@@ -66,6 +71,26 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
             }
         });
 
+        final Intent recordPlaybackServiceIntent = new Intent(this, AudioPlayer.class);
+        recordPlay = (ImageButton) findViewById(R.id.play_record);
+
+        recordPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isPlay){
+                    stopService(recordPlaybackServiceIntent);
+                    isPlay = false;
+                    recordPlay.setImageResource(R.drawable.play);
+                }
+                else {
+                    startService(recordPlaybackServiceIntent);
+                    isPlay = true;
+                    recordPlay.setImageResource(R.drawable.pause);
+                }
+
+            }
+
+        });
 
 
 
