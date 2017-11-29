@@ -28,51 +28,40 @@
             android:text="Titel" />
 
 
-       <!-- <EditText
-            android:id="@+id/unterkategorie_edit"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
-            -->
+
+            <ProgressBar
+                android:id="@+id/simpleProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/record"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@android:drawable/ic_btn_speak_now"></ImageButton>
 
 
-        <ProgressBar
-            android:id="@+id/simpleProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:layout_marginLeft="170dp"
-            android:layout_marginTop="20dp"/>
+            <Button
+                android:id="@+id/abschicken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="Abschicken" />
 
-        <ImageButton
-            android:id="@+id/record"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="145dp"
-            android:layout_marginTop="20dp"
-            android:src="@android:drawable/ic_btn_speak_now">
-
-        </ImageButton>
-
-        <Button
-            android:id="@+id/abschicken"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:text="Abschicken" />
-
-        <TextView
-            android:id="@+id/coordinates"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:text="Coordinates:"
-            android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/coordinates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="Coordinates:"
+                android:textColor="@color/white" />
 
 
 

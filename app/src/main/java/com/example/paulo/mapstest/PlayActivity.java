@@ -10,6 +10,9 @@ import android.widget.ProgressBar;
 
 public class PlayActivity extends AppCompatActivity {
 
+    ImageButton play;
+    Boolean isPlay = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,14 +20,25 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         final Intent playbackServiceIntent = new Intent(this, AudioPlayer.class);
-        ImageButton play = (ImageButton) findViewById(R.id.play);
+        play = (ImageButton) findViewById(R.id.play);
         ImageButton stop = (ImageButton) findViewById(R.id.stop);
         
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(isPlay){
+                    stopService(playbackServiceIntent);
+                    isPlay = false;
+                    play.setImageResource(R.drawable.play);                }
+                else {
+                    startService(playbackServiceIntent);
+                    isPlay = true;
+                    play.setImageResource(R.drawable.pause);
+                }
 
-                startService(playbackServiceIntent);
+
+
+
                 //finish();
             }
 
