@@ -126,7 +126,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                     stopService(recordPlaybackServiceIntent);
                     isPlay = false;
                     recordPlay.setImageResource(R.drawable.play);
-                    recordProgressbar.setProgress(10);
+                    recordProgressbar.setProgress(0);
                     testTimer.cancel();
                 }
                 else {
