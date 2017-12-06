@@ -1,8 +1,10 @@
 package com.example.paulo.mapstest;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -37,6 +39,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
     String duration;
     int progress = 0;
     int number;
+    private AudioManager audioFront;
 
     public int getCurrentLength() {
         return currentLength;
@@ -60,7 +63,6 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
     }
 
     long millisUntilFinished;
-
 
     /// Recordtest
     private static final String LOG_TAG = "AudioRecordTest";
@@ -182,6 +184,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
     // Progress Bar
 
 
@@ -267,7 +270,11 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
                 test3 = test3+100;
 
-                if(test3 >= maxLength) onFinish();
+                if(test3 >= maxLength){
+                    currentLength = 0;
+                    test3 = 0;
+                    onFinish();
+                }
 
             }
 
@@ -289,6 +296,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                 if (mStartPlaying) {
                     recordPlay.setImageResource(R.drawable.pause);
                     System.out.println("Länge bei Playbutton " + maxLength);
+
 
                     testTimer.start();
 
