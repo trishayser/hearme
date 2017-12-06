@@ -1,34 +1,27 @@
 package com.example.paulo.mapstest;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 
 
 public class NewRecordActivityActivity extends AppCompatActivity  {
@@ -36,8 +29,14 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
     ImageButton recordPlay;
     Boolean isPlay = false;
     CountDownTimer testTimer;
+
     int maxLength;
+    long maxLengthLong;
+    long test2 = 2000;
+    int test3 = 0;
+    String duration;
     int progress = 0;
+    int number;
 
     public int getCurrentLength() {
         return currentLength;
@@ -52,9 +51,15 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
     boolean mStartRecording = true; // Für Record
     boolean mStartPlaying = true; // Für Play
 
+    public void setMillisUntilFinished(long millisUntilFinished) {
+        this.millisUntilFinished = millisUntilFinished;
+    }
 
+    public long getMillisUntilFinished() {
+        return millisUntilFinished;
+    }
 
-
+    long millisUntilFinished;
 
 
     /// Recordtest
@@ -211,6 +216,15 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                         onRecord(mStartRecording);
                         mStartRecording = true;
 
+                    MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                    mmr.setDataSource(mFileName);
+                    duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+                    mmr.release();
+
+                    maxLength = Integer.parseInt(duration);
+                    maxLengthLong = Long.valueOf(duration);
+
+
                         return true;
                 }
                 return false;
@@ -229,15 +243,9 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
             }
         });
 
-        //Progress bar animtion
-       // AudioPlayer test = new AudioPlayer();
-        //int maxLength = test.getMediaPlayer().getDuration();
-
-        maxLength = 27000; // leider manuell nachgesehen // in seconds
 
         final ProgressBar recordProgressbar = (ProgressBar) findViewById(R.id.progressBar_2_record);
         recordProgressbar.setProgress(0);
-
         // Ende
 
 
@@ -248,16 +256,26 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
 
             public void onTick(long millisUntilFinished) {
+                System.out.println("Länge in Timer " + maxLength);
+                System.out.println("Test2 " + test2);
                 currentLength = currentLength + 100;
-                progress = (currentLength/270);
+                progress = ((currentLength*100)/maxLength);
                 recordProgressbar.setProgress(progress);
                 System.out.println(currentLength);
                 System.out.println(progress);
                 System.out.println("tick");
+
+                test3 = test3+100;
+
+                if(test3 >= maxLength) onFinish();
+
             }
 
             public void onFinish() {
                 recordProgressbar.setProgress(0);
+                recordPlay.setImageResource(R.drawable.play);
+                onPlay(mStartPlaying);
+                mStartPlaying = true;
                 this.cancel();
                 System.out.println("Nachricht fertig abgespiel!");
             }
@@ -270,7 +288,10 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                 onPlay(mStartPlaying);
                 if (mStartPlaying) {
                     recordPlay.setImageResource(R.drawable.pause);
+                    System.out.println("Länge bei Playbutton " + maxLength);
+
                     testTimer.start();
+
                 } else {
                     recordPlay.setImageResource(R.drawable.play);
                     recordProgressbar.setProgress(0);
