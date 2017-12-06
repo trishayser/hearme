@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ff4081</color>
-    <color name="mycolor">#1884FF</color>
+    <color name="colorPrimaryDark">#243ab9</color>
+    <color name="colorAccent">#243ab9</color>
+    <color name="mycolor">#ffffff</color>
     <color name="sport">#97C00E</color>
     <color name="kultur">#009de0</color>
     <color name="party">#f49401</color>
@@ -15,3 +15,9 @@
 
 </resources>
 <!-- <color name="mycolor">#006875</color> -->
+
+<!-- <color name="mycolor">#1884FF</color> -->
+<!-- <color name="mycolor">#6e8dff</color> -->
+<!-- <color name="mycolor">#d9e2fc</color> -->
+
+<!--    <color name="colorAccent">#ff4081</color> -->

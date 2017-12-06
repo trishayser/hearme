@@ -17,8 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Username"
-            android:textColor="@color/white"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/editText"
@@ -26,63 +26,63 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:textColor="@color/white"
             android:inputType="textPersonName"
-            android:text="LoremIpsum" />
+            android:text="LoremIpsum"
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/white"
             android:text="Passwort"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorPrimary" />
 
         <EditText
             android:id="@+id/editText4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/white"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="blablabla" />
+            android:text="blablabla"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimary"
             android:layout_marginHorizontal="15dp"
-            android:text="Anmelden" />
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Anmelden"
+            android:textColor="@color/white" />
 
 
 </LinearLayout>
 
     <Switch
-            android:id="@+id/switch2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="Benachrichtigungen aktivieren" />
+        android:id="@+id/switch2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Benachrichtigungen aktivieren"
+        android:textColor="@color/colorPrimary" />
 
-        <Switch
-            android:id="@+id/switch3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="Ton aktivieren" />
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Ton aktivieren"
+        android:textColor="@color/colorPrimary" />
 
-        <Switch
-            android:id="@+id/switch4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/white"
-            android:text="Noch irgendeine Einstellung" />
+    <Switch
+        android:id="@+id/switch4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Noch irgendeine Einstellung"
+        android:textColor="@color/colorPrimary" />
 
 </LinearLayout>
