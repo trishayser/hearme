@@ -1,9 +1,11 @@
 package com.example.paulo.mapstest;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,7 +29,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
+
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+
 
     private GoogleMap mMap;
 
@@ -39,8 +45,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     SupportMapFragment mapFragment;
     FloatingActionButton fab;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         // Zustand Map auf Start setzten
         mapZustand = "kultur";
@@ -285,11 +293,20 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);
                 startActivity(settingsIntent);
                 break;
+
+            case R.id.abmelden:
+                System.out.println("Profil wurde geändert");
+                // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
+                Intent logInIntent = new Intent(this, LoginStart.class);
+                // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);
+                startActivity(logInIntent);
+                break;
         }
         return super.onOptionsItemSelected(item); //To change body of generated methods, choose Tools | Templates.
     }
     // Edit Pascal Ende
     // Nichts
+
 
 }
 
