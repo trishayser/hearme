@@ -82,6 +82,9 @@
     <string name="title_activity_main">MainActivity</string>
 
     <string name="neue_nachricht">Neue Nachricht</string>
+
+    <string name="like_percent">0%</string>
+    <string name="dislike_percent">0%</string>
     //Ende Pascal-Edit
 
 </resources>
