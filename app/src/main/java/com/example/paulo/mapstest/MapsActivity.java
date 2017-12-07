@@ -295,7 +295,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
 
             case R.id.abmelden:
-                System.out.println("Profil wurde geändert");
+                System.out.println("abmelden");
                 // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
                 Intent logInIntent = new Intent(this, LoginStart.class);
                 // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);

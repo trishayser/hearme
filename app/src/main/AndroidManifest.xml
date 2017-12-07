@@ -82,6 +82,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.paulo.mapstest.MapsActivity" />
         </activity>
+
+        <activity android:name=".Registration"
+            android:label="Registration"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.paulo.mapstest.LoginStart" />
+        </activity>
     </application>
 
 </manifest>
