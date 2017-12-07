@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mycolor"
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="com.example.paulo.mapstest.LoginStart">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/benutzername2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Benutzername"
+                android:inputType="textPersonName"
+                android:text="Name" />
+
+            <EditText
+                android:id="@+id/password4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Passwort bestätigen"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/streetandnumber2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Straße  u. Nummer"
+                android:inputType="textPostalAddress" />
+
+            <EditText
+                android:id="@+id/plz2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="PLZ"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/lastname2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nachname"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/ort2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Ort"
+                android:inputType="textPostalAddress" />
+
+            <EditText
+                android:id="@+id/firstname2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Vorname"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/mailadresse4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="E-mail-Adresse bestätigen"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/password5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Passwort"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/mailadresse3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Email-Adresse"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                android:id="@+id/registrierenButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="registration"
+                android:textColor="@color/white"
+                tools:layout_editor_absoluteX="30dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
