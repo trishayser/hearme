@@ -7,4 +7,6 @@
     <string name="abmelden">Sair</string>
     <string name="neue_nachricht">Nova Mensagem</string>
     <string name="pref_title_social_recommendations">Ativar recomendações sociais</string>
+    <string name="title_activity_maps">HearMe</string>
+    <string name="pref_title_new_message_notifications">Novas Mensagens</string>
 </resources>

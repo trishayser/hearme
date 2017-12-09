@@ -8,4 +8,6 @@
     <string name="abmelden">Log Out</string>
     <string name="profil_change">Edit Profile</string>
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="title_activity_maps">HearMe</string>
+    <string name="pref_title_new_message_notifications">New message notifications</string>
 </resources>
