@@ -19,36 +19,39 @@ import android.widget.LinearLayout;
 
 import java.io.IOException;
 
-public class AudioRecordTest extends AppCompatActivity {
+public class AudioRecordTest {
 
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String mFileName = null;
 
-    private RecordButton mRecordButton = null;
     private MediaRecorder mRecorder = null;
-
-    private PlayButton   mPlayButton = null;
     private MediaPlayer   mPlayer = null;
-    private AudioManager audioFront;
 
-    // Requesting permission to RECORD_AUDIO
-    private boolean permissionToRecordAccepted = false;
-    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+//    // Requesting permission to RECORD_AUDIO
+//    private boolean permissionToRecordAccepted = false;
+//    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        switch (requestCode){
+//            case REQUEST_RECORD_AUDIO_PERMISSION:
+//                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+//                break;
+//        }
+//        if (!permissionToRecordAccepted ) finish();
+//
+//    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case REQUEST_RECORD_AUDIO_PERMISSION:
-                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                break;
-        }
-        if (!permissionToRecordAccepted ) finish();
-
+    public AudioRecordTest (String mFileName){
+        // Record to the external cache directory for visibility
+//        mFileName = getExternalCacheDir().getAbsolutePath();
+//        mFileName += "/audiorecordtest.3gp";
+        this.mFileName = mFileName;
     }
 
-    private void onRecord(boolean start) {
+    public void onRecord(boolean start) {
         if (start) {
             startRecording();
         } else {
@@ -56,7 +59,7 @@ public class AudioRecordTest extends AppCompatActivity {
         }
     }
 
-    private void onPlay(boolean start) {
+    public void onPlay(boolean start) {
         if (start) {
             startPlaying();
         } else {
@@ -103,87 +106,38 @@ public class AudioRecordTest extends AppCompatActivity {
         mRecorder = null;
     }
 
-    class RecordButton extends Button {
-        boolean mStartRecording = true;
 
-        OnClickListener clicker = new OnClickListener() {
-            public void onClick(View v) {
-                onRecord(mStartRecording);
-                if (mStartRecording) {
-                    setText("Stop recording");
-                } else {
-                    setText("Start recording");
-                }
-                mStartRecording = !mStartRecording;
-            }
-        };
 
-        public RecordButton(Context ctx) {
-            super(ctx);
-            setText("Start recording");
-            setOnClickListener(clicker);
-        }
+//    @Override
+//    public void onCreate(Bundle icicle) {
+//        super.onCreate(icicle);
+//
+//        // Record to the external cache directory for visibility
+//        mFileName = getExternalCacheDir().getAbsolutePath();
+//        mFileName += "/audiorecordtest.3gp";
+//
+//        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
+//    }
+
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        if (mRecorder != null) {
+//            mRecorder.release();
+//            mRecorder = null;
+//        }
+//
+//        if (mPlayer != null) {
+//            mPlayer.release();
+//            mPlayer = null;
+//        }
+//    }
+
+    public MediaRecorder getmRecorder() {
+        return mRecorder;
     }
 
-    class PlayButton extends Button {
-        boolean mStartPlaying = true;
-
-        OnClickListener clicker = new OnClickListener() {
-            public void onClick(View v) {
-                onPlay(mStartPlaying);
-                if (mStartPlaying) {
-                    setText("Stop playing");
-                } else {
-                    setText("Start playing");
-                }
-                mStartPlaying = !mStartPlaying;
-            }
-        };
-
-        public PlayButton(Context ctx) {
-            super(ctx);
-            setText("Start playing");
-            setOnClickListener(clicker);
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-
-        // Record to the external cache directory for visibility
-        mFileName = getExternalCacheDir().getAbsolutePath();
-        mFileName += "/audiorecordtest.3gp";
-
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
-
-        LinearLayout ll = new LinearLayout(this);
-        mRecordButton = new RecordButton(this);
-        ll.addView(mRecordButton,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        0));
-        mPlayButton = new PlayButton(this);
-        ll.addView(mPlayButton,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        0));
-        setContentView(ll);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mRecorder != null) {
-            mRecorder.release();
-            mRecorder = null;
-        }
-
-        if (mPlayer != null) {
-            mPlayer.release();
-            mPlayer = null;
-        }
+    public MediaPlayer getmPlayer() {
+        return mPlayer;
     }
 }

@@ -29,38 +29,13 @@ import java.text.ParseException;
 public class NewRecordActivityActivity extends AppCompatActivity  {
 
     ImageButton recordPlay;
-    Boolean isPlay = false;
+    AudioRecordTest audioRecordTest;
     CountDownTimer testTimer;
 
-    int maxLength;
-    long maxLengthLong;
-    long test2 = 2000;
-    int test3 = 0;
-    String duration;
-    int progress = 0;
-    int number;
-    private AudioManager audioFront;
-
-    public int getCurrentLength() {
-        return currentLength;
-    }
-
-    public void setCurrentLength(int currentLength) {
-        this.currentLength = currentLength;
-    }
-
-    int currentLength = 0;
+    int test3, progress, currentLength = 0;
 
     boolean mStartRecording = true; // Für Record
     boolean mStartPlaying = true; // Für Play
-
-    public void setMillisUntilFinished(long millisUntilFinished) {
-        this.millisUntilFinished = millisUntilFinished;
-    }
-
-    public long getMillisUntilFinished() {
-        return millisUntilFinished;
-    }
 
     long millisUntilFinished;
 
@@ -68,12 +43,6 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String mFileName = null;
-
-    private AudioRecordTest.RecordButton mRecordButton = null;
-    private MediaRecorder mRecorder = null;
-
-    private AudioRecordTest.PlayButton mPlayButton = null;
-    private MediaPlayer mPlayer = null;
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
@@ -91,103 +60,22 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
     }
 
-    private void onRecord(boolean start) {
-        if (start) {
-            startRecording();
-        } else {
-            stopRecording();
-        }
-    }
-
-    private void onPlay(boolean start) {
-        if (start) {
-            startPlaying();
-        } else {
-            stopPlaying();
-        }
-    }
-
-    private void startPlaying() {
-        mPlayer = new MediaPlayer();
-        try {
-            mPlayer.setDataSource(mFileName);
-            mPlayer.prepare();
-            mPlayer.start();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
-        }
-    }
-
-    private void stopPlaying() {
-        mPlayer.release();
-        mPlayer = null;
-    }
-
-    private void startRecording() {
-        mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mRecorder.setOutputFile(mFileName);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-        try {
-            mRecorder.prepare();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
-        }
-
-        mRecorder.start();
-    }
-
-    private void stopRecording() {
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
-    }
-
-
-
-//    class PlayButton extends Button {
-//        boolean mStartPlaying = true;
-//
-//        OnClickListener clicker = new OnClickListener() {
-//            public void onClick(View v) {
-//                onPlay(mStartPlaying);
-//                if (mStartPlaying) {
-//                    setText("Stop playing");
-//                } else {
-//                    setText("Start playing");
-//                }
-//                mStartPlaying = !mStartPlaying;
-//            }
-//        };
-//
-//        public PlayButton(Context ctx) {
-//            super(ctx);
-//            setText("Start playing");
-//            setOnClickListener(clicker);
-//        }
-//    }
-
-    //// Record Test Ende
-
-
-
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_record_activity);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //--------------------AudioRecordTest-Klasse----------------------------------------
+        mFileName = getExternalCacheDir().getAbsolutePath(); //Original
+        mFileName += "/audiorecordtest.3gp";
+        audioRecordTest = new AudioRecordTest(mFileName);
+        //------------------------------------------------------------
 
-    // Progress Bar
 
-
+        // Progress Bar
         // initiate progress bar and start button
         final ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
         final LinearLayout record_player = (LinearLayout) findViewById(R.id.record_player);
@@ -205,7 +93,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
 
 
-                    onRecord(mStartRecording);
+                    audioRecordTest.onRecord(mStartRecording);
                 mStartRecording = false;
 
 
@@ -216,17 +104,8 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
                         simpleProgressBar.setVisibility(View.INVISIBLE);
                         record_player.setVisibility(View.VISIBLE);
-                        onRecord(mStartRecording);
+                        audioRecordTest.onRecord(mStartRecording);
                         mStartRecording = true;
-
-                    MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-                    mmr.setDataSource(mFileName);
-                    duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-                    mmr.release();
-
-                    maxLength = Integer.parseInt(duration);
-                    maxLengthLong = Long.valueOf(duration);
-
 
                         return true;
                 }
@@ -255,16 +134,21 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
         final Intent recordPlaybackServiceIntent = new Intent(this, AudioPlayer.class);
         recordPlay = (ImageButton) findViewById(R.id.play_record);
 
+
         testTimer = new CountDownTimer(30000, 100) {
 
 
             public void onTick(long millisUntilFinished) {
-                System.out.println("Länge in Timer " + maxLength);
-                System.out.println("Test2 " + test2);
-                currentLength = currentLength + 100;
+
+                currentLength = audioRecordTest.getmPlayer().getCurrentPosition();
+                int maxLength = audioRecordTest.getmPlayer().getDuration();
                 progress = ((currentLength*100)/maxLength);
+
+                System.out.println("Länge in Timer " + maxLength);
+
                 recordProgressbar.setProgress(progress);
                 System.out.println(currentLength);
+//              System.out.println(currentLength);
                 System.out.println(progress);
                 System.out.println("tick");
 
@@ -281,7 +165,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
             public void onFinish() {
                 recordProgressbar.setProgress(0);
                 recordPlay.setImageResource(R.drawable.play);
-                onPlay(mStartPlaying);
+                audioRecordTest.onPlay(mStartPlaying);
                 mStartPlaying = true;
                 this.cancel();
                 System.out.println("Nachricht fertig abgespiel!");
@@ -292,12 +176,9 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                onPlay(mStartPlaying);
+                audioRecordTest.onPlay(mStartPlaying);
                 if (mStartPlaying) {
                     recordPlay.setImageResource(R.drawable.pause);
-                    System.out.println("Länge bei Playbutton " + maxLength);
-
-
                     testTimer.start();
 
                 } else {
@@ -309,62 +190,12 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                 }
                 mStartPlaying = !mStartPlaying;
 
-
-
-             // Original
-
-//                if(isPlay){
-//                    stopService(recordPlaybackServiceIntent);
-//                    isPlay = false;
-//                    recordPlay.setImageResource(R.drawable.play);
-//                    recordProgressbar.setProgress(0);
-//                    testTimer.cancel();
-//                    progress = 0;
-//                    currentLength = 0;
-//                }
-//                else {
-//                    startService(recordPlaybackServiceIntent);
-//                    isPlay = true;
-//                    recordPlay.setImageResource(R.drawable.pause);
-//                    testTimer.start();
-//
-//                }
-
             }
 
         });
 
-    // Record Test
-        // Record to the external cache directory for visibility
-        mFileName = getExternalCacheDir().getAbsolutePath(); //Original
-        mFileName += "/audiorecordtest.3gp";
-
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
-
-
-    // Record Test Ende
     }
-    // Test Record
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mRecorder != null) {
-            mRecorder.release();
-            mRecorder = null;
-        }
-
-        if (mPlayer != null) {
-            mPlayer.release();
-            mPlayer = null;
-        }
-    }
-
-
-
-    // Test Record Ende
-
-
-
-    }
+}
 

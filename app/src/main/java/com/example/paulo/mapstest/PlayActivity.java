@@ -31,25 +31,16 @@ public class PlayActivity extends AppCompatActivity {
     int countpos;
     int countneg;
 
-    Boolean isPlay = false;
-
     ImageButton play;
+    AudioRecordTest audioRecordTest;
     CountDownTimer testTimer;
+    int test3, progress, currentLength = 0;
 
-    int maxLength;
-    long maxLengthLong;
-    long test2 = 2000;
-    int test3 = 0;
-    String duration;
-    int progress = 0;
-    int number;
-    int currentLength = 0;
+
 
     boolean mStartPlaying = true; // Für Play
 
     private static String mFileName = null;
-    private AudioRecordTest.PlayButton mPlayButton = null;
-    private MediaPlayer mPlayer = null;
 
 
     private static final String LOG_TAG = "AudioRecordTest";
@@ -77,6 +68,12 @@ public class PlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+
+        //--------------------AudioRecordTest-Klasse----------------------------------------
+        mFileName = getExternalCacheDir().getAbsolutePath(); //Original
+        mFileName += "/audiorecordtest.3gp";
+        audioRecordTest = new AudioRecordTest(mFileName);
+        //------------------------------------------------------------
 
         positive = (ImageButton) findViewById(R.id.posButton);
         negative = (ImageButton) findViewById(R.id.negButton);
@@ -108,12 +105,16 @@ public class PlayActivity extends AppCompatActivity {
 
 
             public void onTick(long millisUntilFinished) {
-                System.out.println("Länge in Timer " + maxLength);
-                System.out.println("Test2 " + test2);
-                currentLength = currentLength + 100;
+
+                currentLength = audioRecordTest.getmPlayer().getCurrentPosition();
+                int maxLength = audioRecordTest.getmPlayer().getDuration();
                 progress = ((currentLength*100)/maxLength);
+
+                System.out.println("Länge in Timer " + maxLength);
+
                 playProgressbar.setProgress(progress);
                 System.out.println(currentLength);
+//              System.out.println(currentLength);
                 System.out.println(progress);
                 System.out.println("tick");
 
@@ -130,33 +131,23 @@ public class PlayActivity extends AppCompatActivity {
             public void onFinish() {
                 playProgressbar.setProgress(0);
                 play.setImageResource(R.drawable.play);
-                onPlay(mStartPlaying);
+                audioRecordTest.onPlay(mStartPlaying);
                 mStartPlaying = true;
                 this.cancel();
                 System.out.println("Nachricht fertig abgespiel!");
             }
         };
 
+
+
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                onPlay(mStartPlaying);
+                audioRecordTest.onPlay(mStartPlaying);
                 if (mStartPlaying) {
 
-                    MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-                    mmr.setDataSource(mFileName);
-                    duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-                    mmr.release();
-
-                    maxLength = Integer.parseInt(duration);
-                    maxLengthLong = Long.valueOf(duration);
-
-
                     play.setImageResource(R.drawable.pause);
-                    System.out.println("Länge bei Playbutton " + maxLength);
-
-
                     testTimer.start();
 
                 } else {
@@ -174,18 +165,7 @@ public class PlayActivity extends AppCompatActivity {
 
         });
 
-        // Record Test
-        // Record to the external cache directory for visibility
-        mFileName = getExternalCacheDir().getAbsolutePath(); //Original
-        mFileName += "/audiorecordtest.3gp";
-
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
-
-
-
-        // Record Test Ende
-
-
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);//Erlaubnis für Record
 
         Button antworten = (Button) findViewById(R.id.antworten);
         final Intent antwortenIntent = new Intent(this, NewRecordActivityActivity.class);
@@ -222,43 +202,6 @@ public class PlayActivity extends AppCompatActivity {
 
 
     }
-
-    private void onPlay(boolean start) {
-        if (start) {
-            startPlaying();
-        } else {
-            stopPlaying();
-        }
-    }
-
-    private void startPlaying() {
-        mPlayer = new MediaPlayer();
-        try {
-            mPlayer.setDataSource(mFileName);
-            mPlayer.prepare();
-            mPlayer.start();
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "prepare() failed");
-        }
-    }
-
-    private void stopPlaying() {
-        mPlayer.release();
-        mPlayer = null;
-    }
-
-    // Test Record
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        if (mPlayer != null) {
-            mPlayer.release();
-            mPlayer = null;
-        }
-    }
-
-
 }
 
 
