@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MapsTest</string>
+    <string name="title_activity_settings">Configurações</string>
+    <string name="title_activity_new_record">Nova Mensagem</string>
+    <string name="profil_change">Mudar Profil</string>
+    <string name="abmelden">Sair</string>
+    <string name="neue_nachricht">Nova Mensagem</string>
+</resources>
