@@ -6,4 +6,5 @@
     <string name="profil_change">Mudar Perfil</string>
     <string name="abmelden">Sair</string>
     <string name="neue_nachricht">Nova Mensagem</string>
+    <string name="pref_title_social_recommendations">Ativar recomendações sociais</string>
 </resources>

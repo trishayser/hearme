@@ -9,7 +9,6 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact
         based on your message history
     </string>
@@ -87,6 +86,7 @@
 
     <string name="like_percent">0%</string>
     <string name="dislike_percent">0%</string>
+    <string name="pref_title_social_recommendations">Soziale empfehlungen aktivieren</string>
     //Ende Pascal-Edit
 
 </resources>
