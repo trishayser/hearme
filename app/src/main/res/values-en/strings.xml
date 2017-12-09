@@ -11,4 +11,5 @@
     <string name="title_activity_maps">HearMe</string>
     <string name="pref_title_new_message_notifications">New message notifications</string>
     <string name="Somedemosettings">Some demo settings</string>
+    <string name="Abschicken">Send</string>
 </resources>

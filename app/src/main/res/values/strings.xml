@@ -9,6 +9,7 @@
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
     <string name="Somedemosettings">Noch irgendeine Einstellung</string>
+    <string name="Abschicken">Abschicken</string>
 
 
     <string name="pref_description_social_recommendations">Recommendations for people to contact
