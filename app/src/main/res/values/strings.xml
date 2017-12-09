@@ -74,7 +74,7 @@
     <string name="pref_title_vibrate">Vibrate</string>
 
     // Pascal-Edit
-    <string name="profil_change">Profil ändern</string>
+    <string name="profil_change">Einstellungen</string>
     <string name="abmelden">abmelden</string>
 
     <string name="title_activity_settings_menu">Profil</string>
