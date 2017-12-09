@@ -167,7 +167,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="sddsfsdfsdfsdfsfsfddfgdfgdfgdfgfgdfgdfgdggdgdfgdfgdfgdfgdfgdfgdfgdfgdfgdfgfgdfgdfgdfgdfgdgdgdgdfgdfgdfgdfgsfsfsdf"
+                android:text="Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! "
                 android:textColor="@color/colorPrimary" />
 
             <Button
