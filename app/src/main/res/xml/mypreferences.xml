@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Some demo settings" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="pref_checkbox_demo"
+        android:summary="@string/pref_title_social_recommendations"
+        android:title="@string/pref_title_social_recommendations" />
+    <EditTextPreference
+        android:key="pref_edittext_demo"
+        android:summary="@string/pref_title_social_recommendations"
+        android:title="@string/pref_title_social_recommendations" />
+</PreferenceScreen>

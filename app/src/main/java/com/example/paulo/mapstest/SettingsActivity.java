@@ -3,19 +3,21 @@ package com.example.paulo.mapstest;
 import android.app.Activity;
 //import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends PreferenceActivity {
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.settings_activity);
+            addPreferencesFromResource(R.xml.mypreferences);
+            //setContentView(R.layout.settings_activity);
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
 //        @Override
