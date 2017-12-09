@@ -8,6 +8,8 @@
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
+    <string name="Somedemosettings">Some demo settings</string>
+
 
     <string name="pref_description_social_recommendations">Recommendations for people to contact
         based on your message history
