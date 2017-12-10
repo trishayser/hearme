@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "980260279908",
+    "firebase_url": "https://hearme2-af5fa.firebaseio.com",
+    "project_id": "hearme2-af5fa",
+    "storage_bucket": "hearme2-af5fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980260279908:android:e347cbc119103883",
+        "android_client_info": {
+          "package_name": "com.example.paulo.mapstest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980260279908-8spvjja8t9tdqgk997oiv83kaocff3cf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.paulo.mapstest",
+            "certificate_hash": "5a5c00d93fa039a47a8db3db70a0439f0d2fed26"
+          }
+        },
+        {
+          "client_id": "980260279908-3909q63svnmjsfs89nfve3uo0k5ef8e6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc_UXMkyb4VRh2Qy5jWUIrpMYgW9zoXdA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980260279908-3909q63svnmjsfs89nfve3uo0k5ef8e6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
