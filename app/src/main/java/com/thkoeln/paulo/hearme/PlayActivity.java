@@ -180,9 +180,9 @@ public class PlayActivity extends AppCompatActivity {
 
         testPlayList = new ArrayList<PlayerItem>();
 
-        PlayerItem testPlayItem = new PlayerItem("Test", mFileName);
-        PlayerItem testPlayItem2 = new PlayerItem("Test2", mFileName);
-        PlayerItem testPlayItem3 = new PlayerItem("Test3", mFileName);
+        PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", mFileName);
+        PlayerItem testPlayItem2 = new PlayerItem("Antwort 1", mFileName);
+        PlayerItem testPlayItem3 = new PlayerItem("Antwort 2", mFileName);
         testPlayList.add(testPlayItem);
         testPlayList.add(testPlayItem2);
         testPlayList.add(testPlayItem3);
@@ -194,8 +194,8 @@ public class PlayActivity extends AppCompatActivity {
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
 
-        PlayerItem testPlayItem4 = new PlayerItem("Test4", mFileName);
-        PlayerItem testPlayItem5 = new PlayerItem("Test5", mFileName);
+        PlayerItem testPlayItem4 = new PlayerItem("Antwort 3", mFileName);
+        PlayerItem testPlayItem5 = new PlayerItem("Antwort 4", mFileName);
 
         adapter.add(testPlayItem4);
         adapter.add(testPlayItem5);
