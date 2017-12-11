@@ -21,6 +21,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -121,6 +124,14 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
         abschicken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Write a message to the database
+                DatabaseReference mDatabase;
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                Post post = new Post(1, "test", "admin", "gps");
+
+                mDatabase.child("posts").setValue(post);
+
+
                 startActivity(abschickenIntent);
             }
         });
