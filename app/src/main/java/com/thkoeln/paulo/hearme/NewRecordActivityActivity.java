@@ -114,13 +114,14 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
         abschicken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 // Write a message to the database
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 Post post = new Post(1, "test", "admin", "gps");
 
                 mDatabase.child("posts").setValue(post);
-
+                */
 
                 startActivity(abschickenIntent);
             }
