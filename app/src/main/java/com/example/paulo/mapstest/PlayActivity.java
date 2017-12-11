@@ -202,7 +202,7 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_messages, testPlayList);
+        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_messages, testPlayList, mFileName);
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
 
