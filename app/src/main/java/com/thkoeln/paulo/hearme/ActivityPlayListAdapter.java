@@ -1,18 +1,18 @@
 package com.thkoeln.paulo.hearme;
 
-import android.app.Activity;
-import android.content.Context;
-import android.media.MediaPlayer;
-import android.os.CountDownTimer;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+        import android.app.Activity;
+        import android.content.Context;
+        import android.media.MediaPlayer;
+        import android.os.CountDownTimer;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.ArrayAdapter;
+        import android.widget.ImageButton;
+        import android.widget.ProgressBar;
+        import android.widget.TextView;
 
-import java.util.List;
+        import java.util.List;
 
 /**
  * Created by pascal on 10.12.17.
@@ -186,7 +186,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     }
 
 
-        public void bewertung (boolean positive, PlayItemHolder holder){
+    public void bewertung (boolean positive, PlayItemHolder holder){
         holder.countBewertungen++;
 
         if (positive){
@@ -195,8 +195,8 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         else{
             holder.countneg++;
         }
-            holder.pos = (holder.countpos*100)/holder.countBewertungen;
-            holder.neg = 100-holder.pos;
+        holder.pos = (holder.countpos*100)/holder.countBewertungen;
+        holder.neg = 100-holder.pos;
 
         System.out.println("Positive "+ holder.pos + "% " + "  Negative " + holder.neg +"% ");
 
@@ -209,7 +209,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     }
 
     public int currenLength(){
-            return audioRecordTest.getmPlayer().getCurrentPosition();
+        return audioRecordTest.getmPlayer().getCurrentPosition();
     }
     public int maxLength(){
         return  audioRecordTest.getmPlayer().getDuration();
@@ -256,7 +256,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 System.out.println("Nachricht fertig abgespiel!");
             }
         };
-    return newTimer;
+        return newTimer;
     }
 
 }
