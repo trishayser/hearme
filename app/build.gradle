@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.paulo.mapstest"
+        applicationId "com.thkoeln.paulo.hearme"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -29,10 +29,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:design:26.1.0'
-
     //Firebase Crashreports
     compile 'com.google.firebase:firebase-crash:11.6.0'
-//Firebase Analytics
+    //Firebase Analytics
     compile 'com.google.firebase:firebase-core:11.6.0'
     compile 'com.google.android.gms:play-services-analytics:11.6.0'
     compile 'com.google.android.gms:play-services-gcm:11.6.0'

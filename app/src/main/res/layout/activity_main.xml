@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.paulo.mapstest.MapsActivity">
+    tools:context="com.thkoeln.paulo.hearme.MapsActivity">
 
     <include
         layout="@layout/activity_maps_2"

@@ -1,4 +1,4 @@
-package com.example.paulo.mapstest;
+package com.thkoeln.paulo.hearme;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

@@ -1,12 +1,8 @@
-package com.example.paulo.mapstest;
+package com.thkoeln.paulo.hearme;
 
-import android.app.Activity;
 //import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 
 
 public class SettingsActivity extends PreferenceActivity {

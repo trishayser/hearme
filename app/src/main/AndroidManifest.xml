@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="100"
     android:versionName="1.0.0 Alpha"
-    package="com.example.paulo.mapstest">
+    package="com.thkoeln.paulo.hearme">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -37,7 +37,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="com.thkoeln.paulo.hearme.MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -47,52 +47,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.thkoeln.paulo.hearme.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MapsActivity"
+            android:parentActivityName="com.thkoeln.paulo.hearme.MapsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.paulo.mapstest.MapsActivity" />
+                android:value="com.thkoeln.paulo.hearme.MapsActivity" />
         </activity>
         <activity
-            android:name=".NewRecordActivityActivity"
+            android:name="com.thkoeln.paulo.hearme.NewRecordActivityActivity"
             android:label="@string/title_activity_new_record"
-            android:parentActivityName=".MapsActivity"
+            android:parentActivityName="com.thkoeln.paulo.hearme.MapsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.paulo.mapstest.MapsActivity" />
+                android:value="com.thkoeln.paulo.hearme.MapsActivity" />
         </activity>
 
         <service
-            android:name=".AudioPlayer"
+            android:name="com.thkoeln.paulo.hearme.AudioPlayer"
             android:enabled="true"
             android:exported="true" />
 
         <activity
-            android:name=".PlayActivity"
+            android:name="com.thkoeln.paulo.hearme.PlayActivity"
             android:label="Nachricht"
-            android:parentActivityName=".MapsActivity"
+            android:parentActivityName="com.thkoeln.paulo.hearme.MapsActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.paulo.mapstest.MapsActivity" />
+                android:value="com.thkoeln.paulo.hearme.MapsActivity" />
         </activity>
-        <activity android:name=".LoginStart"
+        <activity android:name="com.thkoeln.paulo.hearme.LoginStart"
             android:label="Login"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.paulo.mapstest.MapsActivity" />
+                android:value="com.thkoeln.paulo.hearme.MapsActivity" />
         </activity>
 
-        <activity android:name=".Registration"
+        <activity android:name="com.thkoeln.paulo.hearme.Registration"
             android:label="Registration"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.paulo.mapstest.LoginStart" />
+                android:value="com.thkoeln.paulo.hearme.LoginStart" />
         </activity>
     </application>
 

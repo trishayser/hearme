@@ -1,12 +1,4 @@
-package com.example.paulo.mapstest;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+package com.thkoeln.paulo.hearme;
 
 import java.io.Serializable;
 

@@ -10,7 +10,7 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="com.example.paulo.mapstest.LoginStart">
+    tools:context="com.thkoeln.paulo.hearme.LoginStart">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -8,7 +8,7 @@ android:paddingLeft="20px"
 android:paddingRight="20px"
 android:paddingTop="20px"
 android:paddingBottom="20px"
-tools:context="com.example.paulo.mapstest.SettingsFragment">
+tools:context="com.thkoeln.paulo.hearme.SettingsFragment">
 
 <TextView
     android:id="@+id/aktiendetail_text"

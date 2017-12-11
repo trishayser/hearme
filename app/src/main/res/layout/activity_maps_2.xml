@@ -9,7 +9,7 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="com.example.paulo.mapstest.MapsActivity">
+    tools:context="com.thkoeln.paulo.hearme.MapsActivity">
 
 
     <!-- Hauptkategroie-Filter -->
@@ -130,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill_vertical"
-                tools:context="com.example.paulo.mapstest.MapsActivity" />
+                tools:context="com.thkoeln.paulo.hearme.MapsActivity" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
