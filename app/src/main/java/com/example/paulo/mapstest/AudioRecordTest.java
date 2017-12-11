@@ -26,6 +26,11 @@ public class AudioRecordTest {
     private static String mFileName = null;
 
     private MediaRecorder mRecorder = null;
+
+    public void setmPlayer(MediaPlayer mPlayer) {
+        this.mPlayer = mPlayer;
+    }
+
     private MediaPlayer   mPlayer = null;
 
 //    // Requesting permission to RECORD_AUDIO

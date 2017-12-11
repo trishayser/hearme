@@ -2,6 +2,7 @@ package com.example.paulo.mapstest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,10 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     int maxCounter;
     int currentLength;
     int progress;
-    PlayerItem currentItem;
+    PlayItemHolder currentItem;
     private AudioRecordTest audioRecordTest;
     String mFileName;
+    CountDownTimer testTimer;
 
     public ActivityPlayListAdapter(Context context, int layoutResourceId, List<PlayerItem> items, String mFileName) {
         super(context, layoutResourceId, items);
@@ -38,7 +40,10 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         this.items = items;
         this.mFileName = mFileName;
         this.otherPlayer = false;
+        this.mStartPlaying = true;
         this.audioRecordTest = new AudioRecordTest(this.mFileName);
+        audioRecordTest.setmPlayer(new MediaPlayer());
+        this.testTimer = createTimer();
     }
 
     @Override
@@ -65,6 +70,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         holder.playTitel = (TextView)row.findViewById(R.id.play_title);
         holder.textViewLike = (TextView)row.findViewById(R.id.like_percent);
         holder.textViewDislike = (TextView)row.findViewById(R.id.dislike_percent);
+        holder.audioRecordTestHolder = this.audioRecordTest;
         row.setTag(holder);
 
         setupItem(holder);
@@ -75,8 +81,6 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     private void setupItem(final PlayItemHolder holder) {
         holder.playTitel.setText(holder.playerItem.getName());
         holder.playProgressbar.setProgress(0);
-        holder.currentLength = 0;
-        holder.progress = 0;
     }
 
 
@@ -90,7 +94,51 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         holder.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                audioPlay(holder);
+                System.out.println("PlayButton " + holder.playTitel);
+
+                if(currentItem != holder) {
+                    testTimer.cancel();
+                    if (currentItem!=null){
+                        currentItem.playButton.setImageResource(R.drawable.play);
+                        currentItem.playProgressbar.setProgress(0);
+                    }
+                    currentItem = holder;
+                    mStartPlaying = true;
+                }
+
+                //holder.audioRecordTestHolder.onPlay(mStartPlaying);
+                if (mStartPlaying == true && otherPlayer == false) {
+                    System.out.println("If 1");
+                    holder.playButton.setImageResource(R.drawable.pause);
+                    audioRecordTest.onPlay(true);
+                    mStartPlaying = false;
+                    otherPlayer = true;
+                    testTimer.start();
+
+                } else if (mStartPlaying == true && otherPlayer == true) {
+                    System.out.println("If 2");
+                    testTimer.onFinish();
+                    progress = 0;
+                    currentLength = 0;
+//                    audioRecordTest.onPlay(false);
+                    holder.playButton.setImageResource(R.drawable.pause);
+                    otherPlayer = true;
+                    mStartPlaying = false;
+                    audioRecordTest.onPlay(true);
+                    testTimer.start();
+                }
+                else {
+                    System.out.println("If 3");
+//                    holder.playButton.setImageResource(R.drawable.play);
+//                    holder.playProgressbar.setProgress(0);
+//                    audioRecordTest.onPlay(false);
+                    testTimer.onFinish();
+                    progress = 0;
+                    currentLength = 0;
+                    otherPlayer = false;
+                    mStartPlaying = true;
+                }
+
             }
 
         });
@@ -133,8 +181,8 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         int countBewertungen;
         int countpos;
         int countneg;
-        int currentLength;
-        int progress;
+        AudioRecordTest audioRecordTestHolder;
+        CountDownTimer playItemTimer;
     }
 
 
@@ -160,35 +208,37 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
     }
 
-    public void audioPlay(PlayItemHolder holder) {
+    public int currenLength(){
+            return audioRecordTest.getmPlayer().getCurrentPosition();
+    }
+    public int maxLength(){
+        return  audioRecordTest.getmPlayer().getDuration();
+    }
 
 
+    public  CountDownTimer  createTimer(){
         maxCounter = 0;
         progress = 0;
         currentLength = 0;
 
-        final PlayItemHolder testHolder = holder;
-
-        final CountDownTimer testTimer = new CountDownTimer(30000, 100) {
+        CountDownTimer newTimer = new CountDownTimer(30000, 100) {
 
 
             public void onTick(long millisUntilFinished) {
 
-                final int maxLength = audioRecordTest.getmPlayer().getDuration();
+                currentLength = currenLength();
+                progress = ((currentLength*100)/maxLength());
 
-                currentLength = audioRecordTest.getmPlayer().getCurrentPosition();
-                progress = ((currentLength*100)/maxLength);
+                System.out.println("Länge in Timer " + maxLength());
 
-                System.out.println("Länge in Timer " + maxLength);
-
-                testHolder.playProgressbar.setProgress(progress);
+                currentItem.playProgressbar.setProgress(progress);
                 System.out.println(currentLength);
 //              System.out.println(currentLength);
                 System.out.println(progress);
                 System.out.println("tick");
                 maxCounter = maxCounter + 100;
 
-                if (maxCounter >= maxLength){
+                if (maxCounter >= maxLength()) {
                     currentLength = 0;
                     onFinish();
                 }
@@ -196,37 +246,17 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             }
 
             public void onFinish() {
-                testHolder.playProgressbar.setProgress(0);
-                testHolder.playButton.setImageResource(R.drawable.play);
-                audioRecordTest.onPlay(mStartPlaying);
+                currentItem.playProgressbar.setProgress(0);
+                currentItem.playButton.setImageResource(R.drawable.play);
+                audioRecordTest.onPlay(false);
                 mStartPlaying = true;
+                otherPlayer = false;
                 maxCounter = 0;
                 this.cancel();
                 System.out.println("Nachricht fertig abgespiel!");
             }
         };
-
-
-        if(otherPlayer == true){
-            audioRecordTest.onPlay(false);
-            testTimer.onFinish();
-        }
-        audioRecordTest.onPlay(mStartPlaying);
-        if (mStartPlaying) {
-
-            holder.playButton.setImageResource(R.drawable.pause);
-            otherPlayer = true;
-            testTimer.start();
-
-        } else {
-            holder.playButton.setImageResource(R.drawable.play);
-            holder.playProgressbar.setProgress(0);
-            testTimer.cancel();
-            holder.progress = 0;
-            holder.currentLength = 0;
-        }
-        mStartPlaying = !mStartPlaying;
-
+    return newTimer;
     }
 
 }
