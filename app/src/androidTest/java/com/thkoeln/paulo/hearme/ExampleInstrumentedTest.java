@@ -1,4 +1,4 @@
-package com.example.paulo.mapstest;
+package com.thkoeln.paulo.hearme;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
