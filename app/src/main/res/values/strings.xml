@@ -89,6 +89,9 @@
     <string name="dislike_percent">0%</string>
     <string name="pref_title_social_recommendations">Soziale empfehlungen aktivieren</string>
     <string name="pref_title_new_message_notifications">Neue Nachricht Benachrichtigung</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     //Ende Pascal-Edit
 
 </resources>
