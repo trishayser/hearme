@@ -227,13 +227,13 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             public void onTick(long millisUntilFinished) {
 
                 currentLength = currenLength();
+                System.out.println(currenLength());
                 progress = ((currentLength*100)/maxLength());
 
                 System.out.println("Länge in Timer " + maxLength());
 
                 currentItem.playProgressbar.setProgress(progress);
                 System.out.println(currentLength);
-//              System.out.println(currentLength);
                 System.out.println(progress);
                 System.out.println("tick");
                 maxCounter = maxCounter + 100;

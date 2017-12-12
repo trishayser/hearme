@@ -62,6 +62,7 @@ public class AudioRecordTest {
 
     private void startPlaying() {
         mPlayer = new MediaPlayer();
+        mPlayer.isPlaying();
         try {
 
             mPlayer.setDataSource(mFileName);
