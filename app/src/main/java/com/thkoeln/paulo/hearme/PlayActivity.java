@@ -73,19 +73,20 @@ public class PlayActivity extends AppCompatActivity {
         PlayerItem testPlayItem2 = new PlayerItem("Antwort 1", mFileName);
         PlayerItem testPlayItem3 = new PlayerItem("Antwort 2", mFileName);
         testPlayList.add(testPlayItem);
-        testPlayList.add(testPlayItem2);
-        testPlayList.add(testPlayItem3);
 
 
 
 
-        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_messages, testPlayList, mFileName, this);
+        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_main_message, R.layout.list_item_messages, testPlayList, mFileName, this);
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
 
         PlayerItem testPlayItem4 = new PlayerItem("Antwort 3", mFileName);
         PlayerItem testPlayItem5 = new PlayerItem("Antwort 4", mFileName);
 
+        adapter.add(testPlayItem2);
+        adapter.add(testPlayItem2);
+        adapter.add(testPlayItem3);
         adapter.add(testPlayItem4);
         adapter.add(testPlayItem5);
 

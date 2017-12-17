@@ -9,6 +9,7 @@ package com.thkoeln.paulo.hearme;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ArrayAdapter;
+        import android.widget.Button;
         import android.widget.ImageButton;
         import android.widget.ProgressBar;
         import android.widget.TextView;
@@ -23,6 +24,8 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
     private List<PlayerItem> items;
     private int layoutResourceId;
+    private int layoutResourceId2;
+    private int layoutCount;
     private Context context;
     boolean mStartPlaying; // Für Play
     int progress;
@@ -34,9 +37,11 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
     CountDownTimer timer;
 
-    public ActivityPlayListAdapter(Context context, int layoutResourceId, List<PlayerItem> items, String mFileName, PlayActivity playActivityR) {
+    public ActivityPlayListAdapter(Context context, int layoutResourceId, int layoutResourceId2, List<PlayerItem> items, String mFileName, PlayActivity playActivityR) {
         super(context, layoutResourceId, items);
         this.layoutResourceId = layoutResourceId;
+        this.layoutResourceId2 = layoutResourceId2;
+        this.layoutCount = 0;
         this.context = context;
         this.items = items;
         this.mFileName = mFileName;
@@ -71,31 +76,55 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-        PlayItemHolder holder = null;
+//        PlayItemHolder holder = null;
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        row = inflater.inflate(layoutResourceId, parent, false);
-
-        holder = new PlayItemHolder();
-        holder.playerItem = items.get(position);
-        holder.playButton = (ImageButton)row.findViewById(R.id.play);
-        holder.playButton.setTag(holder.playerItem);
-        holder.playProgressbar = (ProgressBar)row.findViewById(R.id.playProgressbar);
-
-        holder.positive = (ImageButton)row.findViewById(R.id.posButton);
-        holder.positive.setTag(holder.playerItem);
-
-        holder.negative = (ImageButton)row.findViewById(R.id.negButton);
-        holder.negative.setTag(holder.playerItem);
+        //-------------------------------------
 
 
-        holder.playTitel = (TextView)row.findViewById(R.id.play_title);
-        holder.textViewLike = (TextView)row.findViewById(R.id.like_percent);
-        holder.textViewDislike = (TextView)row.findViewById(R.id.dislike_percent);
-        row.setTag(holder);
+        if (position == 1) {
+            AnswerButtonItemHolder holder = new AnswerButtonItemHolder();
+                row = inflater.inflate(layoutResourceId, parent, false);
+                holder.answerButton = (Button)row.findViewById(R.id.antworten);
+                System.out.println("AnswerButtonItem (Item with position == 1)");
 
-        setupItem(holder);
-        setListener(holder);
+            holder.answerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("Antworten Button");
+                }
+            });
+
+            }
+            //set the data in subview with holder fields
+         else {
+            PlayItemHolder holder = new PlayItemHolder();
+
+                row = inflater.inflate(layoutResourceId2, parent, false);
+                System.out.println("NormalItem");
+
+            holder.playerItem = items.get(position);
+            holder.playButton = (ImageButton)row.findViewById(R.id.play);
+            holder.playButton.setTag(holder.playerItem);
+            holder.playProgressbar = (ProgressBar)row.findViewById(R.id.playProgressbar);
+
+            holder.positive = (ImageButton)row.findViewById(R.id.posButton);
+            holder.positive.setTag(holder.playerItem);
+
+            holder.negative = (ImageButton)row.findViewById(R.id.negButton);
+            holder.negative.setTag(holder.playerItem);
+
+
+            holder.playTitel = (TextView)row.findViewById(R.id.play_title);
+            holder.textViewLike = (TextView)row.findViewById(R.id.like_percent);
+            holder.textViewDislike = (TextView)row.findViewById(R.id.dislike_percent);
+
+            row.setTag(holder);
+            setupItem(holder);
+            setListener(holder);
+
+            }
+
         return row;
     }
 
@@ -144,10 +173,6 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 bewertung(false, holder);
             }
         });
-
-
-
-
     }
 
     public static class PlayItemHolder {
@@ -164,6 +189,10 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         int countBewertungen;
         int countpos;
         int countneg;
+    }
+
+    public static class AnswerButtonItemHolder {
+        Button answerButton;
     }
 
     public void playAudioMessage(PlayItemHolder holder) {
@@ -220,5 +249,20 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         holder.textViewLike.setText(holder.pos + "%");
 
         holder.textViewDislike.setText(holder.neg + "%");
+    }
+
+
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }
