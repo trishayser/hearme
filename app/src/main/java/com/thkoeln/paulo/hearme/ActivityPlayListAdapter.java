@@ -51,24 +51,24 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
         this.timer = new CountDownTimer(300000,50) {
             public void onTick(long millisUntilFinished) {
-
                 progress = ((playActivity.mService.getmPlayer().getCurrentPosition() * 100) / playActivity.mService.getmPlayer().getDuration());
                 System.out.println(progress);
                 currentItem.playProgressbar.setProgress(progress);
                 System.out.println(playActivity.mService.getmPlayer().getCurrentPosition());
                 System.out.println(playActivity.mService.getmPlayer().getDuration());
                 if (!playActivity.mService.getmPlayer().isPlaying()){
+                    mStartPlaying = true;
                     this.onFinish();
                 }
             }
 
             @Override
             public void onFinish() {
-                this.cancel();
                 currentItem.playProgressbar.setProgress(0);
                 currentItem.playButton.setImageResource(R.drawable.play);
                 playActivity.mService.onPlay(false);
                 mStartPlaying = true;
+                this.cancel();
             }
         };
     }
@@ -196,29 +196,11 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     }
 
     public void playAudioMessage(PlayItemHolder holder) {
-        if (currentItem == null){
+        if (currentItem == null) {
             currentItem = holder;
         }
+        if (mStartPlaying) {
 
-        if(currentItem != holder) {
-            timer.cancel();
-                System.out.println("Anderen Player Stoppen");
-                currentItem.playProgressbar.setProgress(0);
-                playActivity.mService.onPlay(false);
-                currentItem.playButton.setImageResource(R.drawable.play);
-                System.out.println("Anderen Player gestoppt");
-                mStartPlaying = true;
-        }
-        if (!mStartPlaying) {
-            timer.onFinish();
-            System.out.println("Aktuellen Player stoppen");
-            holder.playProgressbar.setProgress(0);
-//            playActivity.mService.onPlay(false);
-            holder.playButton.setImageResource(R.drawable.play);
-            System.out.println("aktueller Player gestoppt");
-            mStartPlaying = true;
-        }
-        else {
             System.out.println(playActivity.mService.getReferenceCheck());
             playActivity.mService.setmFileName(mFileName);
             System.out.println("Player starten? Bitte ja! ");
@@ -229,6 +211,37 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             currentItem = holder;
             timer.start();
         }
+
+        else if (currentItem != holder) {
+                timer.cancel();
+                System.out.println("Anderen Player Stoppen");
+                currentItem.playProgressbar.setProgress(0);
+                playActivity.mService.onPlay(false);
+                currentItem.playButton.setImageResource(R.drawable.play);
+                System.out.println("Anderen Player gestoppt");
+                mStartPlaying = true;
+
+                System.out.println(playActivity.mService.getReferenceCheck());
+                playActivity.mService.setmFileName(mFileName);
+                System.out.println("Player starten? Bitte ja! ");
+                currentItem = holder;
+                holder.playButton.setImageResource(R.drawable.pause);
+                playActivity.mService.onPlay(true);
+                mStartPlaying = false;
+                currentItem = holder;
+                timer.start();
+
+            }
+            else {
+                timer.onFinish();
+                System.out.println("Aktuellen Player stoppen");
+                holder.playProgressbar.setProgress(0);
+                holder.playButton.setImageResource(R.drawable.play);
+                System.out.println("aktueller Player gestoppt");
+                mStartPlaying = true;
+                currentItem = null;
+            }
+
 
     }
 
