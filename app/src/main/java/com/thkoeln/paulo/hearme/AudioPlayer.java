@@ -9,10 +9,6 @@ public class AudioPlayer extends Service implements MediaPlayer.OnCompletionList
     public AudioPlayer() {
     }
 
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
-    }
-
     MediaPlayer mediaPlayer;
     public void onCreate() {
         mediaPlayer = MediaPlayer.create(this, R.raw.s);// raw/s.mp3
@@ -41,5 +37,9 @@ public class AudioPlayer extends Service implements MediaPlayer.OnCompletionList
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }

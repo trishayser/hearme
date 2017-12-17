@@ -1,7 +1,13 @@
 package com.thkoeln.paulo.hearme;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,30 +19,14 @@ import java.util.List;
 
 public class PlayActivity extends AppCompatActivity {
 
-//    ImageButton positive;
-//    ImageButton negative;
-//    ImageButton playButtonMethode;
-//
-//    int pos;
-//    int neg;
-//    int countBewertungen;
-//    int countpos;
-//    int countneg;
-//
-//    ImageButton play;
-//    AudioRecordTest audioRecordTest;
-//    CountDownTimer testTimer;
-//    int test3, progress, currentLength = 0;
-//
-//
-//
-//    boolean mStartPlaying = true; // Für Play
-//
-//    private static String mFileName = null;
-
-
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+
+    private String mFileName = "Noch kein Pfad vorhanden";
+    Intent playerService;
+    mediaPlayerStartService mService;
+    boolean mBound = false;
+    MediaPlayer playActivityMediaPlayer;
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted;
@@ -66,117 +56,16 @@ public class PlayActivity extends AppCompatActivity {
        permissionToRecordAccepted = false;
       String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
+        playerService = new Intent(this, mediaPlayerStartService.class);
+        //startService(playerService);
+
 
         //--------------------AudioRecordTest-Klasse----------------------------------------
-        String mFileName = getExternalCacheDir().getAbsolutePath(); //Original
+        mFileName = getExternalCacheDir().getAbsolutePath(); //Original
         mFileName += "/audiorecordtest.3gp";
         //audioRecordTest = new AudioRecordTest(mFileName);
         //------------------------------------------------------------
 
-//        positive = (ImageButton) findViewById(R.id.posButton);
-//        negative = (ImageButton) findViewById(R.id.negButton);
-//
-//        positive.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                System.out.println("positive");
-//                bewertung(true);
-//            }
-//        });
-//
-//        negative.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                System.out.println("negative");
-//                bewertung(false);
-//            }
-//        });
-//
-//
-//        final Intent recordPlaybackServiceIntent = new Intent(this, AudioPlayer.class);
-//        play = (ImageButton) findViewById(R.id.play);
-//
-//        final ProgressBar playProgressbar = (ProgressBar) findViewById(R.id.playProgressbar);
-//        playProgressbar.setProgress(0);
-//
-//        testTimer = new CountDownTimer(30000, 100) {
-//
-//
-//            public void onTick(long millisUntilFinished) {
-//
-//                currentLength = audioRecordTest.getmPlayer().getCurrentPosition();
-//                int maxLength = audioRecordTest.getmPlayer().getDuration();
-//                progress = ((currentLength*100)/maxLength);
-//
-//                System.out.println("Länge in Timer " + maxLength);
-//
-//                playProgressbar.setProgress(progress);
-//                System.out.println(currentLength);
-////              System.out.println(currentLength);
-//                System.out.println(progress);
-//                System.out.println("tick");
-//
-//                test3 = test3+100;
-//
-//                if(test3 >= maxLength){
-//                    currentLength = 0;
-//                    test3 = 0;
-//                    onFinish();
-//                }
-//
-//            }
-//
-//            public void onFinish() {
-//                playProgressbar.setProgress(0);
-//                play.setImageResource(R.drawable.play);
-//                audioRecordTest.onPlay(mStartPlaying);
-//                mStartPlaying = true;
-//                this.cancel();
-//                System.out.println("Nachricht fertig abgespiel!");
-//            }
-//        };
-//
-//
-//
-//        play.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                audioRecordTest.onPlay(mStartPlaying);
-//                if (mStartPlaying) {
-//
-//                    play.setImageResource(R.drawable.pause);
-//                    testTimer.start();
-//
-//                } else {
-//                    play.setImageResource(R.drawable.play);
-//                    playProgressbar.setProgress(0);
-//                    testTimer.cancel();
-//                    progress = 0;
-//                    currentLength = 0;
-//                }
-//                mStartPlaying = !mStartPlaying;
-//
-//
-//
-//            }
-//
-//        });
-
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);//Erlaubnis für Record
-
-//        Button antworten = (Button) findViewById(R.id.antworten);
-//        final Intent antwortenIntent = new Intent(this, NewRecordActivityActivity.class);
-//
-//
-//        antworten.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(antwortenIntent);
-//            }
-//        });
-
-        //List Test
 
         testPlayList = new ArrayList<PlayerItem>();
 
@@ -190,7 +79,7 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_messages, testPlayList, mFileName);
+        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_messages, testPlayList, mFileName, this);
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
 
@@ -206,34 +95,50 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        // Bind mediaPlayerStartService
+        bindService(playerService, mConnection, Context.BIND_AUTO_CREATE);
     }
 
-//       public void bewertung (boolean positive){
-//           countBewertungen++;
-//
-//           if (positive){
-//               countpos++;
-//           }
-//           else{
-//               countneg++;
-//           }
-//           pos = (countpos*100)/countBewertungen;
-//           neg = 100-pos;
-//
-//        System.out.println("Positive "+ pos + "% " + "  Negative " + neg +"% ");
-//
-//        final TextView textViewLike = (TextView) findViewById(R.id.like_percent);
-//        textViewLike.setText(pos + "%");
-//
-//        final TextView textViewDislike = (TextView) findViewById(R.id.dislike_percent);
-//        textViewDislike.setText(neg + "%");
-//
-//
-//
-//    }
+    @Override
+    protected void onStop(){
+        super.onStop();
+        // unbind mediaplayerStartService
+        unbindService(mConnection);
+    }
 
 
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            mediaPlayerStartService.LocalBinder binder = (mediaPlayerStartService.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
+    public String getmFileName() {
+        if(mFileName == null){
+            //--------------------AudioRecordTest-Klasse----------------------------------------
+            mFileName = getExternalCacheDir().getAbsolutePath(); //Original
+            mFileName += "/audiorecordtest.3gp";
+            //audioRecordTest = new AudioRecordTest(mFileName);
+            //------------------------------------------------------------
+        }
+        return mFileName;
+    }
 }
 
 

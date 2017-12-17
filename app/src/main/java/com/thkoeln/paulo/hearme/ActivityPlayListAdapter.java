@@ -2,6 +2,7 @@ package com.thkoeln.paulo.hearme;
 
         import android.app.Activity;
         import android.content.Context;
+        import android.content.Intent;
         import android.media.MediaPlayer;
         import android.os.CountDownTimer;
         import android.view.LayoutInflater;
@@ -24,26 +25,47 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     private int layoutResourceId;
     private Context context;
     boolean mStartPlaying; // Für Play
-    boolean otherPlayer;
-    int maxCounter;
-    int currentLength;
     int progress;
     PlayItemHolder currentItem;
-    private AudioRecordTest audioRecordTest;
-    String mFileName;
-    CountDownTimer testTimer;
+    PlayActivity playActivity;
 
-    public ActivityPlayListAdapter(Context context, int layoutResourceId, List<PlayerItem> items, String mFileName) {
+    public static String mFileName;
+    private boolean start;
+
+    CountDownTimer timer;
+
+    public ActivityPlayListAdapter(Context context, int layoutResourceId, List<PlayerItem> items, String mFileName, PlayActivity playActivityR) {
         super(context, layoutResourceId, items);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.items = items;
         this.mFileName = mFileName;
-        this.otherPlayer = false;
         this.mStartPlaying = true;
-        this.audioRecordTest = new AudioRecordTest(this.mFileName);
-        audioRecordTest.setmPlayer(new MediaPlayer());
-        this.testTimer = createTimer();
+        this.start = true;
+        this.playActivity = playActivityR;
+
+        this.timer = new CountDownTimer(300000,50) {
+            public void onTick(long millisUntilFinished) {
+
+                progress = ((playActivity.mService.getmPlayer().getCurrentPosition() * 100) / playActivity.mService.getmPlayer().getDuration());
+                System.out.println(progress);
+                currentItem.playProgressbar.setProgress(progress);
+                System.out.println(playActivity.mService.getmPlayer().getCurrentPosition());
+                System.out.println(playActivity.mService.getmPlayer().getDuration());
+                if (!playActivity.mService.getmPlayer().isPlaying()){
+                    this.onFinish();
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                this.cancel();
+                currentItem.playProgressbar.setProgress(0);
+                currentItem.playButton.setImageResource(R.drawable.play);
+                playActivity.mService.onPlay(false);
+                mStartPlaying = true;
+            }
+        };
     }
 
     @Override
@@ -70,7 +92,6 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         holder.playTitel = (TextView)row.findViewById(R.id.play_title);
         holder.textViewLike = (TextView)row.findViewById(R.id.like_percent);
         holder.textViewDislike = (TextView)row.findViewById(R.id.dislike_percent);
-        holder.audioRecordTestHolder = this.audioRecordTest;
         row.setTag(holder);
 
         setupItem(holder);
@@ -94,51 +115,13 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         holder.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("PlayButton " + holder.playTitel);
+                System.out.println("PlayButton " + holder.playerItem.getName());
+                System.out.println("StartPlaying? " + mStartPlaying);
+                //System.out.println(playActivity.mService.getReferenceCheck());
+                //playActivity.mService.setmFileName(mFileName);
+                playAudioMessage(holder);
 
-                if(currentItem != holder) {
-                    testTimer.cancel();
-                    if (currentItem!=null){
-                        currentItem.playButton.setImageResource(R.drawable.play);
-                        currentItem.playProgressbar.setProgress(0);
-                    }
-                    currentItem = holder;
-                    mStartPlaying = true;
-                }
-
-                //holder.audioRecordTestHolder.onPlay(mStartPlaying);
-                if (mStartPlaying == true && otherPlayer == false) {
-                    System.out.println("If 1");
-                    holder.playButton.setImageResource(R.drawable.pause);
-                    audioRecordTest.onPlay(true);
-                    mStartPlaying = false;
-                    otherPlayer = true;
-                    testTimer.start();
-
-                } else if (mStartPlaying == true && otherPlayer == true) {
-                    System.out.println("If 2");
-                    testTimer.onFinish();
-                    progress = 0;
-                    currentLength = 0;
-//                    audioRecordTest.onPlay(false);
-                    holder.playButton.setImageResource(R.drawable.pause);
-                    otherPlayer = true;
-                    mStartPlaying = false;
-                    audioRecordTest.onPlay(true);
-                    testTimer.start();
-                }
-                else {
-                    System.out.println("If 3");
-//                    holder.playButton.setImageResource(R.drawable.play);
-//                    holder.playProgressbar.setProgress(0);
-//                    audioRecordTest.onPlay(false);
-                    testTimer.onFinish();
-                    progress = 0;
-                    currentLength = 0;
-                    otherPlayer = false;
-                    mStartPlaying = true;
-                }
-
+                //playActivity.mService.onPlay(true);
             }
 
         });
@@ -181,10 +164,44 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         int countBewertungen;
         int countpos;
         int countneg;
-        AudioRecordTest audioRecordTestHolder;
-        CountDownTimer playItemTimer;
     }
 
+    public void playAudioMessage(PlayItemHolder holder) {
+        if (currentItem == null){
+            currentItem = holder;
+        }
+
+        if(currentItem != holder) {
+            timer.cancel();
+                System.out.println("Anderen Player Stoppen");
+                currentItem.playProgressbar.setProgress(0);
+                playActivity.mService.onPlay(false);
+                currentItem.playButton.setImageResource(R.drawable.play);
+                System.out.println("Anderen Player gestoppt");
+                mStartPlaying = true;
+        }
+        if (!mStartPlaying) {
+            timer.onFinish();
+            System.out.println("Aktuellen Player stoppen");
+            holder.playProgressbar.setProgress(0);
+//            playActivity.mService.onPlay(false);
+            holder.playButton.setImageResource(R.drawable.play);
+            System.out.println("aktueller Player gestoppt");
+            mStartPlaying = true;
+        }
+        else {
+            System.out.println(playActivity.mService.getReferenceCheck());
+            playActivity.mService.setmFileName(mFileName);
+            System.out.println("Player starten? Bitte ja! ");
+            currentItem = holder;
+            holder.playButton.setImageResource(R.drawable.pause);
+            playActivity.mService.onPlay(true);
+            mStartPlaying = false;
+            currentItem = holder;
+            timer.start();
+        }
+
+    }
 
     public void bewertung (boolean positive, PlayItemHolder holder){
         holder.countBewertungen++;
@@ -203,60 +220,5 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         holder.textViewLike.setText(holder.pos + "%");
 
         holder.textViewDislike.setText(holder.neg + "%");
-
-
-
     }
-
-    public int currenLength(){
-        return audioRecordTest.getmPlayer().getCurrentPosition();
-    }
-    public int maxLength(){
-        return  audioRecordTest.getmPlayer().getDuration();
-    }
-
-
-    public  CountDownTimer  createTimer(){
-        maxCounter = 0;
-        progress = 0;
-        currentLength = 0;
-
-        CountDownTimer newTimer = new CountDownTimer(30000, 100) {
-
-
-            public void onTick(long millisUntilFinished) {
-
-                currentLength = currenLength();
-                System.out.println(currenLength());
-                progress = ((currentLength*100)/maxLength());
-
-                System.out.println("Länge in Timer " + maxLength());
-
-                currentItem.playProgressbar.setProgress(progress);
-                System.out.println(currentLength);
-                System.out.println(progress);
-                System.out.println("tick");
-                maxCounter = maxCounter + 100;
-
-                if (maxCounter >= maxLength()) {
-                    currentLength = 0;
-                    onFinish();
-                }
-
-            }
-
-            public void onFinish() {
-                currentItem.playProgressbar.setProgress(0);
-                currentItem.playButton.setImageResource(R.drawable.play);
-                audioRecordTest.onPlay(false);
-                mStartPlaying = true;
-                otherPlayer = false;
-                maxCounter = 0;
-                this.cancel();
-                System.out.println("Nachricht fertig abgespiel!");
-            }
-        };
-        return newTimer;
-    }
-
 }

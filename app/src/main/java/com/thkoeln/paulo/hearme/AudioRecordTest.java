@@ -10,37 +10,13 @@ import java.io.IOException;
 public class AudioRecordTest {
 
     private static final String LOG_TAG = "AudioRecordTest";
-    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String mFileName = null;
 
     private MediaRecorder mRecorder = null;
-
-    public void setmPlayer(MediaPlayer mPlayer) {
-        this.mPlayer = mPlayer;
-    }
-
     private MediaPlayer   mPlayer = null;
 
-//    // Requesting permission to RECORD_AUDIO
-//    private boolean permissionToRecordAccepted = false;
-//    private String [] permissions = {Manifest.permission.RECORD_AUDIO};
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode){
-//            case REQUEST_RECORD_AUDIO_PERMISSION:
-//                permissionToRecordAccepted  = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-//                break;
-//        }
-//        if (!permissionToRecordAccepted ) finish();
-//
-//    }
 
     public AudioRecordTest (String mFileName){
-        // Record to the external cache directory for visibility
-//        mFileName = getExternalCacheDir().getAbsolutePath();
-//        mFileName += "/audiorecordtest.3gp";
         this.mFileName = mFileName;
     }
 
@@ -102,30 +78,6 @@ public class AudioRecordTest {
 
 
 
-//    @Override
-//    public void onCreate(Bundle icicle) {
-//        super.onCreate(icicle);
-//
-//        // Record to the external cache directory for visibility
-//        mFileName = getExternalCacheDir().getAbsolutePath();
-//        mFileName += "/audiorecordtest.3gp";
-//
-//        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
-//    }
-
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        if (mRecorder != null) {
-//            mRecorder.release();
-//            mRecorder = null;
-//        }
-//
-//        if (mPlayer != null) {
-//            mPlayer.release();
-//            mPlayer = null;
-//        }
-//    }
 
     public MediaRecorder getmRecorder() {
         return mRecorder;
@@ -133,5 +85,8 @@ public class AudioRecordTest {
 
     public MediaPlayer getmPlayer() {
         return mPlayer;
+    }
+    public void setmPlayer(MediaPlayer mPlayer) {
+        this.mPlayer = mPlayer;
     }
 }

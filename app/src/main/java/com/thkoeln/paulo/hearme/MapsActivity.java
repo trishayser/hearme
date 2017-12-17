@@ -1,8 +1,16 @@
 package com.thkoeln.paulo.hearme;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,11 +40,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String mapZustand;
     SupportMapFragment mapFragment;
     FloatingActionButton fab;
-
+    double longitude;
+    double latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         // Zustand Map auf Start setzten
         mapZustand = "kultur";
@@ -44,6 +52,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+//        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+//        Criteria criteria = new Criteria();
+//        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+//        criteria.setAltitudeRequired(true);
+//        criteria.setSpeedRequired(false);
+//        String bestLocationProvider = lm.getBestProvider(criteria, true);
+//        LocationProvider lp = lm.getProvider(bestLocationProvider);
+//        Location loc = lm.getLastKnownLocation(bestLocationProvider);
+//        double longitude = loc.getLongitude();
+//        double latitude = loc.getLatitude();
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -255,6 +278,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Karte aktualisieren / erstellen
         //mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ichKoelnHbf));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(longitude, latitude)));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
     }
     // Ende Karte
