@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -52,17 +51,18 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     private ImageButton recordButton;
     private BroadcastReceiver broadcastReceiver;
 
-    @Override
-    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 100){
-            if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-                //enable_button();
-            } else {
-                runtime_permissions();
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if(requestCode == 100){
+//            if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+//                //enable_button();
+//            } else {
+//                runtime_permissions();
+//            }
+//        }
+//    }
+
 
     @Override
     protected void onResume(){
@@ -71,7 +71,8 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    System.out.println("\n" +intent.getExtras().get("coordinates"));
+                    System.out.println("Koordinaten"+"\n" +intent.getExtras().get("coordinates"));
+                    System.out.println("Test");
                 }
             };
         }
@@ -93,6 +94,13 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             case REQUEST_RECORD_AUDIO_PERMISSION:
                 permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 break;
+            case 100:
+                if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                    //enable_button();
+                } else {
+                    runtime_permissions();
+                }
+
         }
         if (!permissionToRecordAccepted) finish();
 
