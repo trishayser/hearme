@@ -86,7 +86,6 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                     simpleProgressBar.setVisibility(View.VISIBLE);
 
 
-
                     audioRecordTest.onRecord(mStartRecording);
                 mStartRecording = false;
 
