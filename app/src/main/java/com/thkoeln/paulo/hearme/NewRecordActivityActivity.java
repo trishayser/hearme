@@ -87,6 +87,7 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
 
 
                     audioRecordTest.onRecord(mStartRecording);
+
                 mStartRecording = false;
 
 
