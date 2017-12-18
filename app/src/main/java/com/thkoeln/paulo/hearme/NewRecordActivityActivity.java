@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -85,7 +86,6 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
                     simpleProgressBar.setVisibility(View.VISIBLE);
 
 
-
                     audioRecordTest.onRecord(mStartRecording);
 
                 mStartRecording = false;
@@ -115,14 +115,19 @@ public class NewRecordActivityActivity extends AppCompatActivity  {
         abschicken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
+
                 // Write a message to the database
+
+                EditText titel_edit = (EditText) findViewById(R.id.titel_edit);
+
+
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                Post post = new Post(1, "test", "admin", "gps");
+                String PostId = mDatabase.push().getKey();
+                Post post = new Post(1, titel_edit.getText().toString(), "admin", "gps");
 
-                mDatabase.child("posts").setValue(post);
-                */
+                mDatabase.child("posts").child(PostId).setValue(post);
+
 
                 startActivity(abschickenIntent);
             }
