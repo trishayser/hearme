@@ -130,7 +130,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
     private void setupItem(final PlayItemHolder holder) {
         holder.playTitel.setText(holder.playerItem.getName());
-        holder.playProgressbar.setProgress(0);
+        holder.playProgressbar.setProgress(50);
     }
 
 
