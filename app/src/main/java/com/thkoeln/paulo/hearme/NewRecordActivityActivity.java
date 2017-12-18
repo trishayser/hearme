@@ -53,6 +53,18 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
 
     @Override
+    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 100){
+            if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                //enable_button();
+            } else {
+                runtime_permissions();
+            }
+        }
+    }
+
+    @Override
     protected void onResume(){
         super.onResume();
         if(broadcastReceiver == null) {
@@ -262,17 +274,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         return false;
     }
 
-    //@Override
-    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 100){
-            if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-                //enable_button();
-            } else {
-                runtime_permissions();
-            }
-        }
-    }
 
 
 }
