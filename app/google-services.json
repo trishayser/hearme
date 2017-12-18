@@ -1,25 +1,35 @@
 {
   "project_info": {
-    "project_number": "83894119746",
-    "project_id": "hear-me-ec004"
+    "project_number": "439749848485",
+    "firebase_url": "https://hearme-6ac35.firebaseio.com",
+    "project_id": "hearme-6ac35",
+    "storage_bucket": "hearme-6ac35.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:83894119746:android:5b37026e1a7d02a1",
+        "mobilesdk_app_id": "1:439749848485:android:5b37026e1a7d02a1",
         "android_client_info": {
           "package_name": "com.thkoeln.paulo.hearme"
         }
       },
       "oauth_client": [
         {
-          "client_id": "83894119746-e3vm10a4s755bn7tqakfpvm5kmd4derc.apps.googleusercontent.com",
+          "client_id": "439749848485-ide16ujhp184ip9helm5mtj443j07s45.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thkoeln.paulo.hearme",
+            "certificate_hash": "5a5c00d93fa039a47a8db3db70a0439f0d2fed26"
+          }
+        },
+        {
+          "client_id": "439749848485-nig8ugnegputpm37dsr48ukh66mmtu5g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBw2-iTjaiMu6gby-xFCB2gUrcRbZpFVkk"
+          "current_key": "AIzaSyDL9fgEdcHTq2uEH_cCd1fpUZ5YtROfoQ0"
         }
       ],
       "services": {
@@ -27,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439749848485-nig8ugnegputpm37dsr48ukh66mmtu5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

@@ -16,11 +16,22 @@ class Post {
         //public String title, author, url, gps, status, date;
 
 
+        public Post() {
+
+        }
+
         public Post (Integer id, String title, String author, String gps) {
             this.id = id;
             this.title = title;
             this.author = author;
             this.gps = gps;
         }
+
+        public String getTitle() {
+            return title;
+    }
+    public String getGPS() {
+        return gps;
+    }
 
 }

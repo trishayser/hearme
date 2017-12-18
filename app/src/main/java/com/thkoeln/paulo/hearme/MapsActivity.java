@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +27,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -195,6 +204,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // Add a marker in Sydney and move the camera
                 // LatLng sydney = new LatLng(0, 0);
 
+
                 LatLng koelnHbf2 = new LatLng(50.942545, 6.956976); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(koelnHbf2).title("Museum besuchen?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
@@ -203,6 +213,35 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 LatLng koelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(koelnHbf4).title("Jazz hören?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+
+                //Unfixed Database
+                /*
+                DatabaseReference mDatabase;
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List posts = new ArrayList<>();
+
+
+                        Log.d(TAG, "Title: " + post.getTitle() + ", GPS " + post.getGPS());
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child("1").getValue(Post.class);
+                            Log.d(TAG, "Title: " + post.getTitle() + ", GPS " + post.getGPS());
+                            posts.add(post);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+                });
+                */
                 break;
 
             case "party":
