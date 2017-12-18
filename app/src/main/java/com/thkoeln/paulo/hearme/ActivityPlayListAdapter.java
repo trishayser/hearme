@@ -53,6 +53,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             public void onTick(long millisUntilFinished) {
                 progress = ((playActivity.mService.getmPlayer().getCurrentPosition() * 100) / playActivity.mService.getmPlayer().getDuration());
                 System.out.println(progress);
+                System.out.println("progress setzen");
                 currentItem.playProgressbar.setProgress(progress);
                 System.out.println(playActivity.mService.getmPlayer().getCurrentPosition());
                 System.out.println(playActivity.mService.getmPlayer().getDuration());
@@ -130,7 +131,13 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
     private void setupItem(final PlayItemHolder holder) {
         holder.playTitel.setText(holder.playerItem.getName());
-        holder.playProgressbar.setProgress(50);
+        if(!mStartPlaying){
+            holder.playProgressbar.setProgress(progress);
+            holder.playButton.setImageResource(R.drawable.pause);
+            System.out.println("Timmer start?");
+            timer.start();
+        }
+        else holder.playProgressbar.setProgress(0);
     }
 
 
@@ -189,6 +196,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         int countBewertungen;
         int countpos;
         int countneg;
+        boolean holderPlaying = false;
     }
 
     public static class AnswerButtonItemHolder {
@@ -208,6 +216,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             holder.playButton.setImageResource(R.drawable.pause);
             playActivity.mService.onPlay(true);
             mStartPlaying = false;
+            holder.holderPlaying = true;
             currentItem = holder;
             timer.start();
         }
@@ -228,6 +237,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 holder.playButton.setImageResource(R.drawable.pause);
                 playActivity.mService.onPlay(true);
                 mStartPlaying = false;
+            holder.holderPlaying = false;
                 currentItem = holder;
                 timer.start();
 
@@ -238,6 +248,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 holder.playProgressbar.setProgress(0);
                 holder.playButton.setImageResource(R.drawable.play);
                 System.out.println("aktueller Player gestoppt");
+            holder.holderPlaying = false;
                 mStartPlaying = true;
                 currentItem = null;
             }

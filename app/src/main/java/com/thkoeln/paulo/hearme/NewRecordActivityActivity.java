@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -50,6 +51,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     private Button abschicken;
     private ImageButton recordButton;
     private BroadcastReceiver broadcastReceiver;
+    EditText kommentar;
 
 //    @Override
 //    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
@@ -71,8 +73,9 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    System.out.println("Koordinaten"+"\n" +intent.getExtras().get("coordinates"));
-                    System.out.println("Test");
+                    kommentar.append(intent.getExtras().get("coordinates").toString());
+                   System.out.println("Koordinaten"+"\n" +intent.getExtras().get("coordinates"));
+                   System.out.println("Test");
                 }
             };
         }
@@ -97,6 +100,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             case 100:
                 if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
                     //enable_button();
+                    System.out.println("alles cool");
                 } else {
                     runtime_permissions();
                 }
@@ -126,6 +130,8 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         if (!runtime_permissions()){
             System.out.println("Es wird kein Permission Chck fü GPS benötigt");
         }
+        Intent i = new Intent(getApplicationContext(),GPS_Service.class);
+        startService(i);
 
 
         //GPS_Ende
@@ -133,6 +139,8 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
         // Progress Bar
         // initiate progress bar and start button
+
+        kommentar = (EditText)findViewById(R.id.kommentarN);
         final ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
         final LinearLayout record_player = (LinearLayout) findViewById(R.id.record_player);
         recordButton = (ImageButton) findViewById(R.id.record);
@@ -149,8 +157,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
 
                     audioRecordTest.onRecord(mStartRecording);
-                    Intent i = new Intent(getApplicationContext(),GPS_Service.class);
-                    startService(i);
 
                     mStartRecording = false;
 
@@ -192,7 +198,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                 Post post = new Post(1, titel_edit.getText().toString(), "admin", "gps");
 
                 mDatabase.child("posts").child(PostId).setValue(post);
-
 
                 startActivity(abschickenIntent);
             }
