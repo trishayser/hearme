@@ -63,7 +63,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
 
-
 //        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 //        Criteria criteria = new Criteria();
 //        criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -118,15 +117,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Button Map Listener Click LISTENER ( Kultur, Party, Sport, Flirt)
 
 
-
         final Button bKultur = (Button) findViewById(R.id.kultur);
         bKultur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               setMapZustand("kultur");
+                setMapZustand("kultur");
                 mapFragment.getMapAsync(MapsActivity.this);
 
-                int farbe =getResources().getColor(R.color.kultur);
+                int farbe = getResources().getColor(R.color.kultur);
                 fab.getBackground().setTint(farbe);
             }
 
@@ -140,7 +138,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 setMapZustand("party");
                 mapFragment.getMapAsync(MapsActivity.this);
 
-                int farbe =getResources().getColor(R.color.party);
+                int farbe = getResources().getColor(R.color.party);
                 fab.getBackground().setTint(farbe);
             }
 
@@ -153,7 +151,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 setMapZustand("sport");
                 mapFragment.getMapAsync(MapsActivity.this);
 
-                int farbe =getResources().getColor(R.color.sport);
+                int farbe = getResources().getColor(R.color.sport);
                 fab.getBackground().setTint(farbe);
 
             }
@@ -167,7 +165,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View v) {
                 setMapZustand("flirt");
                 mapFragment.getMapAsync(MapsActivity.this);
-                int farbe =getResources().getColor(R.color.ratingbar);
+                int farbe = getResources().getColor(R.color.ratingbar);
                 fab.getBackground().setTint(farbe);
             }
 
@@ -213,7 +211,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 LatLng koelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(koelnHbf4).title("Jazz hören?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
 
                 //Unfixed Database
                 /*
