@@ -39,13 +39,10 @@ import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-
     private GoogleMap mMap;
-
     public void setMapZustand(String mapZustand) {
         this.mapZustand = mapZustand;
     }
-
     private String mapZustand;
     SupportMapFragment mapFragment;
     FloatingActionButton fab;
@@ -58,10 +55,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Zustand Map auf Start setzten
         mapZustand = "kultur";
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 //        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 //        Criteria criteria = new Criteria();
@@ -76,10 +71,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
         //FAB RECORD CLICK LISTENER
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -115,7 +108,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         //Button Map Listener Click LISTENER ( Kultur, Party, Sport, Flirt)
-
 
         final Button bKultur = (Button) findViewById(R.id.kultur);
         bKultur.setOnClickListener(new View.OnClickListener() {
@@ -171,23 +163,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // Karte
@@ -293,13 +268,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.addMarker(new MarkerOptions().position(ichKoelnHbf).title("ICH"));
 
 
-
         // Testing Map Marker starting Activity
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Intent intent = new Intent(MapsActivity.this ,PlayActivity.class);
+                Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
                 startActivity(intent);
 
                 return true;
@@ -320,8 +294,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Ende Karte
 
 
-
-
     // Edit Pascal
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //menu activity bekannt
@@ -338,7 +310,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 System.out.println("Profil wurde geändert");
                 // Intent erzeugen und Starten der AktiendetailActivity mit explizitem Intent
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
-               // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);
+                // settingsIntent.putExtra(Intent.EXTRA_TEXT, aktienInfo);
                 startActivity(settingsIntent);
                 break;
 

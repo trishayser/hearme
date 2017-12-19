@@ -53,29 +53,29 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
     EditText kommentar;
 
-//    @Override
-//    public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if(requestCode == 100){
-//            if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-//                //enable_button();
-//            } else {
-//                runtime_permissions();
-//            }
-//        }
-//    }
+    //@Override
+    //   public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
+    //     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    //   if(requestCode == 100){
+    //     if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+    //enable_button();
+    //   } else {
+    //     runtime_permissions();
+    //}
+    //}
+    //}
 
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        if(broadcastReceiver == null) {
+        if (broadcastReceiver == null) {
             broadcastReceiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    kommentar.append(intent.getExtras().get("coordinates").toString());
-                   System.out.println("Koordinaten"+"\n" +intent.getExtras().get("coordinates"));
-                   System.out.println("Test");
+                    kommentar.setText(intent.getExtras().get("coordinates").toString());
+                    System.out.println("Koordinaten" + "\n" + intent.getExtras().get("coordinates"));
+                    System.out.println("Test");
                 }
             };
         }
@@ -85,7 +85,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(broadcastReceiver != null){
+        if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
         }
     }
@@ -98,7 +98,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                 permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 break;
             case 100:
-                if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     //enable_button();
                     System.out.println("alles cool");
                 } else {
@@ -127,11 +127,11 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         //GPS
         runtime_permissions();
 
-        if (!runtime_permissions()){
+        if (!runtime_permissions()) {
             System.out.println("Es wird kein Permission Chck fü GPS benötigt");
         }
-        Intent i = new Intent(getApplicationContext(),GPS_Service.class);
-        startService(i);
+       // Intent i = new Intent(getApplicationContext(), GPS_Service.class);
+        //startService(i);
 
 
         //GPS_Ende
@@ -140,7 +140,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         // Progress Bar
         // initiate progress bar and start button
 
-        kommentar = (EditText)findViewById(R.id.kommentarN);
+        kommentar = (EditText) findViewById(R.id.comment);
         final ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
         final LinearLayout record_player = (LinearLayout) findViewById(R.id.record_player);
         recordButton = (ImageButton) findViewById(R.id.record);
@@ -155,11 +155,16 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
                     simpleProgressBar.setVisibility(View.VISIBLE);
 
+                    //System.out.println("Koordinaten" + "\n");
+
+
 
                     audioRecordTest.onRecord(mStartRecording);
 
                     mStartRecording = false;
 
+                    Intent i = new Intent(getApplicationContext(), GPS_Service.class);
+                    startService(i);
 
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -184,7 +189,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(getApplicationContext(),GPS_Service.class);
+                Intent i = new Intent(getApplicationContext(), GPS_Service.class);
                 stopService(i);
 
                 // Write a message to the database
@@ -199,7 +204,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
                 mDatabase.child("posts").child(PostId).setValue(post);
 
-                startActivity(abschickenIntent);
+                //startActivity(abschickenIntent);
             }
         });
 
@@ -235,7 +240,10 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                 if (test3 >= maxLength) {
                     currentLength = 0;
                     test3 = 0;
-                    onFinish();
+                    onFinish()
+                    ;
+
+
                 }
 
             }
@@ -280,15 +288,12 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-        requestPermissions(new String []{ Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
 
-        return true;
+            return true;
         }
         return false;
     }
 
 
-
 }
-
-
