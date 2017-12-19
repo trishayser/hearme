@@ -132,6 +132,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     private void setupItem(final PlayItemHolder holder) {
         holder.playTitel.setText(holder.playerItem.getName());
         if(!mStartPlaying){
+            currentItem = holder;
             holder.playProgressbar.setProgress(progress);
             holder.playButton.setImageResource(R.drawable.pause);
             System.out.println("Timmer start?");
