@@ -14,6 +14,7 @@ package com.thkoeln.paulo.hearme;
         import android.widget.ProgressBar;
         import android.widget.TextView;
 
+        import java.text.SimpleDateFormat;
         import java.util.List;
 
 /**
@@ -57,6 +58,14 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 currentItem.playProgressbar.setProgress(progress);
                 System.out.println(playActivity.mService.getmPlayer().getCurrentPosition());
                 System.out.println(playActivity.mService.getmPlayer().getDuration());
+
+                long secs = playActivity.mService.getmPlayer().getCurrentPosition() / 1000;
+                long mins = secs / 60;
+                long restsecs = secs % 60;
+                String time = String.format("%02d:%02d", mins,secs);
+                System.out.println(mins +":"+restsecs);
+                currentItem.timeView.setText(time);
+
                 if (!playActivity.mService.getmPlayer().isPlaying()){
                     mStartPlaying = true;
                     this.onFinish();
@@ -66,6 +75,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             @Override
             public void onFinish() {
                 currentItem.playProgressbar.setProgress(0);
+                currentItem.timeView.setText(00 +":"+00);
                 currentItem.playButton.setImageResource(R.drawable.play);
                 playActivity.mService.onPlay(false);
                 mStartPlaying = true;
@@ -119,6 +129,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             holder.playTitel = (TextView)row.findViewById(R.id.play_title);
             holder.textViewLike = (TextView)row.findViewById(R.id.like_percent);
             holder.textViewDislike = (TextView)row.findViewById(R.id.dislike_percent);
+            holder.timeView = (TextView)row.findViewById(R.id.time_view);
 
             row.setTag(holder);
             setupItem(holder);
@@ -192,6 +203,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         ImageButton positive;
         TextView textViewLike;
         TextView textViewDislike;
+        TextView timeView;
         int pos;
         int neg;
         int countBewertungen;
