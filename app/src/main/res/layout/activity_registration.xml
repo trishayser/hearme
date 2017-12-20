@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mycolor"
+    android:background="@drawable/background_gradient"
     android:orientation="vertical"
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
@@ -19,7 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/benutzername2"
@@ -28,7 +28,7 @@
                 android:ems="10"
                 android:hint="Benutzername"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/password4"
@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Passwort bestätigen"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/streetandnumber2"
@@ -44,7 +45,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Straße  u. Nummer"
-                android:inputType="textPostalAddress" />
+                android:inputType="textPostalAddress"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/plz2"
@@ -52,7 +54,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="PLZ"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/lastname2"
@@ -60,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Nachname"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/ort2"
@@ -68,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Ort"
-                android:inputType="textPostalAddress" />
+                android:inputType="textPostalAddress"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/firstname2"
@@ -76,7 +81,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Vorname"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/mailadresse4"
@@ -84,7 +90,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="E-mail-Adresse bestätigen"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/password5"
@@ -92,7 +99,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Passwort"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:textColorHint="@color/colorAccent" />
 
             <EditText
                 android:id="@+id/mailadresse3"
@@ -100,7 +108,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Email-Adresse"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/colorAccent" />
 
             <Button
                 android:id="@+id/registrierenButton"

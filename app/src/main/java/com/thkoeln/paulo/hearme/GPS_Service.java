@@ -10,9 +10,14 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.media.audiofx.Equalizer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 /**
  * Created by pascal on 18.12.17.
@@ -22,6 +27,10 @@ public class GPS_Service extends Service {
 
     private LocationListener listener;
     private LocationManager locationManager;
+    private LocationManager lm;
+    private Criteria criteria;
+
+
 
     @Nullable
     @Override
@@ -29,25 +38,10 @@ public class GPS_Service extends Service {
         return null;
     }
 
-    @SuppressLint("MissingPermission")
-    @Override
+
 
     public void onCreate(){
-        LocationManager lm = (LocationManager)getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(true);
-        criteria.setSpeedRequired(false);
-        String bestLocationProvider = lm.getBestProvider (criteria,true );
-        LocationProvider lp = lm.getProvider (bestLocationProvider);
-        Location loc = lm.getLastKnownLocation (bestLocationProvider);
-        double longitude = loc.getLongitude ();
-        double latitude = loc.getLatitude ();
-
-        Intent i = new Intent("location_update");
-        i.putExtra("coordinates", loc.getLongitude() + " " + loc.getLatitude());
-        System.out.println("Longtitude: " + loc.getLongitude() +" Latitude: "+ loc.getLatitude());
-        sendBroadcast(i);
+        Toast.makeText(this, "service creating", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -85,13 +79,26 @@ public class GPS_Service extends Service {
 //        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3,0, listener);
 //    }
 
+
+
+
+
     @Override
-    public void onDestroy(){
-        super.onDestroy();
-        if(locationManager!=null){
-            locationManager.removeUpdates(listener);
-        }
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
+
+        return START_STICKY;
     }
 
 
-}
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        this.stopSelf();
+        Toast.makeText(this, "service destroyed", Toast.LENGTH_SHORT).show();
+
+//        if(locationManager!=null){
+//            locationManager.removeUpdates(listener);
+//        }
+    }
+ }

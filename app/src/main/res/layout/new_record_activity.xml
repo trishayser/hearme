@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mycolor"
+    android:background="@drawable/background_gradient"
     android:orientation="vertical"
     android:paddingBottom="5dp"
     android:paddingLeft="0dp"
@@ -26,7 +26,8 @@
             android:hint="Titel"
             android:inputType="textPersonName"
             android:singleLine="false"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorText" />
 
 
         <ProgressBar
@@ -48,7 +49,8 @@
             android:layout_marginBottom="10dp"
             android:background="@color/colorPrimary"
             android:src="@android:drawable/ic_btn_speak_now"
-            android:tint="@color/white"></ImageButton>
+            android:tint="@color/white"
+            tools:clickable="false"></ImageButton>
 
 
         <LinearLayout
@@ -65,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:backgroundTint="@android:color/transparent"
-                android:tint="@color/colorPrimary"
+                android:tint="@color/colorAccent"
                 app:srcCompat="@android:drawable/ic_media_play" />
 
             <ProgressBar
@@ -82,7 +84,8 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:textColorHint="@color/colorText">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/comment"
@@ -91,7 +94,8 @@
                 android:hint="Koordinaten"
                 android:inputType="textMultiLine"
                 android:maxLines="3"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorText" />
 
         </android.support.design.widget.TextInputLayout>
 
