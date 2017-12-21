@@ -11,7 +11,7 @@ public class SettingsActivity extends PreferenceActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.mypreferences);
-            //setContentView(R.layout.settings_activity);
+//            setContentView(R.layout.settings_activity);
 
             //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

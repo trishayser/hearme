@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/mycolor"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_weight="1"
             android:text="Username"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorText" />
 
         <EditText
             android:id="@+id/editText"
@@ -28,7 +29,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:text="LoremIpsum"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/textView5"
@@ -37,7 +38,7 @@
             android:layout_weight="1"
             android:text="Passwort"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorText" />
 
         <EditText
             android:id="@+id/editText4"
@@ -47,7 +48,7 @@
             android:ems="10"
             android:inputType="textPassword"
             android:text="blablabla"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorText" />
 
         <Button
             android:layout_width="match_parent"
@@ -56,33 +57,40 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="Anmelden"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorText"
+            android:textSize="15dp"
+            android:layout_marginVertical="20dp"/>
 
 
-</LinearLayout>
+    </LinearLayout>
 
     <Switch
         android:id="@+id/switch2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_weight="1"
+        android:checked="false"
         android:text="Benachrichtigungen aktivieren"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorText" />
 
     <Switch
         android:id="@+id/switch3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_weight="1"
+        android:checked="true"
         android:text="Ton aktivieren"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorText" />
 
     <Switch
         android:id="@+id/switch4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_weight="1"
         android:text="Noch irgendeine Einstellung"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorText" />
 
 </LinearLayout>

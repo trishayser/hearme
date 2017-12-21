@@ -53,7 +53,7 @@
                             android:layout_width="50dp"
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="10dp"
-                            android:layout_weight="8"
+                            android:layout_weight="1"
                             android:backgroundTint="@android:color/transparent"
                             android:tint="@color/colorPrimary"
                             app:srcCompat="@android:drawable/ic_media_play" />
@@ -61,13 +61,25 @@
                         <ProgressBar
                             android:id="@+id/playProgressbar"
                             style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:layout_marginHorizontal="2dp"
-                            android:layout_weight="10"
+                            android:layout_weight="8"
                             android:max="100"
                             android:progress="50"
                             android:progressTint="@color/colorPrimary" />
+
+                        <EditText
+                            android:id="@+id/time_view"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:hint="00:00"
+                            android:inputType="time"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary" />
 
                     </LinearLayout>
 

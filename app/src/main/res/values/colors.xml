@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+   <!-- <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#243ab9</color>
-    <color name="colorAccent">#243ab9</color>
+    <color name="colorAccent">#243ab9</color> -->
     <color name="mycolor">#ffffff</color>
     <color name="sport">#97C00E</color>
     <color name="kultur">#009de0</color>
@@ -11,6 +11,12 @@
     <color name="white">#FFFFFF</color>
     <color name="ratingbar">#D92B2A</color>
     <color name="transparent">#000000</color>
+
+    <color name="orange">#d92400</color>
+    <color name="colorPrimary">#005481</color>
+    <color name="colorPrimaryDark">#0093d7</color>
+    <color name="colorAccent">#fafdff</color>
+    <color name="colorText">#ffffff</color>
 
 
 </resources>

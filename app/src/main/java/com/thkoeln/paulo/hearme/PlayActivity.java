@@ -26,7 +26,6 @@ public class PlayActivity extends AppCompatActivity {
     Intent playerService;
     mediaPlayerStartService mService;
     boolean mBound = false;
-    MediaPlayer playActivityMediaPlayer;
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted;
@@ -53,8 +52,8 @@ public class PlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-       permissionToRecordAccepted = false;
-      String [] permissions = {Manifest.permission.RECORD_AUDIO};
+        permissionToRecordAccepted = false;
+        String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
         playerService = new Intent(this, mediaPlayerStartService.class);
         //startService(playerService);

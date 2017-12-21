@@ -60,25 +60,15 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     // Ende - Requesting permission
 
 
+
     private Button abschicken;
     private ImageButton recordButton;
     private BroadcastReceiver broadcastReceiver;
     EditText kommentar;
 
-    //@Override
-    //   public void onRequestPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int [] grantResults){
-    //     super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    //   if(requestCode == 100){
-    //     if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-    //enable_button();
-    //   } else {
-    //     runtime_permissions();
-    //}
-    //}
-    //}
 
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
         permissionLocation();
         permissionAudio();
@@ -108,31 +98,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         //Intent i = new Intent(getApplicationContext(), GPS_Service.class);
         //stopService(i);
     }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch (requestCode) {
-//            case REQUEST_RECORD_AUDIO_PERMISSION:
-//                permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-//                break;
-////            case 100:
-////                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-////                    //enable_button();
-////                    System.out.println("alles cool");
-////                } else {
-////                    System.out.println("kein Zugriff");
-////                    runtime_permissions();
-////                }
-//
-//        }
-//        if (!permissionToRecordAccepted) {
-//            System.out.println("finish()");
-//            finish();
-//        }
-//
-//    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -192,67 +157,18 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_record_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-//        // Permissions
-//
-//        // Here, thisActivity is the current activity
-//        if (ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//
-//            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
-//
-//                // Show an explanation to the user asynchronously -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//
-//            } else {
-//
-//                // No explanation needed, we can request the permission.
-//
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-//                        REQUEST_LOCATION_COARSE_PERMISSION);
-//
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        }
-//        // Ende - Permissions
-
-
         //--------------------AudioRecordTest-Klasse----------------------------------------
         mFileName = getExternalCacheDir().getAbsolutePath(); //Original
         mFileName += "/audiorecordtest.3gp";
         audioRecordTest = new AudioRecordTest(mFileName);
         //------------------------------------------------------------
-
-
-//        //GPS
-//        runtime_permissions();
-//
-//        if (!runtime_permissions()) {
-//            System.out.println("Es wird kein Permission Chck fü GPS benötigt");
-//        }
-        // Intent i = new Intent(getApplicationContext(), GPS_Service.class);
-        //startService(i);
-
-
-        //GPS_Ende
-
-
-        // Progress Bar
-        // initiate progress bar and start button
-
 
         final ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
         final LinearLayout record_player = (LinearLayout) findViewById(R.id.record_player);
@@ -301,10 +217,10 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
                 kommentar = (EditText) findViewById(R.id.comment);
 
-                double longitude = location().getLongitude();
-                double latitude = location().getLatitude();
+                double longitude = location().getLongitude ();
+                double latitude = location().getLatitude ();
 
-                kommentar.setText(longitude + " " + latitude);
+                kommentar.setText(longitude +" " +latitude);
 
 
                 DatabaseReference mDatabase;
@@ -321,10 +237,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
         final ProgressBar recordProgressbar = (ProgressBar) findViewById(R.id.progressBar_2_record);
         recordProgressbar.setProgress(0);
-        // Ende
 
-
-        final Intent recordPlaybackServiceIntent = new Intent(this, AudioPlayer.class);
         recordPlay = (ImageButton) findViewById(R.id.play_record);
 
 
@@ -341,7 +254,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
                 recordProgressbar.setProgress(progress);
                 System.out.println(currentLength);
-//              System.out.println(currentLength);
                 System.out.println(progress);
                 System.out.println("tick");
 
@@ -390,30 +302,17 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
         });
 
-        // ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
-        //Intent i = new Intent(getApplicationContext(), GPS_Service.class);
-        // startService(i);
-
     }
 
-    public Location location() {
+    public Location location(){
 
-//        int permissionCheck = ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.ACCESS_FINE_LOCATION);
-//        int permissionCheck2 = ContextCompat.checkSelfPermission(this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION);
         permissionLocation();
 
-        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager lm = (LocationManager)getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(true);
         criteria.setSpeedRequired(false);
-
-//        String bestLocationProvider = lm.getBestProvider (criteria,true );
-//        LocationProvider lp = lm.getProvider (bestLocationProvider);
-//        Location loc = lm.getLastKnownLocation (bestLocationProvider);
-
 
         String locationProvider = LocationManager.NETWORK_PROVIDER;
         // Or use LocationManager.GPS_PROVIDER
@@ -433,7 +332,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         return loc;
     }
 
-    public void enableRecordButton() {
+    public void enableRecordButton(){
         System.out.println("hallo");
     }
 
@@ -448,7 +347,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.RECORD_AUDIO)) {
 
-                // Show an explanation to the user asynchronously -- don't block
+                // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
 
@@ -467,20 +366,9 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         }
         // Ende - Permissions
 
-//    private boolean runtime_permissions() {
-//        if (Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-//
-//            return true;
-//        }
-//        return false;
-//    }
-
     }
 
-    public void permissionLocation() {
+    public void permissionLocation(){
         // Permissions
 
         // Here, thisActivity is the current activity
@@ -492,13 +380,11 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                // Show an explanation to the user asynchronously -- don't block
+                // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
 
-            } else
-
-            {
+            } else {
 
                 // No explanation needed, we can request the permission.
 
