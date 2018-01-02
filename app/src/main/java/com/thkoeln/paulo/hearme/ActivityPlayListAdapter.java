@@ -31,6 +31,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     boolean mStartPlaying; // Für Play
     int progress;
     PlayItemHolder currentItem;
+    PlayItemHolder timerHolder;
     PlayActivity playActivity;
 
     public static String mFileName;
@@ -50,8 +51,11 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         this.start = true;
         this.playActivity = playActivityR;
 
+
+//----------- Timer--------------------------------------------------------------------
         this.timer = new CountDownTimer(300000,50) {
             public void onTick(long millisUntilFinished) {
+                timerHolder = currentItem;
                 progress = ((playActivity.mService.getmPlayer().getCurrentPosition() * 100) / playActivity.mService.getmPlayer().getDuration());
                 System.out.println(progress);
                 System.out.println("progress setzen");
@@ -76,12 +80,16 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             public void onFinish() {
                 currentItem.playProgressbar.setProgress(0);
                 currentItem.timeView.setText(00 +":"+00);
+                String time = String.format("%02d:%02d", 0, 0);
+               currentItem.timeView.setText(time);
                 currentItem.playButton.setImageResource(R.drawable.play);
+                currentItem.playerItem.setItemIsPlaying(false);
                 playActivity.mService.onPlay(false);
                 mStartPlaying = true;
                 this.cancel();
             }
         };
+//----------- Ende - Timer--------------------------------------------------------------------
     }
 
     @Override
@@ -91,8 +99,6 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
         //-------------------------------------
-
-
         if (position == 1) {
             AnswerButtonItemHolder holder = new AnswerButtonItemHolder();
                 row = inflater.inflate(layoutResourceId, parent, false);
@@ -142,14 +148,18 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
     private void setupItem(final PlayItemHolder holder) {
         holder.playTitel.setText(holder.playerItem.getName());
-        if(!mStartPlaying){
+        if(!mStartPlaying && holder.playerItem.isItemIsPlaying()){
             currentItem = holder;
             holder.playProgressbar.setProgress(progress);
             holder.playButton.setImageResource(R.drawable.pause);
             System.out.println("Timmer start?");
             timer.start();
         }
-        else holder.playProgressbar.setProgress(0);
+        else {
+            holder.playProgressbar.setProgress(0);
+            String time = String.format("%02d:%02d", 0, 0);
+            holder.timeView.setText(time);
+        }
     }
 
 
@@ -194,24 +204,6 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         });
     }
 
-    public static class PlayItemHolder {
-        PlayerItem playerItem;
-        TextView playTitel;
-        ImageButton playButton;
-        ProgressBar playProgressbar;
-        ImageButton negative;
-        ImageButton positive;
-        TextView textViewLike;
-        TextView textViewDislike;
-        TextView timeView;
-        int pos;
-        int neg;
-        int countBewertungen;
-        int countpos;
-        int countneg;
-        boolean holderPlaying = false;
-    }
-
     public static class AnswerButtonItemHolder {
         Button answerButton;
     }
@@ -231,6 +223,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             mStartPlaying = false;
             holder.holderPlaying = true;
             currentItem = holder;
+            currentItem.playerItem.setItemIsPlaying(true);
             timer.start();
         }
 
@@ -250,8 +243,10 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 holder.playButton.setImageResource(R.drawable.pause);
                 playActivity.mService.onPlay(true);
                 mStartPlaying = false;
-            holder.holderPlaying = false;
+                holder.holderPlaying = false;
+                currentItem.playerItem.setItemIsPlaying(false);
                 currentItem = holder;
+                currentItem.playerItem.setItemIsPlaying(true);
                 timer.start();
 
             }
@@ -262,6 +257,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 holder.playButton.setImageResource(R.drawable.play);
                 System.out.println("aktueller Player gestoppt");
             holder.holderPlaying = false;
+            currentItem.playerItem.setItemIsPlaying(false);
                 mStartPlaying = true;
                 currentItem = null;
             }
@@ -301,5 +297,23 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         } else {
             return 1;
         }
+    }
+
+    public static class PlayItemHolder {
+        PlayerItem playerItem;
+        TextView playTitel;
+        ImageButton playButton;
+        ProgressBar playProgressbar;
+        ImageButton negative;
+        ImageButton positive;
+        TextView textViewLike;
+        TextView textViewDislike;
+        TextView timeView;
+        int pos;
+        int neg;
+        int countBewertungen;
+        int countpos;
+        int countneg;
+        boolean holderPlaying = false;
     }
 }
