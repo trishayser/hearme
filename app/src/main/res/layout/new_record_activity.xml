@@ -113,7 +113,7 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
         android:text="Abschicken"
-        android:textColor="@color/white"
+        android:textColor="@color/colorText"
         android:visibility="visible" />
 
 
