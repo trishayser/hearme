@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,17 +38,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
+
     public void setMapZustand(String mapZustand) {
         this.mapZustand = mapZustand;
     }
+
     private String mapZustand;
     SupportMapFragment mapFragment;
     FloatingActionButton fab;
     double longitude;
     double latitude;
+
+
+    /**
+     * Request code for location permission request.
+     *
+     * @see #onRequestPermissionsResult(int, String[], int[])
+     */
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    /**
+     * Flag indicating whether a requested permission has been denied after returning in
+     * {@link #onRequestPermissionsResult(int, String[], int[])}.
+     */
+    private boolean mPermissionDenied = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +75,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 //        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 //        Criteria criteria = new Criteria();
@@ -168,6 +187,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Karte
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setOnMyLocationButtonClickListener(this);
+        enableMyLocation();
 
         switch (this.mapZustand) {
 
@@ -324,10 +346,41 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         return super.onOptionsItemSelected(item); //To change body of generated methods, choose Tools | Templates.
     }
-    // Edit Pascal Ende
-    // Nichts
+
+    /**
+     * Enables the My Location layer if the fine location permission has been granted.
+     */
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+        } else {
+            // Show rationale and request permission.
+        }
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (permissions.length == 1 &&
+                    permissions[0] == android.Manifest.permission.ACCESS_FINE_LOCATION &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+            } else {
+                // Permission was denied. Display an error message.
+            }
+        }
 
 
+    }
 }
 
 
