@@ -292,13 +292,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Testing Map Marker starting Activity
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(Marker marker) {
+//                Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
+//                startActivity(intent);
+//
+//                return true;
+//            }
+//        });
+
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public boolean onMarkerClick(Marker marker) {
+            public void onInfoWindowClick(Marker marker) {
                 Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
                 startActivity(intent);
-
-                return true;
             }
         });
 
