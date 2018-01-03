@@ -147,6 +147,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     }
 
     private void setupItem(final PlayItemHolder holder) {
+        System.out.println(holder.playerItem.isItemIsPlaying());
         holder.playTitel.setText(holder.playerItem.getName());
         if(!mStartPlaying && holder.playerItem.isItemIsPlaying()){
             currentItem = holder;
@@ -154,6 +155,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
             holder.playButton.setImageResource(R.drawable.pause);
             System.out.println("Timmer start?");
             timer.start();
+
         }
         else {
             holder.playProgressbar.setProgress(0);
@@ -228,13 +230,13 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         }
 
         else if (currentItem != holder) {
-                timer.cancel();
+                timer.onFinish();
                 System.out.println("Anderen Player Stoppen");
                 currentItem.playProgressbar.setProgress(0);
                 String time2 = String.format("%02d:%02d", 0, 0);
                 currentItem.timeView.setText(time2);
 
-                playActivity.mService.onPlay(false);
+//                playActivity.mService.onPlay(false);
                 currentItem.playButton.setImageResource(R.drawable.play);
                 System.out.println("Anderen Player gestoppt");
                 mStartPlaying = true;
@@ -248,6 +250,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 mStartPlaying = false;
                 holder.holderPlaying = false;
                 currentItem.playerItem.setItemIsPlaying(false);
+                holder.playerItem.setItemIsPlaying(false);
                 currentItem = holder;
                 currentItem.playerItem.setItemIsPlaying(true);
                 timer.start();

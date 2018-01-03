@@ -2,17 +2,11 @@ package com.thkoeln.paulo.hearme;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,14 +22,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
@@ -71,7 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
 
         // Zustand Map auf Start setzten
-        mapZustand = "kultur";
+        mapZustand = "regionales";
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -128,14 +114,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //Button Map Listener Click LISTENER ( Kultur, Party, Sport, Flirt)
 
-        final Button bKultur = (Button) findViewById(R.id.kultur);
-        bKultur.setOnClickListener(new View.OnClickListener() {
+        final Button bRegionales = (Button) findViewById(R.id.regionales);
+        bRegionales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setMapZustand("kultur");
+                setMapZustand("regionales");
                 mapFragment.getMapAsync(MapsActivity.this);
 
-                int farbe = getResources().getColor(R.color.kultur);
+                int farbe = getResources().getColor(R.color.regionales);
                 fab.getBackground().setTint(farbe);
             }
 
@@ -155,14 +141,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         });
 
-        final Button bSport = (Button) findViewById(R.id.sport);
-        bSport.setOnClickListener(new View.OnClickListener() {
+        final Button bEssen = (Button) findViewById(R.id.essen);
+        bEssen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setMapZustand("sport");
+                setMapZustand("essen");
                 mapFragment.getMapAsync(MapsActivity.this);
 
-                int farbe = getResources().getColor(R.color.sport);
+                int farbe = getResources().getColor(R.color.essen);
                 fab.getBackground().setTint(farbe);
 
             }
@@ -170,13 +156,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
 
-        final Button bFlirt = (Button) findViewById(R.id.flirt);
-        bFlirt.setOnClickListener(new View.OnClickListener() {
+        final Button bShopping = (Button) findViewById(R.id.shopping);
+        bShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setMapZustand("flirt");
+                setMapZustand("shopping");
                 mapFragment.getMapAsync(MapsActivity.this);
-                int farbe = getResources().getColor(R.color.ratingbar);
+                int farbe = getResources().getColor(R.color.shopping);
                 fab.getBackground().setTint(farbe);
             }
 
@@ -193,7 +179,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         switch (this.mapZustand) {
 
-            case "kultur":
+            case "regionales":
                 mMap = googleMap;
                 mMap.clear();
                 // Add a marker in Sydney and move the camera
@@ -204,10 +190,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.addMarker(new MarkerOptions().position(koelnHbf2).title("Museum besuchen?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
 
                 LatLng koelnHbf3 = new LatLng(50.942453, 6.956466); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(koelnHbf3).title("Dom besichtigen?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                mMap.addMarker(new MarkerOptions().position(koelnHbf3).title("Dom besichtigen?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
 
                 LatLng koelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(koelnHbf4).title("Jazz hören?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                mMap.addMarker(new MarkerOptions().position(koelnHbf4).title("Jazz hören?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
 
                 //Unfixed Database
                 /*
@@ -254,7 +240,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 break;
 
-            case "sport":
+            case "essen":
                 mMap = googleMap;
                 mMap.clear();
                 // Add a marker in Sydney and move the camera
@@ -270,7 +256,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 break;
 
-            case "flirt":
+            case "shopping":
                 mMap = googleMap;
                 mMap.clear();
                 // Add a marker in Sydney and move the camera
@@ -320,7 +306,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         //mMap.setMyLocationEnabled(true);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ichKoelnHbf));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(longitude, latitude)));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(16));
     }
     // Ende Karte
 

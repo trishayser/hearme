@@ -40,45 +40,45 @@
             android:layout_gravity="center_horizontal">
 
             <Button
-                android:id="@+id/kultur"
+                android:id="@+id/regionales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="3dp"
-                android:background="@color/kultur"
-                android:text="Kultur"
-                android:textColor="@color/white"
-                android:layout_weight="25"/>
+                android:layout_weight="25"
+                android:background="@color/regionales"
+                android:text="Regional"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/essen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="3dp"
+                android:layout_weight="25"
+                android:background="@color/essen"
+                android:text="Essen"
+                android:textColor="@color/white" />
+
 
             <Button
                 android:id="@+id/party"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="3dp"
+                android:layout_weight="25"
                 android:background="@color/party"
                 android:text="Party"
-                android:textColor="@color/white"
-                android:layout_weight="25"/>
+                android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/sport"
+                android:id="@+id/shopping"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="3dp"
-                android:background="@color/sport"
-                android:text="Sport"
-                android:textColor="@color/white"
-                android:layout_weight="25"/>
-
-
-            <Button
-                android:id="@+id/flirt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="3dp"
-                android:background="@color/ratingbar"
-                android:text="Flirt"
-                android:textColor="@color/white"
-                android:layout_weight="25"/>
+                android:layout_weight="25"
+                android:background="@color/shopping"
+                android:text="Shopping"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -139,7 +139,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="@dimen/fab_margin"
                 android:tint="@android:color/white"
-                app:backgroundTint="@color/kultur"
+                app:backgroundTint="@color/regionales"
                 app:srcCompat="@android:drawable/ic_btn_speak_now" />
 
             <!-- <android.support.design.widget.FloatingActionButton
