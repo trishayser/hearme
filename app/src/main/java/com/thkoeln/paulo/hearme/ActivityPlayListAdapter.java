@@ -231,6 +231,9 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 timer.cancel();
                 System.out.println("Anderen Player Stoppen");
                 currentItem.playProgressbar.setProgress(0);
+                String time2 = String.format("%02d:%02d", 0, 0);
+                currentItem.timeView.setText(time2);
+
                 playActivity.mService.onPlay(false);
                 currentItem.playButton.setImageResource(R.drawable.play);
                 System.out.println("Anderen Player gestoppt");
@@ -254,10 +257,12 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
                 timer.onFinish();
                 System.out.println("Aktuellen Player stoppen");
                 holder.playProgressbar.setProgress(0);
+                String time = String.format("%02d:%02d", 0, 0);
+                holder.timeView.setText(time);
                 holder.playButton.setImageResource(R.drawable.play);
                 System.out.println("aktueller Player gestoppt");
-            holder.holderPlaying = false;
-            currentItem.playerItem.setItemIsPlaying(false);
+                holder.holderPlaying = false;
+                currentItem.playerItem.setItemIsPlaying(false);
                 mStartPlaying = true;
                 currentItem = null;
             }
