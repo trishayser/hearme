@@ -1,5 +1,6 @@
 package com.thkoeln.paulo.hearme;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -205,7 +206,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.addMarker(new MarkerOptions().position(koelnHbf4).title("Jazz hören?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
 
                 //Unfixed Database
-                /*
+
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 mDatabase.addValueEventListener(new ValueEventListener() {
@@ -216,12 +217,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
-                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                            Post post = dataSnapshot.child("1").getValue(Post.class);
+                        //for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child("-L2F5kRVz38aPXdUZ7YQ").getValue(Post.class);
 
                             posts.add(post);
                         //}
                         mMap.clear();
+                        LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                        mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
 
 
@@ -231,8 +234,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onCancelled(DatabaseError error) {
                         // Failed to read value
                         /*Log.w(TAG, "Failed to read value.", error.toException());*/
-             //       }
-             //   });
+                    }
+                });
 
                 break;
 
@@ -374,6 +377,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return false;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
