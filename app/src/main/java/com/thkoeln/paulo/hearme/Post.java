@@ -32,10 +32,10 @@ class Post {
         public String getTitle() {
             return title;
     }
-        public double getGPSlong() {
+        public double getlongitude() {
         return longitude;
     }
-        public double getGPSlati() {
+        public double getlatitude() {
         return latitude;
     }
 
