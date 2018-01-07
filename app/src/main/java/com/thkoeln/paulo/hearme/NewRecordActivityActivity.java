@@ -230,7 +230,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                     double longitude = location().getLongitude();
                     double latitude = location().getLatitude();
 
-                    kommentar.setText(longitude + " " + latitude);
+                    kommentar.setText(latitude + " " + longitude);
                 }
 
                 DatabaseReference mDatabase;
