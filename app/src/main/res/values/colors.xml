@@ -4,12 +4,13 @@
     <color name="colorPrimaryDark">#243ab9</color>
     <color name="colorAccent">#243ab9</color> -->
     <color name="mycolor">#ffffff</color>
-    <color name="sport">#97C00E</color>
-    <color name="kultur">#009de0</color>
+    <color name="essen">#97C00E</color>
+    <color name="regionales">#009de0</color>
     <color name="party">#f49401</color>
+    <color name="shopping">#D92B2A</color>
+
 
     <color name="white">#FFFFFF</color>
-    <color name="ratingbar">#D92B2A</color>
     <color name="transparent">#000000</color>
 
     <color name="orange">#d92400</color>

@@ -217,11 +217,18 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
                 kommentar = (EditText) findViewById(R.id.comment);
 
-                double longitude = location().getLongitude ();
-                double latitude = location().getLatitude ();
+                if (location()==null){
+                    System.out.println("loc ist null");
+                    Toast.makeText(NewRecordActivityActivity.this, "Loc ist null", Toast.LENGTH_SHORT).show();
 
-                kommentar.setText(longitude +" " +latitude);
+                }
+                else {
 
+                    double longitude = location().getLongitude();
+                    double latitude = location().getLatitude();
+
+                    kommentar.setText(longitude + " " + latitude);
+                }
 
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -314,7 +321,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         criteria.setAltitudeRequired(true);
         criteria.setSpeedRequired(false);
 
-        String locationProvider = LocationManager.NETWORK_PROVIDER;
+        String locationProvider = lm.NETWORK_PROVIDER;
         // Or use LocationManager.GPS_PROVIDER
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -328,6 +335,11 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             return null;
         }
         Location loc = lm.getLastKnownLocation(locationProvider);
+
+//        String bestLocationProvider = lm.getBestProvider (criteria,true );
+//        System.out.println(bestLocationProvider);
+//       // LocationProvider lp = lm.getProvider (bestLocationProvider);
+//        Location loc = lm.getLastKnownLocation (lm.NETWORK_PROVIDER);
 
         return loc;
     }

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_gradient"
     android:padding="5dp">
 
     <LinearLayout
@@ -11,7 +12,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-   s        <Button
+        s
+
+        <Button
             android:id="@+id/antworten"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,7 +23,7 @@
             android:layout_marginVertical="10dp"
             android:background="@color/colorPrimary"
             android:text="Antworten"
-            android:textColor="@color/white" />
+            android:textColor="@color/colorText" />
 
         <TextView
             android:id="@+id/antworten_titel"
@@ -29,7 +32,7 @@
             android:layout_marginVertical="10dp"
             android:text="---------Antworten---------"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorText"
             android:textSize="20sp" />
 
 
