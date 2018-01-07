@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -209,6 +210,63 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference("posts");
+                mDatabase.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+
+                        }
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+
+                        }
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                /*
                 mDatabase.addValueEventListener(new ValueEventListener() {
                     /*
                     public void onChildAdded(DataSnapshot dataSnapshot) {
@@ -221,7 +279,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         }
                     }*/
-
+/*
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -242,7 +300,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 });
 
-
+*/
 
                 break;
 

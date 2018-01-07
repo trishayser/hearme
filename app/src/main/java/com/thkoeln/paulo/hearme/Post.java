@@ -32,9 +32,7 @@ class Post {
         public String getTitle() {
             return title;
     }
-        public double getlongitude() {
-        return longitude;
-    }
+        public double getlongitude() {return longitude;}
         public double getlatitude() {
         return latitude;
     }
