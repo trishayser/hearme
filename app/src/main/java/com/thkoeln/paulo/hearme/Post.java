@@ -11,6 +11,7 @@ class Post {
 
         public Integer id;
         public String title, author, gps;
+        public double longitude, latitude;
 
         //public Integer id, rel, category;
         //public String title, author, url, gps, status, date;
@@ -20,18 +21,22 @@ class Post {
 
         }
 
-        public Post (Integer id, String title, String author, String gps) {
+        public Post (Integer id, String title, String author, double longitude, double latitude) {
             this.id = id;
             this.title = title;
             this.author = author;
-            this.gps = gps;
+            this.longitude = longitude;
+            this.latitude = latitude;
         }
 
         public String getTitle() {
             return title;
     }
-    public String getGPS() {
-        return gps;
+        public double getGPSlong() {
+        return longitude;
+    }
+        public double getGPSlati() {
+        return latitude;
     }
 
 }
