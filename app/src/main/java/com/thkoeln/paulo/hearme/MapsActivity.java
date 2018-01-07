@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +23,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
@@ -205,23 +214,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         List posts = new ArrayList<>();
 
 
-                        Log.d(TAG, "Title: " + post.getTitle() + ", GPS " + post.getGPS());
+
 
                         for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                             Post post = dataSnapshot.child("1").getValue(Post.class);
-                            Log.d(TAG, "Title: " + post.getTitle() + ", GPS " + post.getGPS());
+
                             posts.add(post);
-                        }
+                        //}
+                        mMap.clear();
+
+
 
                     }
 
                     @Override
                     public void onCancelled(DatabaseError error) {
                         // Failed to read value
-                        Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
-                */
+                        /*Log.w(TAG, "Failed to read value.", error.toException());*/
+             //       }
+             //   });
+
                 break;
 
             case "party":
