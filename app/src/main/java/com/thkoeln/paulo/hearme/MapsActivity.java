@@ -219,7 +219,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
 
                             LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
 
                         }
                     }
@@ -231,7 +231,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
 
                             LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
 
                         }
