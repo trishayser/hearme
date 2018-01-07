@@ -14,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,12 +61,16 @@ public class PlayActivity extends AppCompatActivity {
         playerService = new Intent(this, mediaPlayerStartService.class);
         //startService(playerService);
 
-
+/*
         //--------------------AudioRecordTest-Klasse----------------------------------------
         mFileName = getExternalCacheDir().getAbsolutePath(); //Original
         mFileName += "/audiorecordtest.3gp";
         //audioRecordTest = new AudioRecordTest(mFileName);
         //------------------------------------------------------------
+*/
+        //FILE DOWNLOAD
+        StorageReference mStorageRef;
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
 
         testPlayList = new ArrayList<PlayerItem>();

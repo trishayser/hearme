@@ -10,7 +10,7 @@ class Post {
      */
 
         public Integer id;
-        public String title, author, gps;
+        public String title, author;
         public double longitude, latitude;
 
         //public Integer id, rel, category;

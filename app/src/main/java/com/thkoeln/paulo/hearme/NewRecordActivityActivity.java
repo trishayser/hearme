@@ -1,14 +1,17 @@
 package com.thkoeln.paulo.hearme;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,9 +24,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.concurrent.atomic.AtomicMarkableReference;
 
 
@@ -161,6 +170,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,6 +199,9 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
                     audioRecordTest.onRecord(mStartRecording);
                     mStartRecording = false;
+
+
+
 
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -233,12 +246,36 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                     kommentar.setText(latitude + " " + longitude);
                 }
 
+
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String PostId = mDatabase.push().getKey();
                 Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude());
 
                 mDatabase.child("posts").child(PostId).setValue(post);
+
+                //Storage save data
+                StorageReference storageRef;
+                storageRef = FirebaseStorage.getInstance().getReference();
+
+                Uri file = Uri.fromFile(new File(mFileName));
+                StorageReference riversRef = storageRef.child(PostId + ".3gp");
+
+                riversRef.putFile(file)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                            }
+                        });
 
                 startActivity(abschickenIntent);
             }
