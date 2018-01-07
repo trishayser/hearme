@@ -19,9 +19,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 
 public class NewRecordActivityActivity extends AppCompatActivity {
@@ -237,7 +240,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
                 mDatabase.child("posts").child(PostId).setValue(post);
 
-                //startActivity(abschickenIntent);
+                startActivity(abschickenIntent);
             }
         });
 

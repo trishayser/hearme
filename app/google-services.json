@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "439749848485-4ob6dsdg7clqfpa2s8kmjn7a2btgjfdk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thkoeln.paulo.hearme",
+            "certificate_hash": "707874ec92ba66e5b669ee07dda1d29a685969e3"
+          }
+        },
+        {
           "client_id": "439749848485-ide16ujhp184ip9helm5mtj443j07s45.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

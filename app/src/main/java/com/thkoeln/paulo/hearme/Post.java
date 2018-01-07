@@ -32,9 +32,9 @@ class Post {
         public String getTitle() {
             return title;
     }
-        public double getGPSlong() {
-        return longitude;
-    }
+        //public double getGPSlong() {
+        //return longitude;
+    //}
         public double getGPSlati() {
         return latitude;
     }
