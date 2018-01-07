@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -182,6 +183,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     // Karte
+    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -193,9 +195,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             case "regionales":
                 mMap = googleMap;
                 mMap.clear();
-                // Add a marker in Sydney and move the camera
-                // LatLng sydney = new LatLng(0, 0);
-
 /*
                 LatLng koelnHbf2 = new LatLng(50.942545, 6.956976); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(koelnHbf2).title("Museum besuchen?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
@@ -210,65 +209,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference("posts");
-                mDatabase.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
-
-                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-                        }
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
-
-                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-                        }
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
-
-                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-                        }
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
-
-                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
 
-                /*
                 mDatabase.addValueEventListener(new ValueEventListener() {
-                    /*
+
                     public void onChildAdded(DataSnapshot dataSnapshot) {
 
                         for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
@@ -278,8 +222,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
                         }
-                    }*/
-/*
+                    }
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -288,9 +232,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
                             mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
 
                         }
                     }
+
 
                     @Override
                     public void onCancelled(DatabaseError error) {
@@ -300,7 +246,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 });
 
-*/
+
 
                 break;
 
@@ -382,10 +328,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // End - Testing Map Marker starting Activity
 
 
-        // Karte aktualisieren / erstellen
-        //mMap.setMyLocationEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(ichKoelnHbf));
+        // Karte aktualisieren / erstelle
+
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(longitude, latitude)));
+
         mMap.moveCamera(CameraUpdateFactory.zoomTo(16));
     }
     // Ende Karte

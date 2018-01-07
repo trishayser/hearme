@@ -236,7 +236,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                 DatabaseReference mDatabase;
                 mDatabase = FirebaseDatabase.getInstance().getReference();
                 String PostId = mDatabase.push().getKey();
-                Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLongitude(), location().getLatitude());
+                Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude());
 
                 mDatabase.child("posts").child(PostId).setValue(post);
 
