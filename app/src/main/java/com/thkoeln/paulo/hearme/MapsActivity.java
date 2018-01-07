@@ -195,7 +195,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // Add a marker in Sydney and move the camera
                 // LatLng sydney = new LatLng(0, 0);
 
-
+/*
                 LatLng koelnHbf2 = new LatLng(50.942545, 6.956976); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(koelnHbf2).title("Museum besuchen?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
 
@@ -204,38 +204,45 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 LatLng koelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
                 mMap.addMarker(new MarkerOptions().position(koelnHbf4).title("Jazz hören?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
-
+*/
                 //Unfixed Database
 
                 DatabaseReference mDatabase;
-                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase = FirebaseDatabase.getInstance().getReference("posts");
                 mDatabase.addValueEventListener(new ValueEventListener() {
+                    /*
+                    public void onChildAdded(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+
+                        }
+                    }*/
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List posts = new ArrayList<>();
 
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
 
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
 
-
-                        //for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
-                            Post post = dataSnapshot.child("-L2F5kRVz38aPXdUZ7YQ").getValue(Post.class);
-
-                            posts.add(post);
-                        //}
-                        mMap.clear();
-                        LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                        mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-
-
-
+                        }
                     }
 
                     @Override
                     public void onCancelled(DatabaseError error) {
                         // Failed to read value
-                        /*Log.w(TAG, "Failed to read value.", error.toException());*/
+                       // Log.w(TAG, "Failed to read value.", error.toException());
                     }
+
                 });
+
+
 
                 break;
 
@@ -389,8 +396,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // Permission was denied. Display an error message.
             }
         }
-
-
     }
 }
 

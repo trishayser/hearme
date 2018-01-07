@@ -21,7 +21,7 @@ class Post {
 
         }
 
-        public Post (Integer id, String title, String author, double longitude, double latitude) {
+        public Post (Integer id, String title, String author, double latitude, double longitude) {
             this.id = id;
             this.title = title;
             this.author = author;
