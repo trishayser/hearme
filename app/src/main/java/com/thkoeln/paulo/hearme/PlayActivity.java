@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -95,7 +96,7 @@ public class PlayActivity extends AppCompatActivity {
             playRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    System.out.print("Lokales Tempfile generiert");
+                    System.out.print("Lokales Tempfile generiert2");
                 }
             });
             audiopath = localFile.getAbsolutePath();
