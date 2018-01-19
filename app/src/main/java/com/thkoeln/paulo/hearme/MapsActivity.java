@@ -328,32 +328,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public boolean onMarkerClick(Marker marker) {
-                StorageReference mStorageRef;
-                mStorageRef = FirebaseStorage.getInstance().getReference();
-                StorageReference playRef = mStorageRef.child(marker.getSnippet() + ".3gp");
-                String audiopath = null;
 
-
-                try {
-                    File localFile = null;
-                    localFile = File.createTempFile("audio", ".3gp");
-                    playRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
-                            intent.putExtra(EXTRA_ID, localFile.getAbsoluteFile());
+                            intent.putExtra(EXTRA_ID, marker.getSnippet());
                             startActivity(intent);
-                        }
-                    });
-
-
-                } catch (IOException e) {
-                e.printStackTrace();
-                }
-
-                //Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
-                //intent.putExtra(EXTRA_ID, marker.getSnippet());
-                //startActivity(intent);
                 return true;
             }
         });
