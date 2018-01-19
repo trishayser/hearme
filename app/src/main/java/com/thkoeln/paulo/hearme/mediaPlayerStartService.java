@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.media.MediaPlayer;
 import android.util.Log;
+import android.media.AudioManager;
 
 
 import java.io.IOException;
@@ -65,8 +66,11 @@ public class mediaPlayerStartService extends Service implements MediaPlayer.OnCo
             mPlayer = new MediaPlayer();
             mPlayer.isPlaying();
             try {
+                mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mPlayer.setDataSource(this.mFileName);
-                mPlayer.prepare();
+                //mPlayer.setOnPreparedListener(MapsActivity.this);
+                mPlayer.prepareAsync();
+                //mPlayer.prepare();
                 mPlayer.start();
             } catch (IOException e) {
                 Log.e(LOG_TAG, "prepare() failed");

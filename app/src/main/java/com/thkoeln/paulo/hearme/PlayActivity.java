@@ -7,16 +7,24 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +32,7 @@ public class PlayActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+
 
     private String mFileName = "Noch kein Pfad vorhanden";
     Intent playerService;
@@ -68,12 +77,56 @@ public class PlayActivity extends AppCompatActivity {
         //audioRecordTest = new AudioRecordTest(mFileName);
         //------------------------------------------------------------
 */
+
+        Intent intent = getIntent();
+        String id = intent.getStringExtra(MapsActivity.EXTRA_ID);
+
+        testPlayList = new ArrayList<PlayerItem>();
         //FILE DOWNLOAD
         StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference playRef = mStorageRef.child(id + ".3gp");
+
+        /*
+
+        try {
+            final File localFile = null;
+            localFile = File.createTempFile("audio", ".3gp");
+            playRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("firebase ",";local tem file created  created " +localFile.toString());
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-        testPlayList = new ArrayList<PlayerItem>();
+
+
+        PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", localFile.getAbsolutePath());
+        testPlayList.add(testPlayItem);
+        */
+/*
+        try {
+
+            File localFile = File.createTempFile("audio", ".3gp");
+            System.out.println(localFile.getAbsolutePath());
+            //localFile.createNewFile();
+            playRef.getFile(localFile);
+            if (localFile == null) {
+                System.out.printf("Nope");
+            }
+            PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", localFile.getAbsolutePath());
+            testPlayList.add(testPlayItem);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("hat nicht funktioniert","schade");
+        }
+*/
+
+        //testPlayList = new ArrayList<PlayerItem>();
 
         PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", mFileName);
         PlayerItem testPlayItem2 = new PlayerItem("Antwort 1", mFileName);
