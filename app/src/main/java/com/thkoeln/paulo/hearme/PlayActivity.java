@@ -80,10 +80,11 @@ public class PlayActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String id = intent.getStringExtra(MapsActivity.EXTRA_ID);
+        String audiopath = id;
 
         testPlayList = new ArrayList<PlayerItem>();
         //FILE DOWNLOAD
-        StorageReference mStorageRef;
+        /*StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
         StorageReference playRef = mStorageRef.child(id + ".3gp");
         String audiopath = null;
@@ -103,7 +104,7 @@ public class PlayActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+*/
         /*
         Intent intent = getIntent();
         String id = intent.getStringExtra(MapsActivity.EXTRA_MESSAGE);

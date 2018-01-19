@@ -25,13 +25,19 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -317,6 +323,40 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            }
 //        });
 
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                StorageReference mStorageRef;
+                mStorageRef = FirebaseStorage.getInstance().getReference();
+                StorageReference playRef = mStorageRef.child(marker.getSnippet() + ".3gp");
+                String audiopath = null;
+
+
+                try {
+                    File localFile = null;
+                    localFile = File.createTempFile("audio", ".3gp");
+                    playRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
+                            intent.putExtra(EXTRA_ID, localFile.getAbsoluteFile());
+                            startActivity(intent);
+                        }
+                    });
+
+
+                } catch (IOException e) {
+                e.printStackTrace();
+                }
+
+                //Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
+                //intent.putExtra(EXTRA_ID, marker.getSnippet());
+                //startActivity(intent);
+                return true;
+            }
+        });
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
