@@ -86,21 +86,49 @@ public class PlayActivity extends AppCompatActivity {
         StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
         StorageReference playRef = mStorageRef.child(id + ".3gp");
+        String audiopath = null;
 
-        /*
 
         try {
-            final File localFile = null;
+            File localFile = null;
             localFile = File.createTempFile("audio", ".3gp");
             playRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.e("firebase ",";local tem file created  created " +localFile.toString());
+                    System.out.print("Lokales Tempfile generiert");
                 }
             });
+            audiopath = localFile.getAbsolutePath();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        /*
+        Intent intent = getIntent();
+        String id = intent.getStringExtra(MapsActivity.EXTRA_MESSAGE);
+
+        StorageReference playfile = 
+        File localFile = null;
+        try {
+            localFile = File.createTempFile("play", "3gp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mStorageRef.getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        // Successfully downloaded data to local file
+                        // ...
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle failed download
+                // ...
+            }
+        });
 
 
 
@@ -135,8 +163,10 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-
-        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_main_message, R.layout.list_item_messages, testPlayList, mFileName, this);
+        if (audiopath == null) {
+            System.out.println("Dateiverzeichniss ist leer!!!!!!!!!");
+        }
+        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_main_message, R.layout.list_item_messages, testPlayList, mFileName, this, audiopath);
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
 

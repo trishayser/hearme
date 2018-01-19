@@ -68,9 +68,9 @@ public class mediaPlayerStartService extends Service implements MediaPlayer.OnCo
             try {
                 mPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mPlayer.setDataSource(this.mFileName);
-                //mPlayer.setOnPreparedListener(MapsActivity.this);
-                mPlayer.prepareAsync();
-                //mPlayer.prepare();
+                //mPlayer.setOnPreparedListener(ActivityPlayListAdapter.this);
+                //mPlayer.prepareAsync();
+                mPlayer.prepare();
                 mPlayer.start();
             } catch (IOException e) {
                 Log.e(LOG_TAG, "prepare() failed");

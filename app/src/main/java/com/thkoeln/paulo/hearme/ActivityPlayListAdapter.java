@@ -14,6 +14,8 @@ package com.thkoeln.paulo.hearme;
         import android.widget.ProgressBar;
         import android.widget.TextView;
 
+        import com.google.firebase.storage.StorageReference;
+
         import java.text.SimpleDateFormat;
         import java.util.List;
 
@@ -35,11 +37,14 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
     PlayActivity playActivity;
 
     public static String mFileName;
+
+    String audiopath;
+
     private boolean start;
 
     CountDownTimer timer;
 
-    public ActivityPlayListAdapter(Context context, int layoutResourceId, int layoutResourceId2, List<PlayerItem> items, String mFileName, PlayActivity playActivityR) {
+    public ActivityPlayListAdapter(Context context, int layoutResourceId, int layoutResourceId2, List<PlayerItem> items, String mFileName, PlayActivity playActivityR, String audiopath) {
         super(context, layoutResourceId, items);
         this.layoutResourceId = layoutResourceId;
         this.layoutResourceId2 = layoutResourceId2;
@@ -50,6 +55,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         this.mStartPlaying = true;
         this.start = true;
         this.playActivity = playActivityR;
+        this.audiopath = audiopath;
 
 
 //----------- Timer--------------------------------------------------------------------
@@ -217,7 +223,7 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         if (mStartPlaying) {
 
             System.out.println(playActivity.mService.getReferenceCheck());
-            playActivity.mService.setmFileName(mFileName);
+            playActivity.mService.setmFileName(audiopath);
             System.out.println("Player starten? Bitte ja! ");
             currentItem = holder;
             holder.playButton.setImageResource(R.drawable.pause);
