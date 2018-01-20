@@ -190,6 +190,11 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
         final Intent test = new Intent(this, AudioRecordTest.class);
 
+
+        // categrorie
+
+        
+
         // perform click event on button
         recordButton.setOnTouchListener(new View.OnTouchListener() {
             @Override

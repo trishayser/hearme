@@ -35,7 +35,7 @@
             android:layout_height="50dp"
             android:ems="10"
             android:hint="Kategorie"
-            android:inputType="textPersonName"
+            android:inputType="textAutoComplete"
             android:singleLine="false"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorText" />

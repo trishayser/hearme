@@ -16,6 +16,7 @@ package com.thkoeln.paulo.hearme;
 
         import com.google.firebase.storage.StorageReference;
 
+        import java.io.IOException;
         import java.text.SimpleDateFormat;
         import java.util.List;
 
@@ -62,7 +63,12 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         this.timer = new CountDownTimer(300000,50) {
             public void onTick(long millisUntilFinished) {
                 timerHolder = currentItem;
-                progress = ((playActivity.mService.getmPlayer().getCurrentPosition() * 100) / playActivity.mService.getmPlayer().getDuration());
+
+                try {
+                    progress = ((playActivity.mService.getmPlayer().getCurrentPosition() * 100) / playActivity.mService.getmPlayer().getDuration());
+                } catch (Exception e) {
+                    System.out.println("Nachricht konnte abgespielt werden");
+                }
                 System.out.println(progress);
                 System.out.println("progress setzen");
                 currentItem.playProgressbar.setProgress(progress);
@@ -220,7 +226,9 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
         if (currentItem == null) {
             currentItem = holder;
         }
+
         if (mStartPlaying) {
+
 
             System.out.println(playActivity.mService.getReferenceCheck());
             playActivity.mService.setmFileName(audiopath);
