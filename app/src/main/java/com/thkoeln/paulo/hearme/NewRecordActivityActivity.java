@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -72,15 +73,15 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     // Ende - Requesting permission
 
 
-
     private Button abschicken;
     private ImageButton recordButton;
     private BroadcastReceiver broadcastReceiver;
-    EditText kommentar;
+    private EditText kommentar;
+    private EditText titel_edit;
 
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         permissionLocation();
         permissionAudio();
@@ -169,7 +170,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     }
 
 
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,8 +201,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                     mStartRecording = false;
 
 
-
-
                     return true;
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
@@ -227,57 +225,66 @@ public class NewRecordActivityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 // Write a message to the database
 
-                EditText titel_edit = (EditText) findViewById(R.id.titel_edit);
+                titel_edit = (EditText) findViewById(R.id.titel_edit);
+                String title = titel_edit.getText().toString();
 
-                kommentar = (EditText) findViewById(R.id.comment);
+                if (validate(title)) {
+                    System.out.println("Titel nicht leer");
 
-                if (location()==null){
-                    System.out.println("loc ist null");
-                    Toast.makeText(NewRecordActivityActivity.this, "Loc ist null", Toast.LENGTH_SHORT).show();
+                    kommentar = (EditText) findViewById(R.id.comment);
 
+                    if (location() == null) {
+                        System.out.println("loc ist null");
+                        Toast.makeText(NewRecordActivityActivity.this, "Loc ist null", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        double longitude = location().getLongitude();
+                        double latitude = location().getLatitude();
+
+                        kommentar.setText(latitude + " " + longitude);
+                    }
+
+
+                    DatabaseReference mDatabase;
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    String PostId = mDatabase.push().getKey();
+                    Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude());
+
+                    mDatabase.child("posts").child(PostId).setValue(post);
+
+                    //Storage save data
+                    StorageReference storageRef;
+                    storageRef = FirebaseStorage.getInstance().getReference();
+
+                    Uri file = Uri.fromFile(new File(mFileName));
+                    StorageReference riversRef = storageRef.child(PostId + ".3gp");
+
+                    riversRef.putFile(file)
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    // Get a URL to the uploaded content
+                                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Handle unsuccessful uploads
+                                    // ...
+                                }
+                            });
+
+                    startActivity(abschickenIntent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Anmeldung fehlgeschlagen", Toast.LENGTH_SHORT).show();
                 }
-                else {
-
-                    double longitude = location().getLongitude();
-                    double latitude = location().getLatitude();
-
-                    kommentar.setText(latitude + " " + longitude);
-                }
 
 
-                DatabaseReference mDatabase;
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                String PostId = mDatabase.push().getKey();
-                Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude());
-
-                mDatabase.child("posts").child(PostId).setValue(post);
-
-                //Storage save data
-                StorageReference storageRef;
-                storageRef = FirebaseStorage.getInstance().getReference();
-
-                Uri file = Uri.fromFile(new File(mFileName));
-                StorageReference riversRef = storageRef.child(PostId + ".3gp");
-
-                riversRef.putFile(file)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                // Get a URL to the uploaded content
-                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle unsuccessful uploads
-                                // ...
-                            }
-                        });
-
-                startActivity(abschickenIntent);
             }
         });
 
@@ -351,11 +358,11 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
     }
 
-    public Location location(){
+    public Location location() {
 
         permissionLocation();
 
-        LocationManager lm = (LocationManager)getSystemService(LOCATION_SERVICE);
+        LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(true);
@@ -384,7 +391,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         return loc;
     }
 
-    public void enableRecordButton(){
+    public void enableRecordButton() {
         System.out.println("hallo");
     }
 
@@ -420,7 +427,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
     }
 
-    public void permissionLocation(){
+    public void permissionLocation() {
         // Permissions
 
         // Here, thisActivity is the current activity
@@ -452,4 +459,17 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         // Ende - Permissions
 
     }
+
+    public boolean validate(String title) {
+        boolean validate = true;
+
+        if ((title.isEmpty())) {
+            titel_edit.setError("Mindestens 3 Zeichen");
+            validate = false;
+        }
+
+            return validate;
+
+    }
+
 }
