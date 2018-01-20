@@ -216,7 +216,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
 
                             LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_blue)).snippet(noteDataSnapshot.getKey()));
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_blue)).snippet(noteDataSnapshot.getKey()));
 
                         }
                     }
@@ -229,7 +229,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if(post.cat.equals("Regionales")) {
                                 LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_blue)).snippet(noteDataSnapshot.getKey()));
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_blue)).snippet(noteDataSnapshot.getKey()));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
                             }
 
@@ -261,7 +261,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
 
                             LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange)).snippet(noteDataSnapshot.getKey()));
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_orange)).snippet(noteDataSnapshot.getKey()));
 
                         }
                     }
@@ -274,7 +274,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if(post.cat.equals("Party")) {
                                 LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange)).snippet(noteDataSnapshot.getKey()));
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_orange)).snippet(noteDataSnapshot.getKey()));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
                             }
 
@@ -305,7 +305,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if(post.cat.equals("Essen")) {
                                 LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_green)).snippet(noteDataSnapshot.getKey()));
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_gruen)).snippet(noteDataSnapshot.getKey()));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
                             }
 
@@ -321,7 +321,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if(post.cat.equals("Essen")) {
                                 LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_green)).snippet(noteDataSnapshot.getKey()));
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_gruen)).snippet(noteDataSnapshot.getKey()));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
                             }
 
@@ -355,7 +355,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
 
                             LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_red)).snippet(noteDataSnapshot.getKey()));
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_rot)).snippet(noteDataSnapshot.getKey()));
 
                         }
                     }
@@ -368,7 +368,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             if(post.cat.equals("Shopping")) {
                                 LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_red)).snippet(noteDataSnapshot.getKey()));
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_hear_me_rot)).snippet(noteDataSnapshot.getKey()));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
                             }
                         }

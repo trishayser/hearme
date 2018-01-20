@@ -3,7 +3,7 @@
 
     <item android:drawable="@color/colorPrimaryDark" />
     <item>
-        <bitmap android:src="@drawable/Marker_Hear_Me_gruen"
+        <bitmap android:src="@drawable/marker_hear_me_gruen"
             android:alpha="0.5">
         </bitmap>
     </item>
