@@ -15,14 +15,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +41,6 @@ public class PlayActivity extends AppCompatActivity {
     private static final String LOG_TAG = "AudioRecordTest";
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
 
-
     private String mFileName = "Noch kein Pfad vorhanden";
     Intent playerService;
     mediaPlayerStartService mService;
@@ -44,6 +50,9 @@ public class PlayActivity extends AppCompatActivity {
     private boolean permissionToRecordAccepted;
     private String [] permissions;
     List <PlayerItem> testPlayList;
+
+    private Button send;
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -57,20 +66,19 @@ public class PlayActivity extends AppCompatActivity {
 
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
-
         permissionToRecordAccepted = false;
         String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
+        //Button send = (Button) findViewById(R.id.abschicken_comment);
+
+
+
         playerService = new Intent(this, mediaPlayerStartService.class);
         //startService(playerService);
-
 /*
         //--------------------AudioRecordTest-Klasse----------------------------------------
         mFileName = getExternalCacheDir().getAbsolutePath(); //Original
@@ -78,7 +86,6 @@ public class PlayActivity extends AppCompatActivity {
         //audioRecordTest = new AudioRecordTest(mFileName);
         //------------------------------------------------------------
 */
-
         Intent intent = getIntent();
         String id = intent.getStringExtra(MapsActivity.EXTRA_ID);
 
@@ -88,7 +95,6 @@ public class PlayActivity extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance().getReference();
         StorageReference playRef = mStorageRef.child(id + ".3gp");
         String audiopath = null;
-
 
         try {
             File localFile = null;
@@ -109,7 +115,7 @@ public class PlayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra(MapsActivity.EXTRA_MESSAGE);
 
-        StorageReference playfile = 
+        StorageReference playfile =
         File localFile = null;
         try {
             localFile = File.createTempFile("play", "3gp");
@@ -131,9 +137,6 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", localFile.getAbsolutePath());
         testPlayList.add(testPlayItem);
         */
@@ -154,8 +157,9 @@ public class PlayActivity extends AppCompatActivity {
             Log.e("hat nicht funktioniert","schade");
         }
 */
-
         //testPlayList = new ArrayList<PlayerItem>();
+
+
 
         PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", mFileName);
         PlayerItem testPlayItem2 = new PlayerItem("Antwort 1", mFileName);
@@ -171,6 +175,15 @@ public class PlayActivity extends AppCompatActivity {
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
 
+
+
+
+
+
+
+
+
+
         PlayerItem testPlayItem4 = new PlayerItem("Antwort 3", mFileName);
         PlayerItem testPlayItem5 = new PlayerItem("Antwort 4", mFileName);
 
@@ -180,13 +193,8 @@ public class PlayActivity extends AppCompatActivity {
         adapter.add(testPlayItem4);
         adapter.add(testPlayItem5);
 
-
-
-        // Ende List Test
-
-
-
     }
+
     @Override
     protected void onStart(){
         super.onStart();
@@ -200,8 +208,6 @@ public class PlayActivity extends AppCompatActivity {
         // unbind mediaplayerStartService
         unbindService(mConnection);
     }
-
-
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -231,5 +237,3 @@ public class PlayActivity extends AppCompatActivity {
         return mFileName;
     }
 }
-
-

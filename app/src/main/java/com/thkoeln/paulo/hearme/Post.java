@@ -9,9 +9,10 @@ class Post {
      * Created by trisbeta on 11.12.17.
      */
 
-        public Integer id;
-        public String title, author;
+        public Integer id, upvotes, downvotes;
+        public String cat, title, author;
         public double longitude, latitude;
+
 
         //public Integer id, rel, category;
         //public String title, author, url, gps, status, date;
@@ -21,13 +22,17 @@ class Post {
 
         }
 
-        public Post (Integer id, String title, String author, double latitude, double longitude) {
+        public Post (Integer id, String title, String author, double latitude, double longitude, String cat) {
             this.id = id;
             this.title = title;
             this.author = author;
             this.longitude = longitude;
             this.latitude = latitude;
+            this.cat = cat;
+            this.upvotes = 0;
+            this.downvotes = 0;
         }
+
 
         public String getTitle() {
             return title;

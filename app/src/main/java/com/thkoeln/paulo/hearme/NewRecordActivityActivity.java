@@ -78,6 +78,7 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
     private EditText kommentar;
     private EditText titel_edit;
+    private EditText kat_edit;
 
 
     @Override
@@ -231,6 +232,9 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                 titel_edit = (EditText) findViewById(R.id.titel_edit);
                 String title = titel_edit.getText().toString();
 
+                kat_edit = (EditText) findViewById(R.id.kat_edit);
+                String kat = titel_edit.getText().toString();
+
                 if (validate(title)) {
                     System.out.println("Titel nicht leer");
 
@@ -245,14 +249,15 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                         double longitude = location().getLongitude();
                         double latitude = location().getLatitude();
 
-                        kommentar.setText(latitude + " " + longitude);
+                        //kommentar.setText(latitude + " " + longitude);
+
                     }
 
 
                     DatabaseReference mDatabase;
                     mDatabase = FirebaseDatabase.getInstance().getReference();
                     String PostId = mDatabase.push().getKey();
-                    Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude());
+                    Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude(), kat_edit.getText().toString());
 
                     mDatabase.child("posts").child(PostId).setValue(post);
 

@@ -199,26 +199,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
 
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference("posts");
+
         switch (this.mapZustand) {
 
             case "regionales":
                 mMap = googleMap;
                 mMap.clear();
-/*
-                LatLng koelnHbf2 = new LatLng(50.942545, 6.956976); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(koelnHbf2).title("Museum besuchen?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
-
-                LatLng koelnHbf3 = new LatLng(50.942453, 6.956466); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(koelnHbf3).title("Dom besichtigen?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
-
-                LatLng koelnHbf4 = new LatLng(50.942206, 6.956721); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(koelnHbf4).title("Jazz hören?").icon(BitmapDescriptorFactory.fromResource(R.drawable.markertest)));
-*/
-                //Unfixed Database
-
-                DatabaseReference mDatabase;
-                mDatabase = FirebaseDatabase.getInstance().getReference("posts");
-
 
                 mDatabase.addValueEventListener(new ValueEventListener() {
 
@@ -239,9 +227,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
                             Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
 
-                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
-                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+                            if(post.cat.equals("Regionales")) {
+                                LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+                            }
 
                         }
                     }
@@ -262,47 +252,136 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             case "party":
                 mMap = googleMap;
                 mMap.clear();
-                // Add a marker in Sydney and move the camera
-                // LatLng sydney = new LatLng(0, 0);
 
-                LatLng pKoelnHbf2 = new LatLng(50.941658, 6.955746); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(pKoelnHbf2).title("Disco?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-                LatLng pKoelnHbf3 = new LatLng(50.940613, 6.957943); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(pKoelnHbf3).title("Komasaufen").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                mDatabase.addValueEventListener(new ValueEventListener() {
 
-                LatLng pKoelnHbf4 = new LatLng(50.940826, 6.962819); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(pKoelnHbf4).title("Silvester").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                    public void onChildAdded(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
+
+                        }
+                    }
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            if(post.cat.equals("Party")) {
+                                LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+                            }
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        // Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+
+                });
 
                 break;
 
             case "essen":
                 mMap = googleMap;
                 mMap.clear();
-                // Add a marker in Sydney and move the camera
-                // LatLng sydney = new LatLng(0, 0);
 
-                LatLng sKoelnHbf2 = new LatLng(50.941941, 6.961923); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(sKoelnHbf2).title("Fußball?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                LatLng sKoelnHbf3 = new LatLng(50.945284, 6.954198); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(sKoelnHbf3).title("Radfahren?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                mDatabase.addValueEventListener(new ValueEventListener() {
 
-                LatLng sKoelnHbf4 = new LatLng(50.944213, 6.949037); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(sKoelnHbf4).title("Joggen?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    public void onChildAdded(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            if(post.cat.equals("Essen")) {
+                                LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+                            }
+
+                        }
+                    }
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+
+                            if(post.cat.equals("Essen")) {
+                                LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+                            }
+
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        // Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+
+                });
+
 
                 break;
+
+
 
             case "shopping":
                 mMap = googleMap;
                 mMap.clear();
-                // Add a marker in Sydney and move the camera
-                // LatLng sydney = new LatLng(0, 0);
-                LatLng fKoelnHbf2 = new LatLng(50.946106, 6.938839); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(fKoelnHbf2).title("Suche neuen Freund").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
-                LatLng fKoelnHbf3 = new LatLng(50.943149, 6.942664); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(fKoelnHbf3).title("Suche neue Freundin").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
 
-                LatLng fKoelnHbf4 = new LatLng(50.940163, 6.954418); // Anderer Marker
-                mMap.addMarker(new MarkerOptions().position(fKoelnHbf4).title("Hallo, i bims, a Singel").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)));
+                mDatabase.addValueEventListener(new ValueEventListener() {
+
+                    public void onChildAdded(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                            mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
+
+                        }
+                    }
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                            Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+
+                            if(post.cat.equals("Shopping")) {
+                                LatLng test = new LatLng(post.getlatitude(), post.getlongitude()); // Anderer Marker
+                                mMap.addMarker(new MarkerOptions().position(test).title(post.getTitle()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)).snippet(noteDataSnapshot.getKey()));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(test));
+                            }
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        // Log.w(TAG, "Failed to read value.", error.toException());
+                    }
+
+                });
 
                 break;
         }
@@ -320,7 +399,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 intent.putExtra(EXTRA_ID, marker.getSnippet());
                 marker.showInfoWindow();
                 //startActivity(intent);
-
                 return true;
             }
         });

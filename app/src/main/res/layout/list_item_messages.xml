@@ -166,21 +166,47 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Kommentar"
-            android:textColor="@color/colorText" />
 
-        <TextView
+
+        <!-- <TextView
             android:id="@+id/editText3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! Das ist ein TestKommentar! "
             android:textColor="@color/colorText"
+            android:textColorHint="@color/colorText" /> -->
+
+        <EditText
+            android:id="@+id/comment_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="Kommentieren"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            android:textColor="@color/colorText"
             android:textColorHint="@color/colorText" />
+        <Button
+            android:id="@+id/abschicken_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:text="Kommentar abschicken"
+            android:textColor="@color/colorText"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/Comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kommentare :"
+            android:textColor="@color/colorText" />
 
 
     </LinearLayout>

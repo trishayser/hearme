@@ -29,6 +29,19 @@
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorText" />
 
+        <EditText
+            android:id="@+id/kat_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="Kategorie"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            android:textColor="@color/colorText"
+            android:textColorHint="@color/colorText" />
+
+
+
 
         <ProgressBar
             android:id="@+id/simpleProgressBar"
@@ -91,13 +104,15 @@
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Koordinaten"
+                android:hint="Kommentar"
                 android:inputType="textMultiLine"
                 android:maxLines="3"
                 android:textColor="@color/colorText"
                 android:textColorHint="@color/colorText" />
 
         </android.support.design.widget.TextInputLayout>
+
+
 
 
     </LinearLayout>
