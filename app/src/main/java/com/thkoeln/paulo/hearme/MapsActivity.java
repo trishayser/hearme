@@ -319,25 +319,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
                 intent.putExtra(EXTRA_ID, marker.getSnippet());
                 marker.showInfoWindow();
-                startActivity(intent);
+                //startActivity(intent);
 
                 return true;
             }
         });
 
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-
-                            Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
-                            intent.putExtra(EXTRA_ID, marker.getSnippet());
-                            marker.showInfoWindow();
-                            startActivity(intent);
-                return true;
-            }
-        });
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
