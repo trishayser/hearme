@@ -66,26 +66,27 @@ public class ActivityPlayListAdapter extends ArrayAdapter<PlayerItem> {
 
                 try {
                     progress = ((playActivity.mService.getmPlayer().getCurrentPosition() * 100) / playActivity.mService.getmPlayer().getDuration());
+                    System.out.println(progress);
+                    System.out.println("progress setzen");
+                    currentItem.playProgressbar.setProgress(progress);
+                    System.out.println(playActivity.mService.getmPlayer().getCurrentPosition());
+                    System.out.println(playActivity.mService.getmPlayer().getDuration());
+
+                    long secs = playActivity.mService.getmPlayer().getCurrentPosition() / 1000;
+                    long mins = secs / 60;
+                    long restsecs = secs % 60;
+                    String time = String.format("%02d:%02d", mins,secs);
+                    System.out.println(mins +":"+restsecs);
+                    currentItem.timeView.setText(time);
+
+                    if (!playActivity.mService.getmPlayer().isPlaying()){
+                        mStartPlaying = true;
+                        this.onFinish();
+                    }
                 } catch (Exception e) {
                     System.out.println("Nachricht konnte abgespielt werden");
                 }
-                System.out.println(progress);
-                System.out.println("progress setzen");
-                currentItem.playProgressbar.setProgress(progress);
-                System.out.println(playActivity.mService.getmPlayer().getCurrentPosition());
-                System.out.println(playActivity.mService.getmPlayer().getDuration());
 
-                long secs = playActivity.mService.getmPlayer().getCurrentPosition() / 1000;
-                long mins = secs / 60;
-                long restsecs = secs % 60;
-                String time = String.format("%02d:%02d", mins,secs);
-                System.out.println(mins +":"+restsecs);
-                currentItem.timeView.setText(time);
-
-                if (!playActivity.mService.getmPlayer().isPlaying()){
-                    mStartPlaying = true;
-                    this.onFinish();
-                }
             }
 
             @Override
