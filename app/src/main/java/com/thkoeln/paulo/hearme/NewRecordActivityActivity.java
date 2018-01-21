@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -15,14 +16,17 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,10 +38,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.util.concurrent.atomic.AtomicMarkableReference;
 
 
-public class NewRecordActivityActivity extends AppCompatActivity {
+public class NewRecordActivityActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ImageButton recordPlay;
     AudioRecordTest audioRecordTest;
@@ -78,7 +81,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
     private EditText kommentar;
     private EditText titel_edit;
-    private EditText kat_edit;
 
 
     @Override
@@ -172,6 +174,8 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
 
     @SuppressLint("ClickableViewAccessibility")
+
+    String[] categories = {"Regionales","Essen","Party","Shopping"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -190,12 +194,22 @@ public class NewRecordActivityActivity extends AppCompatActivity {
 
         final Intent test = new Intent(this, AudioRecordTest.class);
 
+        // categrorie -----------------
+        //Getting the instance of Spinner and applying OnItemSelectedListener on it
+        final Spinner spin = (Spinner) findViewById(R.id.kat_edit);
+        spin.setOnItemSelectedListener(this);
 
-        // categrorie
 
-        
+        //Creating the ArrayAdapter instance having the bank name list
+        ArrayAdapter aa = new ArrayAdapter(this,R.layout.spinner_dropdown_item, categories);
+        //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        aa.setDropDownViewResource(R.layout.spinner_dropdown_item);
 
-        // perform click event on button
+        //Setting the ArrayAdapter data on the Spinner
+        spin.setAdapter(aa);
+        // ------------
+
+    // perform click event on button
         recordButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -223,6 +237,9 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         });
 
 
+
+
+
         abschicken = (Button) findViewById(R.id.abschicken);
         final Intent abschickenIntent = new Intent(this, MapsActivity.class);
 
@@ -237,7 +254,6 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                 titel_edit = (EditText) findViewById(R.id.titel_edit);
                 String title = titel_edit.getText().toString();
 
-                kat_edit = (EditText) findViewById(R.id.kat_edit);
                 String kat = titel_edit.getText().toString();
 
                 if (validate(title)) {
@@ -262,7 +278,8 @@ public class NewRecordActivityActivity extends AppCompatActivity {
                     DatabaseReference mDatabase;
                     mDatabase = FirebaseDatabase.getInstance().getReference();
                     String PostId = mDatabase.push().getKey();
-                    Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude(), kat_edit.getText().toString());
+                    System.out.println(spin.getSelectedItem().toString());
+                    Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude(), spin.getSelectedItem().toString());
 
                     mDatabase.child("posts").child(PostId).setValue(post);
 
@@ -479,6 +496,18 @@ public class NewRecordActivityActivity extends AppCompatActivity {
         }
 
             return validate;
+
+    }
+
+    //Performing action onItemSelected and onNothing selected
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
+        Toast.makeText(getApplicationContext(), categories[position], Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+// TODO Auto-generated method stub
 
     }
 
