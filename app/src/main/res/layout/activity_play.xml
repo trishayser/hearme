@@ -288,7 +288,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/like_percent"
+                                android:id="@+id/like_percent2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -298,7 +298,7 @@
                                 android:textSize="24sp" />
 
                             <ImageButton
-                                android:id="@+id/posButton"
+                                android:id="@+id/posButton2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -315,7 +315,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/dislike_percent"
+                                android:id="@+id/dislike_percent2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -325,7 +325,7 @@
                                 android:textSize="24sp" />
 
                             <ImageButton
-                                android:id="@+id/negButton"
+                                android:id="@+id/negButton2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -371,7 +371,7 @@
             android:layout_height="50dp"
             android:ems="10"
             android:hint="Kommentieren"
-            android:inputType="textPersonName"
+            android:inputType="textMultiLine|textImeMultiLine"
             android:singleLine="false"
             android:textColor="@color/colorText"
             android:textColorHint="@color/colorText" />

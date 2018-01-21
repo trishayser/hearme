@@ -77,8 +77,18 @@ public class PlayActivity extends AppCompatActivity {
     String audiopath;
 
     TextView timeView, title;
-    private String titleText;
+    String titleText;
     String id, title_marker;
+    int countBewertungen;
+    int countpos;
+    int countneg;
+    int pos;
+    int neg;
+    public TextView textViewLike;
+    public TextView textViewDislike;
+
+    ActivityPlayListAdapter adapter;
+
 
 
     @Override
@@ -102,6 +112,12 @@ public class PlayActivity extends AppCompatActivity {
 
         timeView = (TextView)findViewById(R.id.time_view);
         title = (TextView)findViewById(R.id.play_title);
+
+        countBewertungen = 0;
+        countpos = 0;
+        countneg = 0;
+        pos = 0;
+        neg = 0;
 
         //Button send = (Button) findViewById(R.id.abschicken_comment);
 
@@ -286,7 +302,7 @@ public class PlayActivity extends AppCompatActivity {
         answerList.add(item2);
         answerList.add(item3);
 
-        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_text_answer_item, answerList);
+        adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_text_answer_item, answerList);
 
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
@@ -379,12 +395,45 @@ public class PlayActivity extends AppCompatActivity {
             }
 
         });
+        ImageButton positive = (ImageButton)findViewById(R.id.posButton2);
+        ImageButton negative = (ImageButton)findViewById(R.id.negButton2);
+        textViewLike = (TextView) findViewById(R.id.like_percent2);
+        textViewDislike = (TextView) findViewById(R.id.dislike_percent2);
+
+        positive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("positive");
+                bewertung(true);
+            }
+        });
+
+        negative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("negative");
+                bewertung(false);
+            }
+        });
+
+        final EditText kommentar = (EditText)findViewById(R.id.comment_edit);
+        Button kommentarAbschicken = (Button)findViewById(R.id.abschicken_comment);
+
+        kommentarAbschicken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String kommentarText = kommentar.getText().toString();
+                kommentarAdd(kommentarText);
+            }
+        });
+
+
     }
 
 //    @Override
 //    protected void onStart(){
 //        super.onStart();
-//        // Bind mediaPlayerStartService
+//        // Bind mediaPlayekrStartService
 //        bindService(playerService, mConnection, Context.BIND_AUTO_CREATE);
 //    }
 //
@@ -425,5 +474,31 @@ public class PlayActivity extends AppCompatActivity {
 
     public  void setTitle(String title){
                   this.titleText = title;
+    }
+
+    //Bewertung
+
+    public void bewertung (boolean positive){
+        countBewertungen++;
+
+        if (positive){
+           countpos++;
+        }
+        else{
+            countneg++;
+        }
+        pos = (countpos*100)/countBewertungen;
+        neg = 100-pos;
+
+        System.out.println("Positive "+ pos + "% " + "  Negative " + neg +"% ");
+
+        textViewLike.setText(pos + "%");
+        textViewDislike.setText(neg + "%");
+    }
+    //Bewertung Ende
+
+    public void kommentarAdd(String kommentarText){
+    TextAnswerItem answerItem = new TextAnswerItem("Jona", kommentarText);
+    adapter.add(answerItem);
     }
 }
