@@ -17,9 +17,12 @@ public class AudioRecordTest {
     private MediaPlayer   mPlayer = null;
 
 
-//    public AudioRecordTest (String mFileName){
-//        this.mFileName = mFileName;
-//    }
+    public AudioRecordTest (String mFileName){
+        this.mFileName = mFileName;
+    }
+    public AudioRecordTest(){
+
+    }
 
     public void onRecord(boolean start) {
         if (start) {

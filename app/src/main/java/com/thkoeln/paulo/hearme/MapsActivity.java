@@ -47,6 +47,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
 
     public static final String EXTRA_ID = "com.thkoeln.paulo.hearme.MESSAGE";
+    //public static final String EXTRA_ID2 = "com.thkoeln.paulo.hearme.MESSAGE";
 
 
     public void setMapZustand(String mapZustand) {
@@ -391,8 +392,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+                String message = marker.getSnippet() + "/" + marker.getTitle();
                 Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
-                intent.putExtra(EXTRA_ID, marker.getSnippet());
+                intent.putExtra(EXTRA_ID, message);
                 marker.showInfoWindow();
                 //startActivity(intent);
                 return true;
@@ -405,8 +407,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                String message = marker.getSnippet() + "/" + marker.getTitle();
                 Intent intent = new Intent(MapsActivity.this, PlayActivity.class);
-                intent.putExtra(EXTRA_ID, marker.getSnippet());
+                intent.putExtra(EXTRA_ID, message);
                 startActivity(intent);
             }
         });

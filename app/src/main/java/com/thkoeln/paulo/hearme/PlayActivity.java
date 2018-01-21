@@ -24,11 +24,17 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -37,6 +43,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +77,8 @@ public class PlayActivity extends AppCompatActivity {
     String audiopath;
 
     TextView timeView, title;
+    private String titleText;
+    String id, title_marker;
 
 
     @Override
@@ -109,7 +118,16 @@ public class PlayActivity extends AppCompatActivity {
         //------------------------------------------------------------
 */
         Intent intent = getIntent();
-        String id = intent.getStringExtra(MapsActivity.EXTRA_ID);
+        String message = intent.getStringExtra(MapsActivity.EXTRA_ID);
+
+        String [] messages = message.split("/");
+        id = messages[0];
+        title_marker = messages[1];
+        System.out.println("message" + message);
+        System.out.println("id " + messages[0]);
+        System.out.println("titel marker " + title_marker);
+
+
 
        // testPlayList = new ArrayList<PlayerItem>();
         //FILE DOWNLOAD
@@ -118,12 +136,39 @@ public class PlayActivity extends AppCompatActivity {
         StorageReference playRef = mStorageRef.child(id + ".3gp");
         audiopath = null;
 
-       //Title
 
-//        DatabaseReference mDatabase;
-//        mDatabase = FirebaseDatabase.getInstance().getReference("posts");
-//
-//        mDatabase.
+
+       //Title
+        titleText = "Titel";
+
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference("posts");
+
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()) {
+                                                    Post post = dataSnapshot.child(noteDataSnapshot.getKey()).getValue(Post.class);
+                                                                                                                                                                                                                
+                                                    if(post.title.toString().contentEquals(title_marker)){
+                                                        titleText = post.title.toString();
+                                                        title.setText(post.title);
+                                                    }
+
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                                System.out.println("Hallo");
+                                            }
+                                        });
+
+
+
         // Tile ende
 
         try {
@@ -334,8 +379,6 @@ public class PlayActivity extends AppCompatActivity {
             }
 
         });
-
-
     }
 
 //    @Override
@@ -378,5 +421,9 @@ public class PlayActivity extends AppCompatActivity {
             //------------------------------------------------------------
         }
         return mFileName;
+    }
+
+    public  void setTitle(String title){
+                  this.titleText = title;
     }
 }
