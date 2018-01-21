@@ -185,7 +185,7 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
         //--------------------AudioRecordTest-Klasse----------------------------------------
         mFileName = getExternalCacheDir().getAbsolutePath(); //Original
         mFileName += "/audiorecordtest.3gp";
-        audioRecordTest = new AudioRecordTest(mFileName);
+        audioRecordTest = new AudioRecordTest();
         //------------------------------------------------------------
 
         final ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
@@ -228,6 +228,7 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
                     record_player.setVisibility(View.VISIBLE);
                     audioRecordTest.onRecord(mStartRecording);
                     mStartRecording = true;
+                    audioRecordTest.setmFileName(mFileName);
 
 
                     return true;

@@ -10,15 +10,16 @@ import java.io.IOException;
 public class AudioRecordTest {
 
     private static final String LOG_TAG = "AudioRecordTest";
+
     private static String mFileName = null;
 
     private MediaRecorder mRecorder = null;
     private MediaPlayer   mPlayer = null;
 
 
-    public AudioRecordTest (String mFileName){
-        this.mFileName = mFileName;
-    }
+//    public AudioRecordTest (String mFileName){
+//        this.mFileName = mFileName;
+//    }
 
     public void onRecord(boolean start) {
         if (start) {
@@ -88,5 +89,8 @@ public class AudioRecordTest {
     }
     public void setmPlayer(MediaPlayer mPlayer) {
         this.mPlayer = mPlayer;
+    }
+    public void setmFileName(String mFileName) {
+        this.mFileName = mFileName;
     }
 }

@@ -8,6 +8,7 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -18,11 +19,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
@@ -53,6 +57,20 @@ public class PlayActivity extends AppCompatActivity {
 
     private Button send;
 
+    ImageButton recordPlay;
+    AudioRecordTest audioRecordTest;
+    CountDownTimer testTimer;
+    ProgressBar recordProgressbar;
+
+    int test3, progress, currentLength = 0;
+
+    boolean mStartRecording = true; // Für Record
+    boolean mStartPlaying = true; // Für Play
+
+    String audiopath;
+
+    TextView timeView, title;
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -73,12 +91,16 @@ public class PlayActivity extends AppCompatActivity {
         permissionToRecordAccepted = false;
         String [] permissions = {Manifest.permission.RECORD_AUDIO};
 
+        timeView = (TextView)findViewById(R.id.time_view);
+        title = (TextView)findViewById(R.id.play_title);
+
         //Button send = (Button) findViewById(R.id.abschicken_comment);
 
 
 
         playerService = new Intent(this, mediaPlayerStartService.class);
-        //startService(playerService);
+
+        startService(playerService);
 /*
         //--------------------AudioRecordTest-Klasse----------------------------------------
         mFileName = getExternalCacheDir().getAbsolutePath(); //Original
@@ -89,12 +111,20 @@ public class PlayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String id = intent.getStringExtra(MapsActivity.EXTRA_ID);
 
-        testPlayList = new ArrayList<PlayerItem>();
+       // testPlayList = new ArrayList<PlayerItem>();
         //FILE DOWNLOAD
         StorageReference mStorageRef;
         mStorageRef = FirebaseStorage.getInstance().getReference();
         StorageReference playRef = mStorageRef.child(id + ".3gp");
-        String audiopath = null;
+        audiopath = null;
+
+       //Title
+
+//        DatabaseReference mDatabase;
+//        mDatabase = FirebaseDatabase.getInstance().getReference("posts");
+//
+//        mDatabase.
+        // Tile ende
 
         try {
             File localFile = null;
@@ -159,72 +189,185 @@ public class PlayActivity extends AppCompatActivity {
 */
         //testPlayList = new ArrayList<PlayerItem>();
 
+//pascal
 
+//        PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", mFileName);
+//        PlayerItem testPlayItem2 = new PlayerItem("Antwort 1", mFileName);
+//        PlayerItem testPlayItem3 = new PlayerItem("Antwort 2", mFileName);
+//        testPlayList.add(testPlayItem);
+//
+//
+//
+//        if (audiopath == null) {
+//            System.out.println("Dateiverzeichniss ist leer!!!!!!!!!");
+//        }
+//        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_main_message, R.layout.list_item_messages, testPlayList, mFileName, this, audiopath);
+//        ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
+//        atomPaysListView.setAdapter(adapter);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//        PlayerItem testPlayItem4 = new PlayerItem("Antwort 3", mFileName);
+//        PlayerItem testPlayItem5 = new PlayerItem("Antwort 4", mFileName);
+//
+//        adapter.add(testPlayItem2);
+//        adapter.add(testPlayItem2);
+//        adapter.add(testPlayItem3);
+//        adapter.add(testPlayItem4);
+//        adapter.add(testPlayItem5);
+        //pascal
 
-        PlayerItem testPlayItem = new PlayerItem("Hauptnachricht", mFileName);
-        PlayerItem testPlayItem2 = new PlayerItem("Antwort 1", mFileName);
-        PlayerItem testPlayItem3 = new PlayerItem("Antwort 2", mFileName);
-        testPlayList.add(testPlayItem);
+        //pascal 21.01-2018
 
+        //--------------------AudioRecordTest-Klasse----------------------------------------
+        mFileName = getExternalCacheDir().getAbsolutePath(); //Original
+        mFileName += "/audiorecordtest.3gp";
+        audioRecordTest = new AudioRecordTest();
+        //------------------------------------------------------------
 
+        TextAnswerItem item1 = new TextAnswerItem("pascal", "Hallo");
+        TextAnswerItem item2 = new TextAnswerItem("paulo", "Hey");
+        TextAnswerItem item3 = new TextAnswerItem("tristan", "MoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoin");
 
-        if (audiopath == null) {
-            System.out.println("Dateiverzeichniss ist leer!!!!!!!!!");
-        }
-        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_main_message, R.layout.list_item_messages, testPlayList, mFileName, this, audiopath);
+        ArrayList<TextAnswerItem> answerList = new ArrayList<TextAnswerItem>();
+        answerList.add(item1);
+        answerList.add(item2);
+        answerList.add(item3);
+
+        ActivityPlayListAdapter adapter = new ActivityPlayListAdapter(PlayActivity.this, R.layout.list_item_text_answer_item, answerList);
+
         ListView atomPaysListView = (ListView)findViewById(R.id.Answer_list);
         atomPaysListView.setAdapter(adapter);
 
+        recordProgressbar = (ProgressBar) findViewById(R.id.playProgressbar);
+        recordProgressbar.setProgress(0);
+
+        recordPlay = (ImageButton) findViewById(R.id.play);
 
 
+        testTimer = new CountDownTimer(30000, 100) {
 
 
+            public void onTick(long millisUntilFinished) {
+                System.out.println("Hallo");
+
+                try {
+                    progress = ((audioRecordTest.getmPlayer().getCurrentPosition() * 100) / audioRecordTest.getmPlayer().getDuration());
+                    recordProgressbar.setProgress(progress);
+
+                    long secs = audioRecordTest.getmPlayer().getCurrentPosition() / 1000;
+                    long mins = secs / 60;
+                    long restsecs = secs % 60;
+                    String time = String.format("%02d:%02d", mins,secs);
+                    System.out.println(mins +":"+restsecs);
+                    timeView.setText(time);
+
+                    if ((audioRecordTest.getmPlayer().getDuration() - audioRecordTest.getmPlayer().getCurrentPosition()) < 100){
+                       // mStartPlaying = true;
+                        System.out.println("Ende");
+                        this.onFinish();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Nachricht konnte nicht abgespielt werden");
+                }
+
+//                currentLength = audioRecordTest.getmPlayer().getCurrentPosition();
+//                int maxLength = audioRecordTest.getmPlayer().getDuration();
+//                progress = ((currentLength * 100) / maxLength);
+//
+//                System.out.println("Länge in Timer " + maxLength);
+//
+//                recordProgressbar.setProgress(progress);
+//                System.out.println(currentLength);
+//                System.out.println(progress);
+//                System.out.println("tick");
+//
+//                test3 = test3 + 100;
+//
+//                if (test3 >= maxLength) {
+//                    currentLength = 0;
+//                    test3 = 0;
+//                    onFinish()
+//                    ;
+            }
+
+            public void onFinish() {
+
+                recordProgressbar.setProgress(0);
+                String time = String.format("%02d:%02d", 0, 0);
+                timeView.setText(time);
 
 
+                recordPlay.setImageResource(R.drawable.play);
+                audioRecordTest.onPlay(mStartPlaying);
+                mStartPlaying = true;
+                this.cancel();
+                System.out.println("Nachricht fertig abgespiel!");
+            }
+        };
 
+        recordPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                audioRecordTest.setmFileName(audiopath);
+                audioRecordTest.onPlay(mStartPlaying);
+                if (mStartPlaying) {
+                    recordPlay.setImageResource(R.drawable.pause);
+                    testTimer.start();
 
+                } else {
+                    recordPlay.setImageResource(R.drawable.play);
+                    recordProgressbar.setProgress(0);
+                    testTimer.cancel();
+                    progress = 0;
+                    currentLength = 0;
+                }
+                mStartPlaying = !mStartPlaying;
 
-        PlayerItem testPlayItem4 = new PlayerItem("Antwort 3", mFileName);
-        PlayerItem testPlayItem5 = new PlayerItem("Antwort 4", mFileName);
+            }
 
-        adapter.add(testPlayItem2);
-        adapter.add(testPlayItem2);
-        adapter.add(testPlayItem3);
-        adapter.add(testPlayItem4);
-        adapter.add(testPlayItem5);
+        });
+
 
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        // Bind mediaPlayerStartService
-        bindService(playerService, mConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-        // unbind mediaplayerStartService
-        unbindService(mConnection);
-    }
-    /** Defines callbacks for service binding, passed to bindService() */
-    private ServiceConnection mConnection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            mediaPlayerStartService.LocalBinder binder = (mediaPlayerStartService.LocalBinder) service;
-            mService = binder.getService();
-            mBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mBound = false;
-        }
-    };
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//        // Bind mediaPlayerStartService
+//        bindService(playerService, mConnection, Context.BIND_AUTO_CREATE);
+//    }
+//
+//    @Override
+//    protected void onStop(){
+//        super.onStop();
+//        // unbind mediaplayerStartService
+//        unbindService(mConnection);
+//    }
+//    /** Defines callbacks for service binding, passed to bindService() */
+//    private ServiceConnection mConnection = new ServiceConnection() {
+//
+//        @Override
+//        public void onServiceConnected(ComponentName className,
+//                                       IBinder service) {
+//            // We've bound to LocalService, cast the IBinder and get LocalService instance
+//            mediaPlayerStartService.LocalBinder binder = (mediaPlayerStartService.LocalBinder) service;
+//            mService = binder.getService();
+//            mBound = true;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName arg0) {
+//            mBound = false;
+//        }
+//    };
 
     public String getmFileName() {
         if(mFileName == null){
