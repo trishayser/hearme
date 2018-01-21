@@ -293,9 +293,9 @@ public class PlayActivity extends AppCompatActivity {
         audioRecordTest = new AudioRecordTest();
         //------------------------------------------------------------
 
-        TextAnswerItem item1 = new TextAnswerItem("pascal", "Hallo");
-        TextAnswerItem item2 = new TextAnswerItem("paulo", "Hey");
-        TextAnswerItem item3 = new TextAnswerItem("tristan", "MoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoinMoin");
+        TextAnswerItem item1 = new TextAnswerItem("pascal", "Das finde ich gut");
+        TextAnswerItem item2 = new TextAnswerItem("paulo", "Also ich finde das nicht so gut");
+        TextAnswerItem item3 = new TextAnswerItem("tristan", "Ich schließe mich Paulos Meinung an. Ich finde das auch nicht so gut. Aber aus welchem Grund, kann ich nicht so genau sagen");
 
         ArrayList<TextAnswerItem> answerList = new ArrayList<TextAnswerItem>();
         answerList.add(item1);
