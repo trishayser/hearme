@@ -51,8 +51,6 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
     boolean mStartRecording = true; // Für Record
     boolean mStartPlaying = true; // Für Play
 
-    long millisUntilFinished;
-
     /// Recordtest
     private static final String LOG_TAG = "AudioRecordTest";
     private static String mFileName = null;
@@ -69,13 +67,6 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
     private String[] permissionsLf = {Manifest.permission.ACCESS_FINE_LOCATION};
     // Ende - Requesting permission
 
-    // Requesting permission to ACCESS... Coarse
-    private static final int REQUEST_LOCATION_COARSE_PERMISSION = 101;
-    private boolean permissionToLocationCAccepted = false;
-    private String[] permissionsLc = {Manifest.permission.ACCESS_COARSE_LOCATION};
-    // Ende - Requesting permission
-
-
     private Button abschicken;
     private ImageButton recordButton;
     private BroadcastReceiver broadcastReceiver;
@@ -86,8 +77,6 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
     @Override
     protected void onResume() {
         super.onResume();
-        permissionLocation();
-        permissionAudio();
     }
 //    @Override
 //    protected void onResume() {
@@ -123,44 +112,23 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    permissionToLocationFAccepted = true;
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
+                    enableAbschickenButton();
                 } else {
-                    //Toast.makeText(this, "Fine??", Toast.LENGTH_SHORT).show();
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    Toast.makeText(getApplicationContext(), "Berechtigung für die Standort-Abfrage nicht erteilt", Toast.LENGTH_LONG).show();
+
                 }
                 return;
             }
 
-            case REQUEST_LOCATION_COARSE_PERMISSION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
-                } else {
-                    //Toast.makeText(this, "COARSE??", Toast.LENGTH_SHORT).show();
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
             case REQUEST_RECORD_AUDIO_PERMISSION: {
 //                permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     enableRecordButton();
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
 
                 } else {
                     //Toast.makeText(this, "Audio??", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Berechtigung für die Aufnahme nicht erteilt", Toast.LENGTH_LONG).show();
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
@@ -191,6 +159,7 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
         final ProgressBar simpleProgressBar = (ProgressBar) findViewById(R.id.simpleProgressBar);
         final LinearLayout record_player = (LinearLayout) findViewById(R.id.record_player);
         recordButton = (ImageButton) findViewById(R.id.record);
+        recordButton.setEnabled(false);
 
         final Intent test = new Intent(this, AudioRecordTest.class);
 
@@ -208,6 +177,11 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
         //Setting the ArrayAdapter data on the Spinner
         spin.setAdapter(aa);
         // ------------
+
+        //Permissions
+        permissionAudio();
+        permissionLocation();
+        //
 
     // perform click event on button
         recordButton.setOnTouchListener(new View.OnTouchListener() {
@@ -242,6 +216,7 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
 
 
         abschicken = (Button) findViewById(R.id.abschicken);
+        abschicken.setEnabled(false);
         final Intent abschickenIntent = new Intent(this, MapsActivity.class);
 
 
@@ -268,46 +243,45 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
 
                     } else {
 
-                        double longitude = location().getLongitude();
-                        double latitude = location().getLatitude();
+//                        double longitude = location().getLongitude();
+//                        double latitude = location().getLatitude();
 
-                        //kommentar.setText(latitude + " " + longitude);
 
+
+
+                        DatabaseReference mDatabase;
+                        mDatabase = FirebaseDatabase.getInstance().getReference();
+                        String PostId = mDatabase.push().getKey();
+                        System.out.println(spin.getSelectedItem().toString());
+                        Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude(), spin.getSelectedItem().toString());
+
+                        mDatabase.child("posts").child(PostId).setValue(post);
+
+                        //Storage save data
+                        StorageReference storageRef;
+                        storageRef = FirebaseStorage.getInstance().getReference();
+
+                        Uri file = Uri.fromFile(new File(mFileName));
+                        StorageReference riversRef = storageRef.child(PostId + ".3gp");
+
+                        riversRef.putFile(file)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        // Get a URL to the uploaded content
+                                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        // Handle unsuccessful uploads
+                                        // ...
+                                    }
+                                });
+
+                        startActivity(abschickenIntent);
                     }
-
-
-                    DatabaseReference mDatabase;
-                    mDatabase = FirebaseDatabase.getInstance().getReference();
-                    String PostId = mDatabase.push().getKey();
-                    System.out.println(spin.getSelectedItem().toString());
-                    Post post = new Post(2, titel_edit.getText().toString(), "admin", location().getLatitude(), location().getLongitude(), spin.getSelectedItem().toString());
-
-                    mDatabase.child("posts").child(PostId).setValue(post);
-
-                    //Storage save data
-                    StorageReference storageRef;
-                    storageRef = FirebaseStorage.getInstance().getReference();
-
-                    Uri file = Uri.fromFile(new File(mFileName));
-                    StorageReference riversRef = storageRef.child(PostId + ".3gp");
-
-                    riversRef.putFile(file)
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    // Get a URL to the uploaded content
-                                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception exception) {
-                                    // Handle unsuccessful uploads
-                                    // ...
-                                }
-                            });
-
-                    startActivity(abschickenIntent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Anmeldung fehlgeschlagen", Toast.LENGTH_SHORT).show();
                 }
@@ -388,13 +362,11 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
 
     public Location location() {
 
-        permissionLocation();
-
         LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(true);
-        criteria.setSpeedRequired(false);
+//        Criteria criteria = new Criteria();
+//        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+//        criteria.setAltitudeRequired(true);
+//        criteria.setSpeedRequired(false);
 
         String locationProvider = lm.NETWORK_PROVIDER;
         // Or use LocationManager.GPS_PROVIDER
@@ -409,80 +381,71 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
             // for ActivityCompat#requestPermissions for more details.
             return null;
         }
-        Location loc = lm.getLastKnownLocation(locationProvider);
+        else {
+            Location loc = lm.getLastKnownLocation(locationProvider);
+            return loc;
+        }
 
 //        String bestLocationProvider = lm.getBestProvider (criteria,true );
 //        System.out.println(bestLocationProvider);
 //       // LocationProvider lp = lm.getProvider (bestLocationProvider);
 //        Location loc = lm.getLastKnownLocation (lm.NETWORK_PROVIDER);
-
-        return loc;
     }
 
     public void enableRecordButton() {
-        System.out.println("hallo");
+        recordButton.setEnabled(true);
+    }
+    public void enableAbschickenButton() {
+        abschicken.setEnabled(true);
     }
 
     // Permissions
     public void permissionAudio() {
         // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.RECORD_AUDIO)
-                != PackageManager.PERMISSION_GRANTED) {
-
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)== PackageManager.PERMISSION_GRANTED) {
+            enableRecordButton();
+            System.out.println("Enables Record Button");
+        }
+        else{
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.RECORD_AUDIO)) {
+
+                Toast.makeText(getApplicationContext(), "Berechtigung für die Aufnahme benötigt", Toast.LENGTH_LONG).show();
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
 
-            } else {
+            }
+            // No explanation needed, we can request the permission.
 
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO},
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
                         REQUEST_RECORD_AUDIO_PERMISSION);
 
                 // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                 // app-defined int constant. The callback method gets the
                 // result of the request.
-            }
+
         }
         // Ende - Permissions
 
     }
 
     public void permissionLocation() {
-        // Permissions
 
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        enableAbschickenButton();
+        }
+        else {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Toast.makeText(getApplicationContext(), "Berechtigung für die Standort-Anfrage benötigt", Toast.LENGTH_LONG).show();
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        REQUEST_LOCATION_FINE_PERMISSION);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
             }
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_FINE_PERMISSION);
         }
         // Ende - Permissions
 
