@@ -77,6 +77,11 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Permissions
+        permissionAudio();
+        permissionLocation();
+        //
     }
 //    @Override
 //    protected void onResume() {
@@ -177,11 +182,6 @@ public class NewRecordActivityActivity extends AppCompatActivity implements Adap
         //Setting the ArrayAdapter data on the Spinner
         spin.setAdapter(aa);
         // ------------
-
-        //Permissions
-        permissionAudio();
-        permissionLocation();
-        //
 
     // perform click event on button
         recordButton.setOnTouchListener(new View.OnTouchListener() {
